@@ -31,13 +31,14 @@ export class Player {
                         death: "death-" + character
                     }
                 },
-                area({shape: new Rect(vec2(0,0), 8, 8) }),
+                area({shape: new Rect(vec2(0,3), 8, 8) }),
                 anchor("center"),
                 pos(this.initialX, this.initialY),
                 scale(3),
                 body(),
                 "player"
             ])
+            return this.gameObj
         }
 
         playIdleAnimation(){

@@ -1,4 +1,5 @@
 import events from "../controller/events.js"
+import { playerObj } from "../../game.js"
 
 export class Lever {
     pull = false
@@ -11,7 +12,7 @@ export class Lever {
                     sprite(`lever`, {anim: "right"}),
                     pos(position),
                     area({
-                        shape: new Rect(vec2(0, 3), 24, 24),
+                        shape: new Rect(vec2(1, 3), 16, 16),
                     }),
                     anchor("center"),
                     body({isStatic: true}),
@@ -24,41 +25,25 @@ export class Lever {
     }
 
     pullLever(){
-        if(this.pull){
-            this.gameObj.onCollide("player", () => {
-                onKeyPress("z", async () => {
-                    await this.moveLever(false)
-                    this.pull = false
-                    events.emit("close_bars_"+this.key)
-                })
-            })
-        }
         if(!this.pull){
-            this.gameObj.onCollide("player", () => {
-                onKeyPress("z", async () => {
-                    await this.moveLever(true)
-                    this.pull = true
-                    events.emit("open_bars_"+this.key)
-                })
-            }) 
+            
+            onKeyPress("z", async () => {
+                if(this.gameObj.isColliding(playerObj)){
+                    
+                await this.animate()
+                this.pull = true
+                events.emit("open_bars_"+this.key)
+                }
+            })
         }
     }
 
-    async moveLever(open){
-        if(open){
-            if(!this.pull){
-                this.gameObj.play("midle")
-                setTimeout(() => {
-                    this.gameObj.play("left")
-                }, 1000)
-            }
-        }else{
-            if(this.pull){
-                this.gameObj.play("midle")
-                setTimeout(() => {
-                    this.gameObj.play("right")
-                }, 1000)
-            }
+    async animate(){
+        if(!this.pull){
+            this.gameObj.play("midle")
+            setTimeout(() => {
+                this.gameObj.play("left")
+            }, 1000)
         }
     }
 }
