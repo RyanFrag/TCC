@@ -24,6 +24,8 @@ export const k = kaboom({
     canvas: document.querySelector("#gameCanvas"),
 })
 
+export let playerObj = null
+
 load.fonts()
 load.sounds()
 load.assets()
@@ -60,12 +62,12 @@ const scenes = {
     
 
         
-        new Bars([
+        Bars([
             vec2(1440, 160),
             vec2(1500, 160),
         ], 'open1', 0, false)
 
-        new Bars([
+        Bars([
             vec2(670, 160),
             vec2(610, 160),
         ], 'open3', 3, true)
@@ -108,13 +110,13 @@ const scenes = {
         const question2 = new Question([vec2(1500, 545)], 2)
         const question3 = new Question([vec2(353, 480)], 3)
 
-        new Bars([
+        Bars([
             vec2(1050, 225)
         ], "lever1", 0, false)
-        new Bars([
+        Bars([
             vec2(1050, 355)
         ], "lever2", 0, false)
-        new Bars([
+        Bars([
             vec2(1050, 480)
         ], "lever3", 0, false)
    
@@ -136,7 +138,7 @@ const scenes = {
             ], "lever3")
         lever3.pullLever()
 
-        new Bars([
+        Bars([
             vec2(400, 760),
             // vec2(1835, 480),
             // vec2(1895, 480),
@@ -147,7 +149,7 @@ const scenes = {
         ], 'barrier1', 0, false
         )
 
-        new Bars([
+        Bars([
             vec2(300, 760),
             // vec2(1835, 380),
             // vec2(1895, 380),
@@ -158,7 +160,7 @@ const scenes = {
         ], 'barrier2', 0, false
         )
 
-        new Bars([
+        Bars([
             vec2(190, 760),
             // vec2(1835, 290),
             // vec2(1895, 290),
@@ -169,7 +171,7 @@ const scenes = {
         ], 'barrier3', 0, false
         )
 
-        new Bars([
+        Bars([
             vec2(100, 760),
         ], 'barrier4', 0, false)
 
@@ -210,7 +212,7 @@ const scenes = {
             )
 
             
-        player.makePlayer(character)
+        playerObj = player.makePlayer(character)
         player.playIdleAnimation()
 
         player.hitQuestionTile(question1.questionNumber);
@@ -328,8 +330,5 @@ const scenes = {
 for ( const key in scenes ){
     scene(key, scenes[key]) 
 }
-
-
-
 
 go("menu");
