@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}PuzzleCrafter{% endblock %} {% block content%}
+<div class="game-container"></div>
+<h1 id="gameTitle" align="center">PuzzleCrafter</h1>
+<div class="container-fluid d-flex align-items-center justify-content-center">
+        <canvas id="gameCanvas" width="1200" height="700">
+            <script type="module" src="../static/game.js"></script>
+        </canvas>
+    </div>
+</div>
+{% endblock %}
