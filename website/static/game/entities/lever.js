@@ -25,17 +25,26 @@ export class Lever {
     }
 
     pullLever(){
-        if(!this.pull){
-            
-            onKeyPress("z", async () => {
-                if(this.gameObj.isColliding(playerObj)){
-                    
-                await this.animate()
-                this.pull = true
-                events.emit("open_bars_"+this.key)
-                }
-            })
-        }
+        onUpdate(() => {
+            if(!this.pull){
+                onKeyPress("z", async () => {
+                    if(this.gameObj.isColliding(playerObj)){
+                    await this.animate()
+                    this.pull = true
+                    events.emit("open_bars_"+this.key)
+                    }
+                })
+            }else{
+                console.log("close")    
+                onKeyPress("z", async () => {
+                    if(this.gameObj.isColliding(playerObj)){
+                    await this.animate()
+                    this.pull = false
+                    events.emit("close_bars_"+this.key)
+                    }
+                })
+            }
+        })
     }
 
     async animate(){
@@ -43,6 +52,11 @@ export class Lever {
             this.gameObj.play("midle")
             setTimeout(() => {
                 this.gameObj.play("left")
+            }, 1000)
+        }else{
+            this.gameObj.play("midle")
+            setTimeout(() => {
+                this.gameObj.play("right")
             }, 1000)
         }
     }

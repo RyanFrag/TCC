@@ -34,6 +34,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
     });
 
     events.listen("close_bars_" + key, () => {
+        console.log("[LISTERN] Event");
         if (open) {
             open = false;
             for (const bar of barsList) {
@@ -43,14 +44,18 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
                 }, 2000);
             }
         }
+        else{
+            events.listen("open_bars_" + key, openBars);
+            
+        }
     });
 
 
     function openBars() {
         console.log("[LISTERN] Event");
         if (barsList.length > 0) {
-            console.log("open")
             for (const bar of barsList) {
+                open = true;
                 console.log("open1")
                 bar.play("open");
                 events.remove("open_bars_" + key, openBars);

@@ -7,7 +7,6 @@ export const load = {
         loadSprite("logo", "static/game/assets/logo.png" )
     
         loadSprite('bg', 'static/game/assets/grey-background.png')
-        loadSprite("floor-tile", "static/game/assets/floor-tile-1.png")
         loadSprite("wall-tile", "static/game/assets/wall-tile.png")
         loadSprite("wall-tile-torch", "static/game/assets/wall-tile-torch.png")
         loadSprite("wall-collum", "static/game/assets/wall-collum.png")
@@ -240,12 +239,12 @@ export const load = {
         })
 
         loadSprite("run-sacerdotisa", "static/game/assets/player-sacerdotisa.png",{
-            sliceX: 4,
+            sliceX: 8,
             sliceY: 1,
             anims: {
                 run: {
-                    from: 1,
-                    to: 3,
+                    from: 0,
+                    to: 7,
                     loop: true
                 }
             }

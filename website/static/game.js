@@ -25,6 +25,7 @@ export const k = kaboom({
 })
 
 export let playerObj = null
+export let boxObj = null
 
 load.fonts()
 load.sounds()
@@ -100,11 +101,12 @@ const scenes = {
                 vec2(600, 400),
             ], 'smile'
         )
-        new Box(
+        boxObj = new Box(
             [
                 vec2(450, 460),
             ], 'devil'
         )
+
 
         const question1 = new Question([vec2(1950, 610)], 0 )
         const question2 = new Question([vec2(1500, 545)], 2)
@@ -271,7 +273,7 @@ const scenes = {
             false
             )
         
-        player.makePlayer(character)
+        playerObj =  player.makePlayer(character)
         player.playIdleAnimation()
         level2.displayLevel(player.currentLevel)
         
@@ -284,9 +286,13 @@ const scenes = {
             leve2Config.enemysPositions.map(enemyPos => enemyPos()),
             leve2Config.enemysRange,
             leve2Config.enemysSpeeds,
-            leve2Config.enemysType
+            leve2Config.enemysType,
+            false,
+            'open2',
             
         )
+        enemys.update()
+
         if(character == "hero"){
             new Npc([vec2(200,100)], "sacerdotisa")
         }else{

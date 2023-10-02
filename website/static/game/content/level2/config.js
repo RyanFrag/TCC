@@ -5,12 +5,12 @@ export const leve2Config = {
     playerSpeed: 200,
     enemysPositions: [
         () => vec2(1000,100),
-        () => vec2(1000,200),
-        () => vec2(1000,300),
-        () => vec2(1000,400),
+        // () => vec2(1000,200),
+        // () => vec2(1000,300),
+        // () => vec2(1000,400),
       ],
-    enemysRange: [100,150,100,100],
-    enemysSpeeds: [2, 1, 1, 2],
+    enemysRange: [100],
+    enemysSpeeds: [1],
     enemysType: 1
 }
 

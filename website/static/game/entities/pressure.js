@@ -1,4 +1,6 @@
 import events from "../controller/events.js"
+import { boxObj } from "../../game.js"
+
 export class Pressure {
     pressed = false
     constructor(positions, key) {

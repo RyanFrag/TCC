@@ -48,7 +48,6 @@ export class Level {
                 'z': () => [sprite('wall-collum'), "wall",  area(), scale(2), body({isStatic: true})],
                 'd': () => [sprite('wall-collum-base'), "wall", area(), scale(2), body({isStatic: true})],
                 'p': () => [sprite('wall-collum-upbase'), "wall", area(), scale(2), body({isStatic: true})],
-                'f': () => [sprite('floor-tile'), area(), scale(2)],
                 "l": () => [sprite("ladder-down"), "ladder-down", area(), scale(2)],
                 "u": () => [sprite("ladder-up"), "ladder-up", area(), scale(2)],
                 "x": () => [sprite("lava-right"), area(), scale(2), body({isStatic: true})],
