@@ -9,6 +9,7 @@ export const leve1Config = {
         () => vec2(970,460),
         ],
     enemysRange: [50,50,50],
+    enemysRangeY: [50,50,50],
     enemysSpeeds: [1, 1, 1],
     enemysType: 1,
 

@@ -206,6 +206,7 @@ const scenes = {
         const enemys = new Enemy(
             leve1Config.enemysPositions.map(enemyPos => enemyPos()),
             leve1Config.enemysRange,
+            leve1Config.enemysRangeY,
             leve1Config.enemysSpeeds,
             leve1Config.enemysType,
             false,
@@ -222,7 +223,6 @@ const scenes = {
         player.hitByMobs()
         
         
-        console.log(textLines)
         if(onCutscene){
             level1.displayLevel(player.currentLevel)
             const cutscene = new Cutscene()
@@ -260,6 +260,7 @@ const scenes = {
         const enemys = new Enemy(
             leve2Config.enemysPositions.map(enemyPos => enemyPos()),
             leve2Config.enemysRange,
+            [50],
             leve2Config.enemysSpeeds,
             leve2Config.enemysType,
             false,

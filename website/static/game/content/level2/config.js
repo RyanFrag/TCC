@@ -4,7 +4,7 @@ export const leve2Config = {
     nbLives: 1,
     playerSpeed: 200,
     enemysPositions: [
-        () => vec2(1000,100),
+        () => vec2(500,300),
         // () => vec2(1000,200),
         // () => vec2(1000,300),
         // () => vec2(1000,400),
