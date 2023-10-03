@@ -1,42 +1,35 @@
+let typeQuestion = false
+let character = null
 export class Cutscene {
-    addTextContent(content){
-        const message = add([
-            text(content, {
-                size: 16,
-            }),
-            area(),
-            anchor("center"),
-            fixed(),
-            pos(center().x -90, center().y -140),
-
-        ])
-    }
-
     async cutsceneCreator(textLines){
         const modal = add([
-            sprite("modal"),
-            scale(10),
-            pos(center().x -40, center().y -90),
-            fixed() 
+            rect(width() - 520, 300),
+            pos(center().x - 100, height() -310),
+            outline(4),
+            fixed()
         ])
-        
-        let  typeQuestion = false
         if(textLines[0].sprite){
-        this.spriteEmotions = add([
-            sprite('emotions', {anim: 1}),
-            pos(center().x -200, center().y + 40),
-            scale(2),
-        ])}else{
+            this.spriteEmotions = add([
+                sprite('emotions', {anim: 1}),
+                pos(center().x -350, center().y + 20),
+                scale(2),
+                fixed()
+            ])
+            character = textLines[0].character
+        }else{
             typeQuestion = true
+            character = "Questao"
         }
-
         let currentMessageIndex = 0; 
         let currentMessage = this.callMessage(textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite)
+        let MessageAuthor = this.callMessageAuthor(character)
         currentMessageIndex++;
+        
         return new Promise((resolve) => {
             onKeyPress("z", () => {
                 if(currentMessageIndex > textLines.length - 1){
                     destroy(modal),
+                    destroy(MessageAuthor),
                     destroy(currentMessage)
                     if(!typeQuestion) destroy(this.spriteEmotions)
                     resolve(false)
@@ -45,28 +38,50 @@ export class Cutscene {
                 if (currentMessage){
                     destroy(currentMessage);
                 }
-                currentMessage = this.callMessage(textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
+                currentMessage = this.callMessage( textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
                 currentMessageIndex++;
                 })
             });   
         }
+
+        
     callMessage(message, sprite=null){
         if(sprite) this.spriteEmotions.play(sprite)
         return add([
             text(message, {
                 size: 16,
                 font: "Round",
+                width: width() - 230, 
+                align: "center",
+                
                 transform: () => ({
                     color: BLACK,
                 }),
             }),
             area(),
             anchor("center"),
-            body(),
             fixed(),
-            pos(center().x + 140, center().y + 140),
+            pos(center().x + 100, center().y + 120),
         ]);
-
     }
+
+    callMessageAuthor(character){
+        return add([
+            text(character, {
+                size: 18,
+                font: "Round",
+                width: width() - 100, 
+                align: "center",  
+                transform: () => ({
+                    color: BLACK,
+                }),
+            }),
+            area(),
+            anchor("center"),
+            fixed(),
+            pos(center().x -20, center().y + 70),
+        ])
+    }
+
 }
  

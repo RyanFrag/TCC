@@ -1,12 +1,6 @@
 export class Box {
-    constructor(positions, key) {
-        this.boxes = []
-        this.createBoxes(positions, key);
-    }
-    createBoxes(positions, key){
-        for(const position of positions){
-            this.boxes.push(
-                this.gameObj = add([
+    createBoxes(position, key){
+                return add([
                     sprite(`wood-box-${key}`),
                     pos(position),
                     area({
@@ -17,9 +11,6 @@ export class Box {
                     scale(2),
                     `box-${key}`,
                 ])
-            )
-            return this.gameObj
-        }
     }
 
 }

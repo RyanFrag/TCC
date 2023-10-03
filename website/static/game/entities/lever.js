@@ -29,13 +29,19 @@ export class Lever {
             if(!this.pull){
                 onKeyPress("z", async () => {
                     if(this.gameObj.isColliding(playerObj)){
-                    await this.animate()
-                    this.pull = true
-                    events.emit("open_bars_"+this.key)
+                        await this.animate()
+                        this.pull = true
+                        if(this.key == "barrier1"){
+                            events.emit("close_bars_barrier4")
+                        }else if(this.key == "barrier2"){
+                            events.emit("close_bars_barrier1")
+                        }else if(this.key == "barrier3"){
+                            events.emit("close_bars_barrier2")
+                        }
+                        events.emit("open_bars_"+this.key)
                     }
                 })
             }else{
-                console.log("close")    
                 onKeyPress("z", async () => {
                     if(this.gameObj.isColliding(playerObj)){
                     await this.animate()

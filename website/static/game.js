@@ -25,7 +25,6 @@ export const k = kaboom({
 })
 
 export let playerObj = null
-export let boxObj = null
 
 load.fonts()
 load.sounds()
@@ -60,9 +59,7 @@ const scenes = {
         }else{
             new Npc([vec2(220, 100)], "hero")
         }
-    
-
-        
+     
         Bars([
             vec2(1440, 160),
             vec2(1500, 160),
@@ -73,41 +70,22 @@ const scenes = {
             vec2(610, 160),
         ], 'open3', 3, true)
 
+        const pressPlate = new Pressure(vec2(730, 250), "x")
+        const pressPlate2 = new Pressure(vec2(730, 450), "smile")
+        const pressPlate3 = new Pressure(vec2(730, 330),"devil")
 
+        const box1 = new Box()
+        box1.createBoxes(vec2(600, 400),'smile' )
+        const box2 = new Box()
+        box2.createBoxes(vec2(600, 400),'x' )
+        const box3 = new Box()
+        box3.createBoxes(vec2(450, 460),'devil' )
 
-        const pressPlate = new Pressure([
-            vec2(730, 250),
-        ], "x")
         pressPlate.pressPlate()
-
-        const pressPlate2 = new Pressure([
-            vec2(730, 450),
-        ], "smile")
         pressPlate2.pressPlate()
-
-        const pressPlate3 = new Pressure([
-            vec2(730, 330),
-        ],"devil")
         pressPlate3.pressPlate()
 
-        new Box(
-            [
-                vec2(640, 300),
-            ], 'x'
-        )
-
-        new Box(
-            [
-                vec2(600, 400),
-            ], 'smile'
-        )
-        boxObj = new Box(
-            [
-                vec2(450, 460),
-            ], 'devil'
-        )
-
-
+   
         const question1 = new Question([vec2(1950, 610)], 0 )
         const question2 = new Question([vec2(1500, 545)], 2)
         const question3 = new Question([vec2(353, 480)], 3)
@@ -141,66 +119,66 @@ const scenes = {
         lever3.pullLever()
 
         Bars([
-            vec2(400, 760),
-            // vec2(1835, 480),
-            // vec2(1895, 480),
-            // vec2(1955, 480),
-            // vec2(2015, 480),
-            // vec2(2075, 480),
-            // vec2(2135, 480),
+            vec2(1785, 480),
+            vec2(1835, 480),
+            vec2(1895, 480),
+            vec2(1955, 480),
+            vec2(2015, 480),
+            vec2(2075, 480),
+            vec2(2135, 480),
         ], 'barrier1', 0, false
         )
 
         Bars([
-            vec2(300, 760),
-            // vec2(1835, 380),
-            // vec2(1895, 380),
-            // vec2(1955, 380),
-            // vec2(2015, 380),
-            // vec2(2075, 380),
-            // vec2(2135, 380),
+            vec2(1785, 380),
+            vec2(1835, 380),
+            vec2(1895, 380),
+            vec2(1955, 380),
+            vec2(2015, 380),
+            vec2(2075, 380),
+            vec2(2135, 380),
         ], 'barrier2', 0, false
         )
 
         Bars([
-            vec2(190, 760),
-            // vec2(1835, 290),
-            // vec2(1895, 290),
-            // vec2(1955, 290),
-            // vec2(2015, 290),
-            // vec2(2075, 290),
-            // vec2(2135, 290),
+            vec2(1785, 290),
+            vec2(1835, 290),
+            vec2(1895, 290),
+            vec2(1955, 290),
+            vec2(2015, 290),
+            vec2(2075, 290),
+            vec2(2135, 290),
         ], 'barrier3', 0, false
         )
 
         Bars([
-            vec2(100, 760),
+            vec2(1950, 170),
         ], 'barrier4', 0, false)
 
         
         const lever4 = new Lever(
             [
-                vec2(400, 640),
+                vec2(1770, 545),
             ], "barrier1")
-        lever4.pullLever()
+        lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
-                vec2(300, 640),
+                vec2(1650, 545),
             ], "barrier2")
-        lever5.pullLever()
+        lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
-                vec2(190, 640),
+                vec2(2100, 545),
             ], "barrier3")
-        lever6.pullLever()
+        lever6.pullLever(true)
         
         const lever7 = new Lever(
             [
-                vec2(100, 640),
+                vec2(2250, 545),
             ], "barrier4")
-        lever7.pullLever()
+        lever7.pullLever(true)
 
 
         const player = new Player(
@@ -242,17 +220,14 @@ const scenes = {
         enemys.killEnemy(2)
         enemys.update()
         player.hitByMobs()
-
-
-
-
+        
+        
+        console.log(textLines)
         if(onCutscene){
             level1.displayLevel(player.currentLevel)
             const cutscene = new Cutscene()
             player.onCutscene = await cutscene.cutsceneCreator(textLines)
-        }
-
-        
+        }  
         player.setPlayerControls()
         player.attack(['left', 'right', 'up', 'down'])
         player.hitByNpc(npc);
