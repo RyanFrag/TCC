@@ -15,7 +15,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
                 }),
                 body({ isStatic: true }),
                 anchor("center"),
-                scale(2),
+                scale(4),
                 "barsList"
             ])
         );

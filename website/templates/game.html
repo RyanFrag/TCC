@@ -1,10 +1,28 @@
 {% extends "base.html" %} {% block title %}PuzzleCrafter{% endblock %} {% block content%}
-<div class="game-container"></div>
-<h1 id="gameTitle" align="center">PuzzleCrafter</h1>
-<div class="container-fluid d-flex align-items-center justify-content-center">
+<h1 id="gameTitle" align="center">Greek Quest</h1>
+
+<div class="game-container">
+    <div class="container-fluid d-flex align-items-center justify-content-center">
         <canvas id="gameCanvas" width="1200" height="700">
             <script type="module" src="../static/game.js"></script>
         </canvas>
+    </div>
+    <div class="controls">
+        <h3>Controles:</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Movimento é controlado pelas setas do teclado</p>
+            </div>
+            <div class="col-md-6">
+                <img src="../static/images/seta-do-teclado.png" alt="setas_teclado">
+            </div>
+            <div class="col-md-6">
+                <p>Para interagir use a Tecla Z</p>
+            </div>
+            <div class="col-md-6">
+                <img src="../static/game/assets/brick/stoneZ.png" alt="tecla_z">
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
