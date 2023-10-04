@@ -1,7 +1,7 @@
 export class Box {
     createBoxes(position, key){
                 return add([
-                    sprite(`wood-box-${key}`),
+                    sprite(`wood-box`, {anim: `${key}`}),
                     pos(position),
                     area({
                         shape: new Rect(vec2(1, 3), 32, 32),

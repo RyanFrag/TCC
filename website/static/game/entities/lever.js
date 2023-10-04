@@ -55,12 +55,12 @@ export class Lever {
 
     async animate(){
         if(!this.pull){
-            this.gameObj.play("midle")
+            this.gameObj.play("midleLeft")
             setTimeout(() => {
                 this.gameObj.play("left")
             }, 1000)
         }else{
-            this.gameObj.play("midle")
+            this.gameObj.play("midleRight")
             setTimeout(() => {
                 this.gameObj.play("right")
             }, 1000)

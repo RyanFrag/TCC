@@ -10,8 +10,8 @@ export class Camera {
         this.attachedObj = gameObj
         const cameraLeftBound = 600;
         const cameraRightBound = 1770;
-        const cameraTopBound = 350;
-        const cameraBottomBound = 600;
+        const cameraTopBound = 250;
+        const cameraBottomBound = 900;
 
         onUpdate(() => {
             const targetX = this.attachedObj.pos.x + offsetX;

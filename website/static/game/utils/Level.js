@@ -43,16 +43,34 @@ export class Level {
             tileHeight: 64,
             pos: vec2(0, 0),
             tiles: {
-                'a': () => [sprite('wall-tile'), "wall", area(), scale(2), body({isStatic: true})],
-                't': () => [sprite('wall-tile-torch'), "wall", area(), scale(2), ],
-                'z': () => [sprite('wall-collum'), "wall",  area(), scale(2), body({isStatic: true})],
-                'd': () => [sprite('wall-collum-base'), "wall", area(), scale(2), body({isStatic: true})],
-                'p': () => [sprite('wall-collum-upbase'), "wall", area(), scale(2), body({isStatic: true})],
+                'a': () => [sprite('stoneWall'), "wall", area(), scale(4), body({isStatic: true})],
+                't': () => [sprite('stoneWall-bottom'), "wall", area(), scale(4),body({isStatic: true}) ],
+                'z': () => [sprite('stoneWall-t'), "wall",  area(), scale(4), body({isStatic: true})],
+                'v': () => [sprite('stoneWall-b'), "wall", area(), scale(4), body({isStatic: true})],
+                'p': () => [sprite('stoneWall-lt'), "wall", area(), scale(4), body({isStatic: true})],
+                'y': () => [sprite('stoneWall-lb'), "wall", area(), scale(4), body({isStatic: true})],        
+                'k': () => [sprite('stoneWall-r'), "wall", area(), scale(4), body({isStatic: true})],
+                'h': () => [sprite('stoneWall-rb'), "wall", area(), scale(4), body({isStatic: true})],
+                "j": () => [sprite("stoneWall-l"), "wall", area(), scale(4), body({isStatic: true})],
+                'd': () => [sprite('stoneWall-rbt'), "wall", area(), scale(4), body({isStatic: true})],
+                "i": () => [sprite("stoneWall-lbt"), "wall", area(), scale(4), body({isStatic: true})],
+
+
+
                 "l": () => [sprite("ladder-down"), "ladder-down", area(), scale(2)],
                 "u": () => [sprite("ladder-up"), "ladder-up", area(), scale(2)],
-                "x": () => [sprite("lava-right"), area(), scale(2), body({isStatic: true})],
-                "s": () => [sprite("lava-left"), area(), scale(2), body({isStatic: true})],
-                "w": () => [sprite("lava"), area(), scale(2), body({isStatic: true})],
+
+
+                "w": () => [sprite("lava", {anim: "lava"}), area(), scale(4), body({isStatic: true})],
+                "x": () => [sprite("lava-right"), area(), scale(4), body({isStatic: true})],
+                "s": () => [sprite("lava-left"), area(), scale(4), body({isStatic: true})],
+                "f": () => [sprite("lava-top"), area(), scale(4), body({isStatic: true})],
+                "c": () => [sprite("lava-bottom"), area(), scale(4), body({isStatic: true})],
+                "r": () => [sprite("lava-bottom-left"), area(), scale(4), body({isStatic: true})],
+                ")": () => [sprite("lava-bottom-right"), area(), scale(4), body({isStatic: true})],
+                "b": () => [sprite("lava-left-top"), area(), scale(4), body({isStatic: true})],
+                "g": () => [sprite("lava-right-top"), area(), scale(4)],
+                
                 "?": () => [sprite("t1", {anim: "tile" + Math.floor(Math.random() * 7)  }), area(), scale(4)],
                 "!": () => [sprite("t2", {anim: "tile" + Math.floor(Math.random() * 7)  }), area(), scale(4)],
                 ".": () => [sprite("t3", {anim: "tile" + Math.floor(Math.random() * 4)  }), area(), scale(4)],

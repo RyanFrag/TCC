@@ -49,15 +49,14 @@ const scenes = {
             leve1Config.playerPositionY = 64
         }
         const level1 = new Level()
-        level1.drawBackground("bg")
         level1.drawMapLayout(level1Layout)
         uiManager.displayLivesCounter()
 
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
-            new Npc([vec2(220,100)], "sacerdotisa",)
+            new Npc([vec2(220,180)], "sacerdotisa",)
         }else{
-            new Npc([vec2(220, 100)], "hero")
+            new Npc([vec2(220, 180)], "hero")
         }
      
         Bars([
@@ -75,11 +74,11 @@ const scenes = {
         const pressPlate3 = new Pressure(vec2(730, 330),"devil")
 
         const box1 = new Box()
-        box1.createBoxes(vec2(600, 400),'smile' )
+        box1.createBoxes(vec2(600, 400),'normal' )
         const box2 = new Box()
-        box2.createBoxes(vec2(600, 400),'x' )
+        box2.createBoxes(vec2(600, 400),'happy' )
         const box3 = new Box()
-        box3.createBoxes(vec2(450, 460),'devil' )
+        box3.createBoxes(vec2(450, 460),'sad' )
 
         pressPlate.pressPlate()
         pressPlate2.pressPlate()
@@ -158,25 +157,25 @@ const scenes = {
         
         const lever4 = new Lever(
             [
-                vec2(1770, 545),
+                vec2(1770, 615),
             ], "barrier1")
         lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
-                vec2(1650, 545),
+                vec2(1650, 615),
             ], "barrier2")
         lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
-                vec2(2100, 545),
+                vec2(2100, 615),
             ], "barrier3")
         lever6.pullLever(true)
         
         const lever7 = new Lever(
             [
-                vec2(2250, 545),
+                vec2(2250, 615),
             ], "barrier4")
         lever7.pullLever(true)
 
@@ -236,7 +235,6 @@ const scenes = {
     },
     2: async (character, reEnter=false) => {
         const level2 = new Level()
-        level2.drawBackground("bg")
         level2.drawMapLayout(level2Layout)
         const player = new Player(
             leve2Config.playerPositionX,

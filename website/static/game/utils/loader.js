@@ -6,27 +6,136 @@ export const load = {
         loadSprite("castle-background", "static/game/assets/castle_background.png" )
         loadSprite("logo", "static/game/assets/logo.png" )
     
-        loadSprite('bg', 'static/game/assets/grey-background.png')
-        loadSprite("wall-tile", "static/game/assets/wall-tile.png")
-        loadSprite("wall-tile-torch", "static/game/assets/wall-tile-torch.png")
-        loadSprite("wall-collum", "static/game/assets/wall-collum.png")
-        loadSprite("wall-collum-base", "static/game/assets/wall-collum-base.png")
-        loadSprite("wall-collum-upbase", "static/game/assets/wall-collum-upbase.png")
+
+        loadSprite("stoneWall", "static/game/assets/brick/stoneWall.png")
+        loadSprite("stoneWall-bottom", "static/game/assets/brick/stoneWall_bottom.png")
+        loadSprite("stoneWall-b", "static/game/assets/brick/stoneWall_B.png")
+        loadSprite("stoneWall-t", "static/game/assets/brick/stoneWall_T.png")
+        loadSprite("stoneWall-lt", "static/game/assets/brick/stoneWall_LT.png")
+        loadSprite("stoneWall-lb", "static/game/assets/brick/stoneWall_LB.png")
+        loadSprite("stoneWall-rb", "static/game/assets/brick/stoneWall_RB.png")
+        loadSprite("stoneWall-r", "static/game/assets/brick/stoneWall_R.png")
+        loadSprite("stoneWall-l", "static/game/assets/brick/stoneWall_L.png")
+        loadSprite("stoneWall-rbt", "static/game/assets/brick/stoneWall_RBT.png")
+        loadSprite("stoneWall-lbt", "static/game/assets/brick/stoneWall_LBT.png")
+   
         loadSprite("hero-profile", "static/game/assets/hero-profile.png")
         loadSprite("priestness-profile", "static/game/assets/priestness-profile.png")
         loadSprite("heart", "static/game/assets/heart.png")
-        loadSprite("ladder-down", "static/game/assets/ladder-down.png")
-        loadSprite("ladder-up", "static/game/assets/ladder-up.png")
-        loadSprite("wood-box-x", "static/game/assets/wood-box-x.png")
-        loadSprite("wood-box-smile", "static/game/assets/wood-box-smile.png")
-        loadSprite("wood-box-devil", "static/game/assets/wood-box-devil.png")
-        loadSprite("floor-tile-pressure", "static/game/assets/floor-tile-pressure.png")
-        loadSprite("floor-tile-pressure-x", "static/game/assets/floor-tile-pressure-x.png")
-        loadSprite("floor-tile-pressure-smile", "static/game/assets/floor-tile-pressure-smile.png")
-        loadSprite("floor-tile-pressure-devil", "static/game/assets/floor-tile-pressure-devil.png")
-        loadSprite("lava", "static/game/assets/tile-lava.png")
-        loadSprite("lava-right", "static/game/assets/tile-lava-right.png")
-        loadSprite("lava-left", "static/game/assets/tile-lava-left.png")
+
+        loadSprite("ladder-down", "static/game/assets/brick/brick_down_stairs.png")
+        loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png")
+
+
+
+        loadSprite("lava-right", "static/game/assets/brick/lava_R.png")
+        loadSprite("lava-left", "static/game/assets/brick/lava_L.png")
+        loadSprite("lava-bottom", "static/game/assets/brick/lava_B.png")
+        loadSprite("lava-bottom-left", "static/game/assets/brick/lava_LB.png")
+        loadSprite("lava-bottom-right", "static/game/assets/brick/lava_RB.png")
+        loadSprite("lava-top", "static/game/assets/brick/lava_T.png")
+        loadSprite("lava-left-top", "static/game/assets/brick/lava_LT.png")
+        loadSprite("lava-right-top", "static/game/assets/brick/lava_TR.png")
+
+        loadSprite("brick-button", "static/game/assets/brick/brick_button.png", {
+            sliceX: 3,
+            sliceY: 1,
+            anims: {
+                unPressed: {
+                    from: 0,
+                    to: 0,
+                },
+                pressed: {
+                    from: 1,
+                    to: 2,
+                }
+            }
+        })
+        
+        loadSprite("iron-bars", "static/game/assets/others/iron_bars.png", {
+            sliceX : 7,
+            sliceY : 1,
+            anims: {
+                closed: {
+                    from: 0,
+                    to: 0,
+                },
+                open: {
+                    from: 0,
+                    to: 3,
+                },
+                closeUp: {
+                    from: 3,
+                    to: 6,
+                }
+            }
+
+        })
+        loadSprite("lever", "static/game/assets/others/lever.png", {
+            sliceX: 5,
+            sliceY: 1,
+            anims: {
+                right: {
+                    from: 0,
+                    to: 0,
+                },
+                midleLeft: {
+                    from: 1,
+                    to: 2,
+                },
+                midleRight: {
+                    from: 3,
+                    to: 2,
+                },
+                left: {
+                    from: 4,
+                    to: 4,
+                }
+            }
+        })
+        loadSprite("wood-box", "static/game/assets/crates/wooden_crates.png", {
+            sliceX: 6,
+            sliceY: 1,
+            anims: {
+                box0: {
+                    from: 0,
+                    to: 0,
+                },
+                box1: {
+                    from: 1,
+                    to: 1,
+                },
+                box2: {
+                    from: 2,
+                    to: 2,
+                },
+                sad: {
+                    from: 3,
+                    to: 3,
+                },
+                happy: {
+                    from: 4,
+                    to: 4,
+                },
+                normal: {
+                    from: 5,
+                    to: 5,
+                }
+            }
+        })
+
+        loadSprite("lava", "static/game/assets/brick/lava.png", {
+            sliceX: 6,
+            sliceY: 1,
+            anims: {
+                lava: {
+                    from: 0,
+                    to: 5,
+                    loop: true
+                }
+            }
+        })
+
         
         loadSprite("t1", "static/game/assets/tile1.png", {
             sliceX: 7,
@@ -175,43 +284,7 @@ export const load = {
             }
         })
         
-        loadSprite("iron-bars", "static/game/assets/iron-bars.png", {
-            sliceX : 8,
-            sliceY : 1,
-            anims: {
-                closed: {
-                    from: 0,
-                    to: 0,
-                },
-                open: {
-                    from: 0,
-                    to: 3,
-                },
-                closeUp: {
-                    from: 4,
-                    to: 7,
-                }
-            }
 
-        })
-        loadSprite("lever", "static/game/assets/lever.png", {
-            sliceX: 3,
-            sliceY: 1,
-            anims: {
-                right: {
-                    from: 0,
-                    to: 0,
-                },
-                midle: {
-                    from: 1,
-                    to: 1,
-                },
-                left: {
-                    from: 2,
-                    to: 2,
-                }
-            }
-        })
         loadSprite("idle-hero", "static/game/assets/player-hero-idle.png",{
             sliceX: 11,
             sliceY: 1,
@@ -298,7 +371,6 @@ export const load = {
             }
         })
             
-        loadSprite("modal", "static/game/assets/modal.png")
     },
     sounds: () => {
         loadSound("confirm-ui", "static/game/sounds/confirm-ui.wav")
