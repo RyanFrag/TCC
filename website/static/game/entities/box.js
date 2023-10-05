@@ -7,7 +7,7 @@ export class Box {
                         shape: new Rect(vec2(1, 3), 32, 32),
                     }),
                     anchor("center"),
-                    body(),
+                    body({mass:5}),
                     scale(2),
                     `box-${key}`,
                 ])

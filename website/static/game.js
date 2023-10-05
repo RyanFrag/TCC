@@ -17,6 +17,7 @@ import { Lever } from "./game/entities/lever.js";
 import { Bars } from "./game/entities/ironBars.js";
 import { Question } from "./game/entities/question.js";
 import { Pressure } from "./game/entities/pressure.js";
+import { SoundTile } from "./game/entities/SoundTile.js";
 
 export const k = kaboom({
     width: 1200,
@@ -40,13 +41,14 @@ const scenes = {
     },
     
     1: async (character, reEnter=false) => {
+
         let  onCutscene = true
         leve1Config.playerPositionX = 128
         leve1Config.playerPositionY = 768
         if(reEnter){
             onCutscene = false,
             leve1Config.playerPositionX = 2190
-            leve1Config.playerPositionY = 64
+            leve1Config.playerPositionY = 160
         }
         const level1 = new Level()
         level1.drawMapLayout(level1Layout)
@@ -60,124 +62,127 @@ const scenes = {
         }
      
         Bars([
-            vec2(1440, 160),
-            vec2(1500, 160),
+            vec2(1310, 360),
+            vec2(1370, 360),
         ], 'open1', 0, false)
 
         Bars([
-            vec2(670, 160),
-            vec2(610, 160),
+            vec2(670, 360),
+            vec2(610, 360),
         ], 'open3', 3, true)
 
-        const pressPlate = new Pressure(vec2(730, 250), "x")
-        const pressPlate2 = new Pressure(vec2(730, 450), "smile")
-        const pressPlate3 = new Pressure(vec2(730, 330),"devil")
+        const pressPlate = new Pressure(vec2(730, 540), "normal")
+        const pressPlate2 = new Pressure(vec2(730, 615), "happy")
+        const pressPlate3 = new Pressure(vec2(730, 700),"sad")
 
         const box1 = new Box()
-        box1.createBoxes(vec2(600, 400),'normal' )
+        box1.createBoxes(vec2(600, 670),'normal' )
         const box2 = new Box()
-        box2.createBoxes(vec2(600, 400),'happy' )
+        box2.createBoxes(vec2(600, 530),'happy' )
         const box3 = new Box()
-        box3.createBoxes(vec2(450, 460),'sad' )
+        box3.createBoxes(vec2(600, 560),'sad' )
 
         pressPlate.pressPlate()
         pressPlate2.pressPlate()
         pressPlate3.pressPlate()
 
    
-        const question1 = new Question([vec2(1950, 610)], 0 )
-        const question2 = new Question([vec2(1500, 545)], 2)
-        const question3 = new Question([vec2(353, 480)], 3)
+        const question1 = new Question([vec2(1950, 910)], 0 )
+        const question2 = new Question([vec2(1360, 635)], 2)
+        const question3 = new Question([vec2(480, 610)], 3)
 
         Bars([
-            vec2(1050, 225)
+            vec2(1175, 475)
         ], "lever1", 0, false)
         Bars([
-            vec2(1050, 355)
+            vec2(1175, 600)
         ], "lever2", 0, false)
         Bars([
-            vec2(1050, 480)
+            vec2(1175, 735)
         ], "lever3", 0, false)
    
         const lever1 = new Lever(
             [
-                vec2(1500, 225),
+                vec2(1500, 475),
             ], "lever1")
         lever1.pullLever()
         
         const lever2 = new Lever(
             [
-                vec2(1500, 355),
+                vec2(1500, 600),
             ], "lever2")
         lever2.pullLever()
 
         const lever3 = new Lever(
             [
-            vec2(1500, 480),
+            vec2(1500, 735),
             ], "lever3")
         lever3.pullLever()
 
         Bars([
-            vec2(1785, 480),
-            vec2(1835, 480),
-            vec2(1895, 480),
-            vec2(1955, 480),
-            vec2(2015, 480),
-            vec2(2075, 480),
-            vec2(2135, 480),
+            vec2(1835, 740),
+            vec2(1895, 740),
+            vec2(1955, 740),
+            vec2(2015, 740),
+            vec2(2075, 740),
         ], 'barrier1', 0, false
         )
 
         Bars([
-            vec2(1785, 380),
-            vec2(1835, 380),
-            vec2(1895, 380),
-            vec2(1955, 380),
-            vec2(2015, 380),
-            vec2(2075, 380),
-            vec2(2135, 380),
+            vec2(1835, 620),
+            vec2(1895, 620),
+            vec2(1955, 620),
+            vec2(2015, 620),
+            vec2(2075, 620),
         ], 'barrier2', 0, false
         )
 
         Bars([
-            vec2(1785, 290),
-            vec2(1835, 290),
-            vec2(1895, 290),
-            vec2(1955, 290),
-            vec2(2015, 290),
-            vec2(2075, 290),
-            vec2(2135, 290),
+            vec2(1835, 510),
+            vec2(1895, 510),
+            vec2(1955, 510),
+            vec2(2015, 510),
+            vec2(2075, 510),
         ], 'barrier3', 0, false
         )
 
         Bars([
-            vec2(1950, 170),
+            vec2(1950, 400),
         ], 'barrier4', 0, false)
 
         
         const lever4 = new Lever(
             [
-                vec2(1770, 615),
+                vec2(1770, 900),
             ], "barrier1")
         lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
-                vec2(1650, 615),
+                vec2(1650, 900),
             ], "barrier2")
         lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
-                vec2(2100, 615),
+                vec2(2100, 900),
             ], "barrier3")
         lever6.pullLever(true)
         
         const lever7 = new Lever(
             [
-                vec2(2250, 615),
+                vec2(2250, 900  ),
             ], "barrier4")
         lever7.pullLever(true)
+
+        Bars([
+            vec2(2010, 280),
+            vec2(2010, 200)
+
+        ], "open4", 0, false)
+
+
+
 
 
         const player = new Player(
@@ -192,16 +197,39 @@ const scenes = {
 
             
         playerObj = player.makePlayer(character)
-        player.playIdleAnimation()
+        const soundTile = new SoundTile()
+        const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
+        
 
+        let playing  = false
+        onUpdate(() => {
+            if (playerObj.isColliding(sound)) {
+                if (!playing) {
+                    playing = true;
+                    soundTile.addSound("lava", {
+                        volume: 0.5,
+                        loop: true
+                    })
+                    onCollideEnd("player", "lava", () => {
+                        playing = false
+                        soundTile.pause("lava")
+                    })       
+                    onSceneLeave(() => {
+                        soundTile.pause("lava")
+                }); 
+                }
+            } 
+        });
+        
+        player.playIdleAnimation()
         player.hitQuestionTile(question1.questionNumber);
         player.hitQuestionTile(question2.questionNumber);
         player.hitQuestionTile(question3.questionNumber);
         player.updateLives(uiManager.livesCountUi)
-        
+        player.attack(['left', 'right', 'up', 'down'])
+
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142)
-
         const enemys = new Enemy(
             leve1Config.enemysPositions.map(enemyPos => enemyPos()),
             leve1Config.enemysRange,
@@ -211,8 +239,6 @@ const scenes = {
             false,
             'open1',
         )
-
-
 
         enemys.setMovementEnemy()
         enemys.killEnemy(0)
@@ -232,6 +258,7 @@ const scenes = {
         player.hitByNpc(npc);
         player.goNextLevel(character)
         player.update()
+    
     },
     2: async (character, reEnter=false) => {
         const level2 = new Level()

@@ -14,10 +14,12 @@ export const load = {
         loadSprite("stoneWall-lt", "static/game/assets/brick/stoneWall_LT.png")
         loadSprite("stoneWall-lb", "static/game/assets/brick/stoneWall_LB.png")
         loadSprite("stoneWall-rb", "static/game/assets/brick/stoneWall_RB.png")
+        loadSprite("stoneWall-rt", "static/game/assets/brick/stoneWall_RT.png")
         loadSprite("stoneWall-r", "static/game/assets/brick/stoneWall_R.png")
         loadSprite("stoneWall-l", "static/game/assets/brick/stoneWall_L.png")
         loadSprite("stoneWall-rbt", "static/game/assets/brick/stoneWall_RBT.png")
         loadSprite("stoneWall-lbt", "static/game/assets/brick/stoneWall_LBT.png")
+        loadSprite("stoneWall-full", "static/game/assets/brick/stoneWall_full.png")
    
         loadSprite("hero-profile", "static/game/assets/hero-profile.png")
         loadSprite("priestness-profile", "static/game/assets/priestness-profile.png")
@@ -36,18 +38,45 @@ export const load = {
         loadSprite("lava-top", "static/game/assets/brick/lava_T.png")
         loadSprite("lava-left-top", "static/game/assets/brick/lava_LT.png")
         loadSprite("lava-right-top", "static/game/assets/brick/lava_TR.png")
-
-        loadSprite("brick-button", "static/game/assets/brick/brick_button.png", {
-            sliceX: 3,
+        loadSprite("lava", "static/game/assets/brick/lava.png", {
+            sliceX: 6,
             sliceY: 1,
             anims: {
-                unPressed: {
+                lava: {
                     from: 0,
-                    to: 0,
+                    to: 5,
+                    loop: true
+                }
+            }
+        })
+        loadSprite("brick-button", "static/game/assets/brick/brick_button.png", {
+            sliceX: 3,
+            sliceY: 6,
+            anims: {
+                
+                happy: {
+                    from: 9,
+                    to: 9,
                 },
-                pressed: {
-                    from: 1,
-                    to: 2,
+                sad: {
+                    from : 12,
+                    to: 12,
+                },
+                normal: {
+                    from: 15,
+                    to: 15,
+                },
+                pressedhappy: {
+                    from: 10,
+                    to: 11,
+                },
+                pressedsad: {
+                    from: 13,
+                    to: 14,
+                },
+                pressednormal: {
+                    from: 16,
+                    to: 17,
                 }
             }
         })
@@ -124,20 +153,10 @@ export const load = {
             }
         })
 
-        loadSprite("lava", "static/game/assets/brick/lava.png", {
-            sliceX: 6,
-            sliceY: 1,
-            anims: {
-                lava: {
-                    from: 0,
-                    to: 5,
-                    loop: true
-                }
-            }
-        })
+
 
         
-        loadSprite("t1", "static/game/assets/tile1.png", {
+        loadSprite("t1", "static/game/assets/brick/brick_tile.png", {
             sliceX: 7,
             sliceY: 1,
             anims: {
@@ -171,7 +190,7 @@ export const load = {
                 }
             }
         })
-        loadSprite("t2", "static/game/assets/tile2.png", {
+        loadSprite("t2", "static/game/assets/brick/brick2_tile.png", {
             sliceX: 7,
             sliceY: 1,
             anims: {
@@ -205,7 +224,7 @@ export const load = {
                 }
             }
         })
-        loadSprite("t3", "static/game/assets/t3.png", {
+        loadSprite("t3", "static/game/assets/brick/brick3_tile.png", {
             sliceX: 4,
             sliceY: 1,
             anims: {
@@ -227,7 +246,7 @@ export const load = {
                 },
             }
         })
-        loadSprite("t4", "static/game/assets/t4.png", {
+        loadSprite("t4", "static/game/assets/brick/brick4_tile.png", {
             sliceX: 8,
             sliceY: 1,
             anims: {
@@ -265,25 +284,12 @@ export const load = {
                 }
             }
         })
-        loadSprite("t5", "static/game/assets/t5.png", {
-            sliceX: 3,
-            sliceY: 1,
-            anims: {
-                tile0: {
-                    from: 0,
-                    to: 0,
-                },
-                tile1: {
-                    from: 1,
-                    to: 1,
-                },
-                heart: {
-                    from: 2,
-                    to: 2,
-                }
-            }
-        })
-        
+
+        loadSprite("question-tile", "static/game/assets/brick/stoneQuestion.png")
+        loadSprite("alert-tile", "static/game/assets/brick/stoneAlert.png")
+        loadSprite("mark-tile", "static/game/assets/brick/stoneMark.png")
+        loadSprite("heart-tile", "static/game/assets/brick/stoneHeart.png")
+
 
         loadSprite("idle-hero", "static/game/assets/player-hero-idle.png",{
             sliceX: 11,
@@ -374,7 +380,7 @@ export const load = {
     },
     sounds: () => {
         loadSound("confirm-ui", "static/game/sounds/confirm-ui.wav")
-
+        loadSound("lava", "static/game/sounds/lava.wav")
     }
 
 } 

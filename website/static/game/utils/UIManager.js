@@ -76,7 +76,7 @@ class UIManager {
             sprite("logo"),
             area(),
             anchor("center"),
-            pos(center().x, center().y -150),
+            pos(center().x + 50, center().y -80),
             scale(6),
             rotate(),
         ]) 

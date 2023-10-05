@@ -8,16 +8,15 @@ export class Camera {
    
     ){
         this.attachedObj = gameObj
-        const cameraLeftBound = 600;
-        const cameraRightBound = 1770;
-        const cameraTopBound = 250;
-        const cameraBottomBound = 900;
+        const cameraLeftBound = 625;
+        const cameraRightBound = 1740;
+        const cameraTopBound = 350;
+        const cameraBottomBound = 960;
 
         onUpdate(() => {
             const targetX = this.attachedObj.pos.x + offsetX;
             const targetY = this.attachedObj.pos.y + offsetY;
     
-            // Certifique-se de que a câmera não ultrapasse os limites do jogo
             let newCameraX = clamp(targetX, cameraLeftBound, cameraRightBound);
             let newCameraY = clamp(targetY, cameraTopBound, cameraBottomBound);
     

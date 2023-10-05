@@ -29,7 +29,6 @@ $(document).ready(function() {
     }else if(level == 3){
       progress = 100
     }
-    console.log(progress)
     $("#dynamic")
       .css("width", progress + "%")
       .attr("aria-valuenow", progress)

@@ -4,9 +4,9 @@ export const leve1Config = {
     nbLives: 3,
     playerSpeed: 200,
     enemysPositions: [
-        () => vec2(970,210),
-        () => vec2(970,340),
-        () => vec2(970,460),
+        () => vec2(970,510),
+        () => vec2(970,620),
+        () => vec2(970,700),
         ],
     enemysRange: [50,50,50],
     enemysRangeY: [50,50,50],

@@ -5,10 +5,10 @@ export class Question {
         for(const position of positions){
             this.questions.push(
                 add([
-                    sprite("t5", {anim: "heart"}),
+                    sprite("question-tile"),
                     pos(position),
                     area({
-                        shape: new Rect(vec2(1, 3), 32, 32),
+                        shape: new Rect(vec2(1, 3), 8, 8),
                     }),
                     anchor("center"),
                     scale(4),

@@ -140,20 +140,29 @@ export class Player {
                     return
                 }
             }
-            // N faço ideia como fzr a hitbox do ataque :)
-            add([
-                rect(300,300),
-                area(),
-                opacity(0),
-            ])
 
-            onKeyPress("space", () => {
-                if(this.gameObj.curAnim() !== "attack"){
-                    this.gameObj.play("attack")    
-                }}
-                )
-            
-        }  
+            const currentFlip = this.gameObj.flipX
+            if (this.gameObj.curAnim() !== "attack") {
+                const slashX = this.gameObj.pos.x + 30
+                const slashXFlipped = this.gameObj.pos.x - 350
+                add([
+                    rect(300,300),
+                    area(),
+                    pos(currentFlip ? slashXFlipped: slashX ),
+                    opacity(0),
+                ])
+
+                onKeyPress("space", () => {
+                    this.gameObj.play("attack", {
+                        onEnd: () => {
+                            this.playIdleAnimation()
+                            this.gameObj.flipX = currentFlip
+                            }
+                        }) 
+                        }
+                    )
+                }
+            }  
 
         goNextLevel(character){
             function newLevel(context, character){
