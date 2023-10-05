@@ -33,7 +33,6 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
     });
 
 
-
     events.listen("close_bars_" + key, () => {
         if (open) {
             open = false;

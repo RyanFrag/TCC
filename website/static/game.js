@@ -62,125 +62,116 @@ const scenes = {
         }
      
         Bars([
-            vec2(1310, 360),
-            vec2(1370, 360),
+            vec2(1570, 690),
+            vec2(1570, 770),
         ], 'open1', 0, false)
 
-        Bars([
-            vec2(670, 360),
-            vec2(610, 360),
-        ], 'open3', 3, true)
-
-        const pressPlate = new Pressure(vec2(730, 540), "normal")
-        const pressPlate2 = new Pressure(vec2(730, 615), "happy")
-        const pressPlate3 = new Pressure(vec2(730, 700),"sad")
+        // Bars([
+        //     vec2(610, 690),
+        //     vec2(610, 770),
+        // ], 'open3', 3, true)
+        const soundTile = new SoundTile()
+        const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
+        
+        const pressPlate = new Pressure(vec2(730, 360), "normal")
+        const pressPlate2 = new Pressure(vec2(730, 260), "happy")
+        const pressPlate3 = new Pressure(vec2(730, 450),"sad")
 
         const box1 = new Box()
-        box1.createBoxes(vec2(600, 670),'normal' )
+        box1.createBoxes(vec2(500, 260),'normal' )
         const box2 = new Box()
-        box2.createBoxes(vec2(600, 530),'happy' )
+        box2.createBoxes(vec2(600, 360),'happy' )
         const box3 = new Box()
-        box3.createBoxes(vec2(600, 560),'sad' )
+        box3.createBoxes(vec2(540, 400),'sad' )
 
         pressPlate.pressPlate()
         pressPlate2.pressPlate()
         pressPlate3.pressPlate()
 
    
-        const question1 = new Question([vec2(1950, 910)], 0 )
-        const question2 = new Question([vec2(1360, 635)], 2)
-        const question3 = new Question([vec2(480, 610)], 3)
+        const question1 = new Question([vec2(1650, 440)], 0 )
+        const question2 = new Question([vec2(1375, 160)], 2)
+        const question3 = new Question([vec2(420, 225)], 3)
 
         Bars([
-            vec2(1175, 475)
+            vec2(1175, 220)
         ], "lever1", 0, false)
         Bars([
-            vec2(1175, 600)
+            vec2(1175, 350)
         ], "lever2", 0, false)
         Bars([
-            vec2(1175, 735)
+            vec2(1175, 470)
         ], "lever3", 0, false)
    
         const lever1 = new Lever(
             [
-                vec2(1500, 475),
+                vec2(1500, 220),
             ], "lever1")
         lever1.pullLever()
         
         const lever2 = new Lever(
             [
-                vec2(1500, 600),
+                vec2(1500, 350),
             ], "lever2")
         lever2.pullLever()
 
         const lever3 = new Lever(
             [
-            vec2(1500, 735),
+            vec2(1500, 470),
             ], "lever3")
         lever3.pullLever()
 
         Bars([
-            vec2(1835, 740),
-            vec2(1895, 740),
-            vec2(1955, 740),
-            vec2(2015, 740),
-            vec2(2075, 740),
+            vec2(1880, 600),
+            vec2(1880, 500),
+            vec2(1880, 400),
         ], 'barrier1', 0, false
         )
 
         Bars([
-            vec2(1835, 620),
-            vec2(1895, 620),
-            vec2(1955, 620),
-            vec2(2015, 620),
-            vec2(2075, 620),
+            vec2(2020, 400),
+            vec2(2020, 500),
+            vec2(2020, 600),
         ], 'barrier2', 0, false
         )
 
         Bars([
-            vec2(1835, 510),
-            vec2(1895, 510),
-            vec2(1955, 510),
-            vec2(2015, 510),
-            vec2(2075, 510),
+            vec2(2150, 400),
+            vec2(2150, 500),
+            vec2(2150, 600),
         ], 'barrier3', 0, false
         )
 
         Bars([
-            vec2(1950, 400),
-        ], 'barrier4', 0, false)
+            vec2(2360, 460),
+            vec2(2360, 550),
+        ], 'barrier4', 0, false
+        )
 
         
         const lever4 = new Lever(
             [
-                vec2(1770, 900),
+                vec2(1640, 350),
             ], "barrier1")
         lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
-                vec2(1650, 900),
+                vec2(1640, 270),
             ], "barrier2")
         lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
-                vec2(2100, 900),
+                vec2(1640, 530),
             ], "barrier3")
         lever6.pullLever(true)
         
         const lever7 = new Lever(
             [
-                vec2(2250, 900  ),
+                vec2(1640, 620),
             ], "barrier4")
         lever7.pullLever(true)
-
-        Bars([
-            vec2(2010, 280),
-            vec2(2010, 200)
-
-        ], "open4", 0, false)
-
 
 
 
@@ -197,12 +188,12 @@ const scenes = {
 
             
         playerObj = player.makePlayer(character)
-        const soundTile = new SoundTile()
-        const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
+
         
 
         let playing  = false
         onUpdate(() => {
+            // player.attack(['left', 'right', 'up', 'down'])
             if (playerObj.isColliding(sound)) {
                 if (!playing) {
                     playing = true;
@@ -226,7 +217,6 @@ const scenes = {
         player.hitQuestionTile(question2.questionNumber);
         player.hitQuestionTile(question3.questionNumber);
         player.updateLives(uiManager.livesCountUi)
-        player.attack(['left', 'right', 'up', 'down'])
 
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142)
@@ -311,6 +301,7 @@ const scenes = {
         player.hitQuestionTile();
         
         const npc = character === "hero" ? "sacerdotisa" : "hero";
+        player.attack(['left', 'right', 'up', 'down'])
         player.hitByNpc(npc);
         player.goNextLevel(character)
         player.goPreviousLevel(character)

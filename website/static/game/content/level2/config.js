@@ -1,6 +1,6 @@
 export const leve2Config = {
-    playerPositionX: 150,
-    playerPositionY: 500,
+    playerPositionX: 728,
+    playerPositionY: 670,
     nbLives: 1,
     playerSpeed: 200,
     enemysPositions: [

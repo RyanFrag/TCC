@@ -9,10 +9,10 @@ export function QuestionTextLines(numberOfQuestion){
         ]
     }else if(numberOfQuestion == 2){
         return [ 
-            { text: "Bem vindo ao Labirinto Logico" },
-            { text: "Este e o Puzzle No. 2"},
-            { text: "Para Prosseguir Derrote os Inimigos da Sala"  },
-            { text: "para derrota-los deve acionar as alanvacas em determinada ordem" },
+            { text: "          Muito Bem, parabens por passar o ultimo puzzle.." },
+            { text: "Porem este e apenas o comeco do Labirinto" },
+            { text: "                                       Para Prosseguir, o Puzzle No. 2, Derrote os Inimigos desta Sala"  },
+            { text: " use as alavancas para abrir suas celas" },
         ]
     }else if(numberOfQuestion == 3){
         return [ 

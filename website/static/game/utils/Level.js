@@ -55,6 +55,7 @@ export class Level {
                 'n': () => [sprite('stoneWall-rt'), "wall", area(), scale(4), body({isStatic: true})],
                 "j": () => [sprite("stoneWall-l"), "wall", area(), scale(4), body({isStatic: true})],
                 'd': () => [sprite('stoneWall-rbt'), "wall", area(), scale(4), body({isStatic: true})],
+                'o': () => [sprite('stoneWall-rtb'), "wall", area(), scale(4), body({isStatic: true})], 
                 "i": () => [sprite("stoneWall-lbt"), "wall", area(), scale(4), body({isStatic: true})],
 
                
@@ -83,7 +84,7 @@ export class Level {
         }
         add([
             sprite("castle-background"),
-            scale(4),
+            scale(12),
         ])
 
         const gamelevel = addLevel(levelLayout, mappings)

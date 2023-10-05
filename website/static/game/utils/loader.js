@@ -4,6 +4,7 @@ export const load = {
     },
     assets: () => {
         loadSprite("castle-background", "static/game/assets/castle_background.png" )
+        loadSprite("bg", "static/game/assets/bg.png" )
         loadSprite("logo", "static/game/assets/logo.png" )
     
 
@@ -18,6 +19,7 @@ export const load = {
         loadSprite("stoneWall-r", "static/game/assets/brick/stoneWall_R.png")
         loadSprite("stoneWall-l", "static/game/assets/brick/stoneWall_L.png")
         loadSprite("stoneWall-rbt", "static/game/assets/brick/stoneWall_RBT.png")
+        loadSprite("stoneWall-rtb", "static/game/assets/brick/stoneWall_RTB.png")
         loadSprite("stoneWall-lbt", "static/game/assets/brick/stoneWall_LBT.png")
         loadSprite("stoneWall-full", "static/game/assets/brick/stoneWall_full.png")
    

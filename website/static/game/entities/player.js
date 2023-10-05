@@ -31,7 +31,7 @@ export class Player {
                         death: "death-" + character
                     }
                 },
-                area({shape: new Rect(vec2(0,3), 8, 8) }),
+                area({shape: new Rect(vec2(0,3), 16, 16) }),
                 anchor("center"),
                 pos(this.initialX, this.initialY),
                 scale(3),
@@ -141,29 +141,38 @@ export class Player {
                 }
             }
 
-            const currentFlip = this.gameObj.flipX
-            if (this.gameObj.curAnim() !== "attack") {
-                const slashX = this.gameObj.pos.x + 30
-                const slashXFlipped = this.gameObj.pos.x - 350
-                add([
-                    rect(300,300),
-                    area(),
-                    pos(currentFlip ? slashXFlipped: slashX ),
-                    opacity(0),
-                ])
-
-                onKeyPress("space", () => {
-                    this.gameObj.play("attack", {
-                        onEnd: () => {
-                            this.playIdleAnimation()
-                            this.gameObj.flipX = currentFlip
-                            }
-                        }) 
+            const currentFlip = this.gameObj
+            if(this.gameObj.curAnim() !== "attack"){         
+                // this.gameObj.use(sprite(this.gameObj.sprites.attack))
+                this.gameObj.flipX = currentFlip
+                const slashX = this.gameObj.pos.x + 110
+                const slashXFlipped = this.gameObj.pos.x - 110
+                let x = null
+                x = currentFlip ? slashXFlipped : slashX
+            add([
+                rect(50,50),
+                area(),
+                pos(vec2(x, this.gameObj.pos.y -70)),
+                scale(3),
+                opacity(0),
+                "slash"
+            ])
+    
+            onKeyPress("space", () => {
+                this.gameObj.play("attack", {
+                    onEnd: () => {
+                        this.playIdleAnimation()
+                        this.gameObj.flipX = currentFlip
                         }
-                    )
-                }
+                    }) 
+                    }
+                )
+            onKeyRelease("space", () => {
+                destroyAll("slash")
+            })
+                
             }  
-
+        }
         goNextLevel(character){
             function newLevel(context, character){
                 if(context.finalLevel === true){
