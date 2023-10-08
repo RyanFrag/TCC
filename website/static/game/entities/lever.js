@@ -16,7 +16,7 @@ export class Lever {
                     }),
                     anchor("center"),
                     body({isStatic: true}),
-                    scale(2),
+                    scale(4),
                     "lever"
                 ])
             )
@@ -28,7 +28,7 @@ export class Lever {
         onUpdate(() => {
             if(!this.pull){
                 onKeyPress("z", async () => {
-                    if(this.gameObj.isColliding(playerObj)){
+                    if(this.gameObj.isColliding(playerObj)){                      
                         await this.animate()
                         this.pull = true
                         if(this.key == "barrier1"){

@@ -4,20 +4,20 @@ import { uiManager } from "./game/utils/UIManager.js"
 import { load } from "./game/utils/loader.js"
 import { level1Layout} from "./game/content/level1/level1Layout.js";
 import { Player } from "./game/entities/player.js";
-import { leve1Config } from "./game/content/level1/config.js";
+import { level1Config } from "./game/content/level1/config.js";
 import { Enemy } from "./game/entities/enemy.js";
 import { Cutscene } from "./game/content/cutscene.js";
 import { Camera } from "./game/utils/Camera.js";
 import { Npc } from "./game/entities/npc.js";
 import { textLines } from "./game/content/level1/textlevel1.js";
 import { level2Layout } from "./game/content/level2/level2Layout.js";
-import { leve2Config } from "./game/content/level2/config.js";
+import { level2Config } from "./game/content/level2/config.js";
 import { Box } from "./game/entities/box.js";
 import { Lever } from "./game/entities/lever.js";
 import { Bars } from "./game/entities/ironBars.js";
 import { Question } from "./game/entities/question.js";
 import { Pressure } from "./game/entities/pressure.js";
-import { SoundTile } from "./game/entities/SoundTile.js";
+import { SoundTile } from "./game/entities/soundTile.js";
 
 export const k = kaboom({
     width: 1200,
@@ -41,18 +41,20 @@ const scenes = {
     },
     
     1: async (character, reEnter=false) => {
-
+        play("level1", {
+            volume: 0.4,
+            loop: true
+        })
         let  onCutscene = true
-        leve1Config.playerPositionX = 128
-        leve1Config.playerPositionY = 768
+        level1Config.playerPositionX = 128
+        level1Config.playerPositionY = 768
         if(reEnter){
             onCutscene = false,
-            leve1Config.playerPositionX = 2190
-            leve1Config.playerPositionY = 160
+            level1Config.playerPositionX = 2190
+            level1Config.playerPositionY = 160
         }
         const level1 = new Level()
-        level1.drawMapLayout(level1Layout)
-        uiManager.displayLivesCounter()
+        level1.drawMapLayout(level1Layout, "stoneWall")
 
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
@@ -61,10 +63,10 @@ const scenes = {
             new Npc([vec2(220, 180)], "hero")
         }
      
-        Bars([
-            vec2(1570, 690),
-            vec2(1570, 770),
-        ], 'open1', 0, false)
+        // Bars([
+        //     vec2(1570, 690),
+        //     vec2(1570, 770),
+        // ], 'open1', 0, false)
 
         // Bars([
         //     vec2(610, 690),
@@ -73,9 +75,9 @@ const scenes = {
         const soundTile = new SoundTile()
         const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
         
-        const pressPlate = new Pressure(vec2(730, 360), "normal")
-        const pressPlate2 = new Pressure(vec2(730, 260), "happy")
-        const pressPlate3 = new Pressure(vec2(730, 450),"sad")
+        const pressPlate = new Pressure(vec2(730, 360), "normal", "brick")
+        const pressPlate2 = new Pressure(vec2(730, 260), "happy", "brick")
+        const pressPlate3 = new Pressure(vec2(730, 450),"sad", "brick")
 
         const box1 = new Box()
         box1.createBoxes(vec2(500, 260),'normal' )
@@ -121,32 +123,32 @@ const scenes = {
             ], "lever3")
         lever3.pullLever()
 
-        Bars([
-            vec2(1880, 600),
-            vec2(1880, 500),
-            vec2(1880, 400),
-        ], 'barrier1', 0, false
-        )
+        // Bars([
+        //     vec2(1880, 600),
+        //     vec2(1880, 500),
+        //     vec2(1880, 400),
+        // ], 'barrier1', 0, false
+        // )
 
-        Bars([
-            vec2(2020, 400),
-            vec2(2020, 500),
-            vec2(2020, 600),
-        ], 'barrier2', 0, false
-        )
+        // Bars([
+        //     vec2(2020, 400),
+        //     vec2(2020, 500),
+        //     vec2(2020, 600),
+        // ], 'barrier2', 0, false
+        // )
 
-        Bars([
-            vec2(2150, 400),
-            vec2(2150, 500),
-            vec2(2150, 600),
-        ], 'barrier3', 0, false
-        )
+        // Bars([
+        //     vec2(2150, 400),
+        //     vec2(2150, 500),
+        //     vec2(2150, 600),
+        // ], 'barrier3', 0, false
+        // )
 
-        Bars([
-            vec2(2360, 460),
-            vec2(2360, 550),
-        ], 'barrier4', 0, false
-        )
+        // Bars([
+        //     vec2(2360, 460),
+        //     vec2(2360, 550),
+        // ], 'barrier4', 0, false
+        // )
 
         
         const lever4 = new Lever(
@@ -177,19 +179,21 @@ const scenes = {
 
 
         const player = new Player(
-            leve1Config.playerPositionX,
-            leve1Config.playerPositionY,
-            leve1Config.playerSpeed,
+            level1Config.playerPositionX,
+            level1Config.playerPositionY,
+            level1Config.playerSpeed,
             1,
             false,
-            leve1Config.nbLives,
+            level1Config.nbLives,
             onCutscene
             )
 
             
         playerObj = player.makePlayer(character)
+        box1.collideWithPlayer(playerObj)
+        box2.collideWithPlayer(playerObj)
+        box3.collideWithPlayer(playerObj)
 
-        
 
         let playing  = false
         onUpdate(() => {
@@ -216,16 +220,18 @@ const scenes = {
         player.hitQuestionTile(question1.questionNumber);
         player.hitQuestionTile(question2.questionNumber);
         player.hitQuestionTile(question3.questionNumber);
+        uiManager.displayLivesCounter()
+
         player.updateLives(uiManager.livesCountUi)
 
         const camera = new Camera()
-        camera.attach(player.gameObj, 0, -142)
+        camera.attach(player.gameObj, 0, -142, level1Config.cameraLeftBound, level1Config.cameraRightBound, level1Config.cameraTopBound, level1Config.cameraBottomBound)
         const enemys = new Enemy(
-            leve1Config.enemysPositions.map(enemyPos => enemyPos()),
-            leve1Config.enemysRange,
-            leve1Config.enemysRangeY,
-            leve1Config.enemysSpeeds,
-            leve1Config.enemysType,
+            level1Config.enemysPositions.map(enemyPos => enemyPos()),
+            level1Config.enemysRange,
+            level1Config.enemysRangeY,
+            level1Config.enemysSpeeds,
+            level1Config.enemysType,
             false,
             'open1',
         )
@@ -236,6 +242,7 @@ const scenes = {
         enemys.killEnemy(2)
         enemys.update()
         player.hitByMobs()
+
         
         
         if(onCutscene){
@@ -252,42 +259,80 @@ const scenes = {
     },
     2: async (character, reEnter=false) => {
         const level2 = new Level()
-        level2.drawMapLayout(level2Layout)
+        level2.drawMapLayout(level2Layout, "woodWall")
+        // Bars([
+        //     vec2(220, 780),
+        //     vec2(220, 720),
+        // ], 'leverLevel1', 0, false)
+        // Bars([
+        //     vec2(675, 780),
+        //     vec2(675, 720),
+        // ], 'leverLevel2', 0, false),
+        // Bars([
+        //     vec2(930, 340),
+        //     vec2(870, 340),
+        // ], 'leverLevel3', 0, false)
+        
+        // Bars([
+        //     vec2(990, 780),
+        //     vec2(990, 720),
+        // ], 'blank', 0, false)
+        
+        const lever1 = new Lever(
+            [
+                vec2(560,550),
+            ], "leverLevel1")
+        lever1.pullLever()
+        const lever2 = new Lever(
+            [
+                vec2(370, 550),
+            ], "leverLevel2")
+        lever2.pullLever()
+        const lever3 = new Lever(
+            [
+                vec2(800, 400),
+            ], "leverLevel3")
+        lever3.pullLever()
+
+        const pressPlate = new Pressure(vec2(460, 760), "blank", "wood")
+        pressPlate.pressPlate(true)
+        const question1 = new Question([vec2(470, 440)], 0 )
+        const enemys = new Enemy(
+            level2Config.enemysPositions.map(enemyPos => enemyPos()),
+            level2Config.enemysRange,
+            [50],
+            level2Config.enemysSpeeds,
+            level2Config.enemysType,
+            false,
+            'open2',
+            
+        )
+
+        
         const player = new Player(
-            leve2Config.playerPositionX,
-            leve2Config.playerPositionY,
-            leve2Config.playerSpeed,
+            level2Config.playerPositionX,
+            level2Config.playerPositionY,
+            level2Config.playerSpeed,
             2,
             true,
-            leve2Config.nbLives,
+            level2Config.nbLives,
             false
             )
         
         playerObj =  player.makePlayer(character)
         player.playIdleAnimation()
         level2.displayLevel(player.currentLevel)
-        
+
         const camera = new Camera()
-        camera.attach(player.gameObj, 0, -142)
+        camera.attach(player.gameObj, 0, -142, level2Config.cameraLeftBound, level2Config.cameraRightBound, level2Config.cameraTopBound, level2Config.cameraBottomBound)
 
         uiManager.displayLivesCounter()
-        player.updateLives(uiManager.livesCountUi)
-        const enemys = new Enemy(
-            leve2Config.enemysPositions.map(enemyPos => enemyPos()),
-            leve2Config.enemysRange,
-            [50],
-            leve2Config.enemysSpeeds,
-            leve2Config.enemysType,
-            false,
-            'open2',
-            
-        )
         enemys.update()
 
         if(character == "hero"){
-            new Npc([vec2(200,100)], "sacerdotisa")
+            new Npc([vec2(200,300)], "sacerdotisa")
         }else{
-            new Npc([vec2(200, 100)], "hero")
+            new Npc([vec2(200, 300)], "hero")
         }
         
         // const cutscene = new Cutscene()
@@ -305,6 +350,9 @@ const scenes = {
         player.hitByNpc(npc);
         player.goNextLevel(character)
         player.goPreviousLevel(character)
+        uiManager.displayLivesCounter()
+        player.updateLives(uiManager.livesCountUi)
+
         player.update()
     },
     3: () => {

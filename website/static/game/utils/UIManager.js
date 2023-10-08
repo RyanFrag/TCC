@@ -1,7 +1,9 @@
+import { SoundTile } from "../entities/soundTile.js"
+
 class UIManager {
 
 
-    displayLivesCounter(player){
+    displayLivesCounter(){
         this.livesCountUi = add([
             text("", {
                 font: "Round",
@@ -67,7 +69,16 @@ class UIManager {
         });
         
         const responseData = await response.json();
-        
+        const menuMusic = new SoundTile()
+        menuMusic.addSound("menu", {
+            volume: 0.4,
+            loop: true
+        })
+
+        onSceneLeave(() => {
+            menuMusic.pause("menu")
+        }); 
+
         add([
             sprite("castle-background"),
             scale(4),

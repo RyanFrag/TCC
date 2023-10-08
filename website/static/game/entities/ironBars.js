@@ -1,4 +1,5 @@
 import events from "../controller/events.js";
+import { SoundTile } from "./soundTile.js";
 
 export const Bars = (positions, key, boxesRequired, openWithBox) => {
     let open = false;
@@ -37,6 +38,10 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
         if (open) {
             open = false;
             for (const bar of barsList) {
+                const sound = new SoundTile()
+                sound.addSound("lever", {
+                    volume: 0.1
+                })
                 bar.play("closeUp");
                 bar.use(body({ isStatic: true }));
                
@@ -49,9 +54,13 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
     });
 
 
-    function openBars() {
+     function openBars() {
         if (barsList.length > 0) {
             for (const bar of barsList) {
+                const sound = new SoundTile()
+                sound.addSound("lever", {
+                    volume: 0.1
+                })
                 open = true;
                 bar.play("open");
                 events.remove("open_bars_" + key, openBars);

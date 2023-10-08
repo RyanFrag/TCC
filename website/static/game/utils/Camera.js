@@ -2,17 +2,14 @@ export class Camera {
     attachedObj = null
 
     attach(
-        gameObj,
-        offsetX = 0,
-        offsetY = 0,
-   
-    ){
+        gameObj,offsetX = 0, 
+        offsetY = 0, 
+        cameraLeftBound, 
+        cameraRightBound, 
+        cameraTopBound, 
+        cameraBottomBound
+        ) {
         this.attachedObj = gameObj
-        const cameraLeftBound = 625;
-        const cameraRightBound = 1930;
-        const cameraTopBound = 350;
-        const cameraBottomBound = 530;
-
         onUpdate(() => {
             const targetX = this.attachedObj.pos.x + offsetX;
             const targetY = this.attachedObj.pos.y + offsetY;

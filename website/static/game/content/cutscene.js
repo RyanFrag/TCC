@@ -8,6 +8,16 @@ export class Cutscene {
             outline(4),
             fixed()
         ])
+
+        const z = add([
+            sprite('z'),
+            pos(center().x +520, center().y + 300),
+            scale(2),
+            fixed()
+        ])
+
+
+        
         if(textLines[0].sprite){
             this.spriteEmotions = add([
                 sprite('emotions', {anim: 1}),
@@ -29,6 +39,7 @@ export class Cutscene {
             onKeyPress("z", () => {
                 if(currentMessageIndex > textLines.length - 1){
                     destroy(modal),
+                    destroy(z),
                     destroy(MessageAuthor),
                     destroy(currentMessage)
                     if(!typeQuestion) destroy(this.spriteEmotions)
@@ -38,6 +49,7 @@ export class Cutscene {
                 if (currentMessage){
                     destroy(currentMessage);
                 }
+                this.confirm();
                 currentMessage = this.callMessage( textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
                 currentMessageIndex++;
                 })
@@ -47,6 +59,7 @@ export class Cutscene {
         
     callMessage(message, sprite=null){
         if(sprite) this.spriteEmotions.play(sprite)
+        
         return add([
             text(message, {
                 size: 16,
@@ -63,6 +76,10 @@ export class Cutscene {
             fixed(),
             pos(center().x + 100, center().y + 120),
         ]);
+    }
+
+    confirm(){
+        play("confirm-ui", {speed: 1.5});
     }
 
     callMessageAuthor(character){

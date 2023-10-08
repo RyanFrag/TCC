@@ -81,7 +81,7 @@ def save_game():
         return args
     
 
-@views.route('//get-game-data', methods=['GET'])
+@views.route('/get-game-data', methods=['GET'])
 @login_required
 def get_game_data():
     if request.method == 'GET':
@@ -90,6 +90,7 @@ def get_game_data():
         args['response'] = {
                 "character": user.character,
                 "win": user.win,
-                "level": user.level
+                "level": user.level,
+                "name": user.first_name
             }
         return args

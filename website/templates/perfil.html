@@ -10,7 +10,7 @@
                 {% endif %}
                 <div class="info-item col-md-4">
                     <span class="info-label col">Nome</span><br><p>{{args['response']['first_name']}}</p>
-                    <span class="info-label col">Nivel</span><br><p>4</p>
+                    <span class="info-label col">Level</span><br><p>{{args['response']['level']}}</p>
                    
                 </div>
                 <div class="info-item col-md-4">
@@ -24,7 +24,7 @@
             <div class="certificado" align="center"> 
                 <h4><strong>Parabéns</strong> por completar a campanha de puzzlecrafter</h4>
                 <p>Abaixo está o certificado de sua conquista, obrigado por jogar nosso jogo!</p>
-                <a href="#" class="btn btn-primary mt-3">Baixar Certificado</a>
+                <a href="#" class="btn btn-primary mt-3" onclick="generatePDF()">Baixar Certificado</a>
             </div>
             {% endif %}
             <div class="progress-bar">

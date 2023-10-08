@@ -37,33 +37,34 @@ export class Level {
     }
 
 
-    drawMapLayout(levelLayout){  
+    drawMapLayout(levelLayout, type){ 
         const mappings = {
             tileWidth: 64,
             tileHeight: 64,
             pos: vec2(0, 0),
             tiles: {
-                'a': () => [sprite('stoneWall'), "wall", area(), scale(4), body({isStatic: true})],
-                't': () => [sprite('stoneWall-bottom'), "wall", area(), scale(4),body({isStatic: true}) ],
-                'm': () => [sprite('stoneWall-full'), "wall", area(), scale(4), body({isStatic: true})],
-                'z': () => [sprite('stoneWall-t'), "wall",  area(), scale(4), body({isStatic: true})],
-                'v': () => [sprite('stoneWall-b'), "wall", area(), scale(4), body({isStatic: true})],
-                'p': () => [sprite('stoneWall-lt'), "wall", area(), scale(4), body({isStatic: true})],
-                'y': () => [sprite('stoneWall-lb'), "wall", area(), scale(4), body({isStatic: true})],        
-                'k': () => [sprite('stoneWall-r'), "wall", area(), scale(4), body({isStatic: true})],
-                'h': () => [sprite('stoneWall-rb'), "wall", area(), scale(4), body({isStatic: true})],
-                'n': () => [sprite('stoneWall-rt'), "wall", area(), scale(4), body({isStatic: true})],
-                "j": () => [sprite("stoneWall-l"), "wall", area(), scale(4), body({isStatic: true})],
-                'd': () => [sprite('stoneWall-rbt'), "wall", area(), scale(4), body({isStatic: true})],
-                'o': () => [sprite('stoneWall-rtb'), "wall", area(), scale(4), body({isStatic: true})], 
-                "i": () => [sprite("stoneWall-lbt"), "wall", area(), scale(4), body({isStatic: true})],
+                'a': () => [sprite(`${type}`), "wall", area(), scale(4), body({isStatic: true})],
+                't': () => [sprite(`${type}-bottom`), "wall", area(), scale(4),body({isStatic: true}) ],
+                'm': () => [sprite(`${type}-full`), "wall", area(), scale(4), body({isStatic: true})],
+                'z': () => [sprite(`${type}-t`), "wall",  area(), scale(4), body({isStatic: true})],
+                'v': () => [sprite(`${type}-b`), "wall", area(), scale(4), body({isStatic: true})],
+                'p': () => [sprite(`${type}-lt`), "wall", area(), scale(4), body({isStatic: true})],
+                'y': () => [sprite(`${type}-lb`), "wall", area(), scale(4), body({isStatic: true})],        
+                'k': () => [sprite(`${type}-r`), "wall", area(), scale(4), body({isStatic: true})],
+                'h': () => [sprite(`${type}-rb`), "wall", area(), scale(4), body({isStatic: true})],
+                'n': () => [sprite(`${type}-rt`), "wall", area(), scale(4), body({isStatic: true})],
+                "j": () => [sprite(`${type}-l`), "wall", area(), scale(4), body({isStatic: true})],
+                'd': () => [sprite(`${type}-rbt`), "wall", area(), scale(4), body({isStatic: true})],
+                'o': () => [sprite(`stoneWall-rtb`), "wall", area(), scale(4), body({isStatic: true})], 
+                "i": () => [sprite(`${type}-lbt`), "wall", area(), scale(4), body({isStatic: true})],
 
+                "1": () => [sprite("t1-wood", {anim: "tile" + Math.floor(Math.random() * 11)  }), area(), scale(4)],
                
-
-
                 "l": () => [sprite("ladder-down"), "ladder-down", area(), scale(2)],
                 "u": () => [sprite("ladder-up"), "ladder-up", area(), scale(2)],
 
+                "@": () => [sprite("ladder-down-wood"), "ladder-down", area(), scale(2)],
+                "#": () => [sprite("ladder-up-wood"), "ladder-up", area(), scale(2)],
 
                 "w": () => [sprite("lava", {anim: "lava"}),"lava", area(), scale(4), body({isStatic: true})],
                 "x": () => [sprite("lava-right"), area(), scale(4), body({isStatic: true})],
