@@ -129,6 +129,7 @@ export class Enemy {
             })
 
             const walkRight = enemy.onStateEnter("walk-right",  async ()=>{
+                play("skeleton-walk", {volume: 0.1})
                 enemy.flipX = true
                 await this.walk(
                     enemy, 
@@ -139,6 +140,7 @@ export class Enemy {
             })
 
             const walkUp = enemy.onStateEnter("walk-up",  async ()=>{
+                play("skeleton-walk", {volume: 0.1})
                 await this.walkVertical(
                     enemy, 
                     -this.rangeY[index], 

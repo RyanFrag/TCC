@@ -1,6 +1,8 @@
+import { SoundTile } from "./soundTile.js"
+
 export class Box {
     createBoxes(position, key){
-                return add([
+            this.gameObj = add([
                     sprite(`wood-box`, {anim: `${key}`}),
                     pos(position),
                     area({
@@ -13,4 +15,22 @@ export class Box {
                 ])
     }
 
+    collideWithPlayer(playerObj){
+        let playing  = false
+        onUpdate(() => {
+            if(this.gameObj.isColliding(playerObj)){
+                if (!playing) {
+                    playing = true;
+                    const sound = new SoundTile()
+                    sound.addSound("wood-box", {
+                        volume: 0.1,
+                    })
+                    onCollideEnd("player", "wood-box", () => {
+                        playing = false
+                        soundTile.pause("wood-box")
+                    })       
+                }
+            }    
+        })
+    }
 }

@@ -1,4 +1,4 @@
-export const leve1Config = {
+export const level1Config = {
     playerPositionX: 128,
     playerPositionY: 768,
     nbLives: 3,
@@ -12,7 +12,10 @@ export const leve1Config = {
     enemysRangeY: [50,50,50],
     enemysSpeeds: [1, 1, 1],
     enemysType: 1,
+    cameraLeftBound : 625,
+    cameraRightBound : 1930,
+    cameraTopBound : 350,
+    cameraBottomBound : 530,
 
-    
 }
 

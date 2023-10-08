@@ -4,9 +4,8 @@ export const load = {
     },
     assets: () => {
         loadSprite("castle-background", "static/game/assets/castle_background.png" )
-        loadSprite("bg", "static/game/assets/bg.png" )
         loadSprite("logo", "static/game/assets/logo.png" )
-    
+        loadSprite("z", "static/game/assets/others/z.png" )
 
         loadSprite("stoneWall", "static/game/assets/brick/stoneWall.png")
         loadSprite("stoneWall-bottom", "static/game/assets/brick/stoneWall_bottom.png")
@@ -23,14 +22,28 @@ export const load = {
         loadSprite("stoneWall-lbt", "static/game/assets/brick/stoneWall_LBT.png")
         loadSprite("stoneWall-full", "static/game/assets/brick/stoneWall_full.png")
    
+        loadSprite("woodWall", "static/game/assets/wood/woodWall.png")
+        loadSprite("woodWall-bottom", "static/game/assets/wood/woodWall_bottom.png")
+        loadSprite("woodWall-b", "static/game/assets/wood/woodWall_B.png")
+        loadSprite("woodWall-t", "static/game/assets/wood/woodWall_T.png")
+        loadSprite("woodWall-lt", "static/game/assets/wood/woodWall_LT.png")
+        loadSprite("woodWall-lb", "static/game/assets/wood/woodWall_LB.png")
+        loadSprite("woodWall-rb", "static/game/assets/wood/woodWall_RB.png")
+        loadSprite("woodWall-rt", "static/game/assets/wood/woodWall_RT.png")
+        loadSprite("woodWall-r", "static/game/assets/wood/woodWall_R.png")
+        loadSprite("woodWall-l", "static/game/assets/wood/woodWall_L.png")
+        loadSprite("woodWall-full", "static/game/assets/wood/woodWall_full.png")
+
         loadSprite("hero-profile", "static/game/assets/hero-profile.png")
         loadSprite("priestness-profile", "static/game/assets/priestness-profile.png")
-        loadSprite("heart", "static/game/assets/heart.png")
+        loadSprite("heart", "static/game/assets/pickup/heart.png")
 
         loadSprite("ladder-down", "static/game/assets/brick/brick_down_stairs.png")
         loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png")
 
 
+        loadSprite("ladder-down-wood", "static/game/assets/wood/wooden_down_stairs.png")
+        loadSprite("ladder-up-wood", "static/game/assets/wood/wooden_up_stairs.png")
 
         loadSprite("lava-right", "static/game/assets/brick/lava_R.png")
         loadSprite("lava-left", "static/game/assets/brick/lava_L.png")
@@ -82,6 +95,48 @@ export const load = {
                 }
             }
         })
+
+        loadSprite("wood-button", "static/game/assets/wood/wood_button.png", {
+            sliceX: 3,
+            sliceY: 6,
+            anims: {
+                blank: {
+                    from: 0,
+                    to: 0,
+                },
+                happy: {
+                    from: 9,
+                    to: 9,
+                },
+                sad: {
+                    from : 12,
+                    to: 12,
+                },
+                normal: {
+                    from: 15,
+                    to: 15,
+                },
+                pressedblank: {
+                    from: 1,
+                    to: 2,
+                },
+                pressedhappy: {
+                    from: 10,
+                    to: 11,
+                },
+                pressedsad: {
+                    from: 13,
+                    to: 14,
+                },
+                pressednormal: {
+                    from: 16,
+                    to: 17,
+                }
+            }
+        })
+
+
+
         
         loadSprite("iron-bars", "static/game/assets/others/iron_bars.png", {
             sliceX : 7,
@@ -152,6 +207,63 @@ export const load = {
                     from: 5,
                     to: 5,
                 }
+            }
+        })
+
+
+        loadSprite("t1-wood", "static/game/assets/wood/wood_tile.png", {
+            sliceX: 12,
+            sliceY: 1,
+            anims: {
+                tile0: {
+                    from: 0,
+                    to: 0,
+                },
+                tile1: {
+                    from: 1,
+                    to: 1,
+                },
+                tile2: {
+                    from: 2,
+                    to: 2,
+                },
+                tile3: {
+                    from: 3,
+                    to: 3,
+                },
+                tile4: {
+                    from: 4,
+                    to: 4,
+                },
+                tile5: {
+                    from: 5,
+                    to: 5,
+                },
+                tile6: {
+                  from: 6,
+                  to: 6,  
+                },
+                tile7: {
+                    from: 7,
+                    to: 7,
+                },
+                tile8: {
+                    from: 8,
+                    to: 8,
+                },
+                tile9: {
+                    from: 9,
+                    to: 9,  
+                },
+                tile10: {
+                    from: 10,
+                    to: 10,
+                },
+                tile11: {
+                    from : 11,
+                    to: 11,
+                }
+
             }
         })
 
@@ -383,6 +495,12 @@ export const load = {
     sounds: () => {
         loadSound("confirm-ui", "static/game/sounds/confirm-ui.wav")
         loadSound("lava", "static/game/sounds/lava.wav")
+        loadSound("lever", "static/game/sounds/lever.mp3")
+        loadSound("wood-box", "static/game/sounds/wood-box.wav")
+        loadSound("button", "static/game/sounds/button.wav")
+        loadSound("skeleton-walk", "static/game/sounds/skeleton.mp3")
+        loadSound("menu", "static/game/sounds/menu.mp3")
+        loadSound("level1", "static/game/sounds/level1.mp3")
     }
 
 } 
