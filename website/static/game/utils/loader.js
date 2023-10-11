@@ -39,7 +39,10 @@ export const load = {
         loadSprite("heart", "static/game/assets/pickup/heart.png")
 
         loadSprite("ladder-down", "static/game/assets/brick/brick_down_stairs.png")
-        loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png")
+        loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png", {
+            sliceX: 1,
+            sliceY: 1
+        })
 
 
         loadSprite("ladder-down-wood", "static/game/assets/wood/wooden_down_stairs.png")
@@ -64,45 +67,364 @@ export const load = {
                 }
             }
         })
-        loadSprite("brick-button", "static/game/assets/brick/brick_button.png", {
-            sliceX: 3,
-            sliceY: 6,
+        loadSprite("blacktar", "static/game/assets/wood/blacktar.png", {
+            sliceX: 5,
+            sliceY: 1,
             anims: {
-                
-                happy: {
-                    from: 9,
+                blacktar: {
+                    from: 0,
+                    to: 4,
+                    loop: true
+                }
+            }
+        })
+        loadSprite("blacktar-left", "static/game/assets/wood/blacktar_L.png")
+        loadSprite("blacktar-right", "static/game/assets/wood/blacktar_R.png")
+        loadSprite("blacktar-bottom", "static/game/assets/wood/blacktar_B.png")
+        loadSprite("blacktar-top", "static/game/assets/wood/blacktar_T.png")
+        
+        
+        loadSprite("brickNumbers-button", "static/game/assets/brick/brick_button_numbers.png", {
+            sliceX: 3,
+            sliceY: 10,
+            anims: {
+                one : {
+                    from: 0,
+                    to: 0,
+                },
+                two : {
+                    from : 3,
+                    to: 3,
+                },
+                three : {
+                    from : 6,
+                    to: 6,  
+                },
+                four : {
+                    from : 9,
                     to: 9,
                 },
-                sad: {
+                five : {
                     from : 12,
                     to: 12,
                 },
-                normal: {
+                six : {
+                    from : 15,
+                    to: 15,
+                }, 
+                seven : {
+                    from : 18,
+                    to: 18,
+                },
+                eight : {
+                    from : 21,
+                    to: 21,
+                },
+                nine : {
+                    from : 24,
+                    to: 24,
+                },
+                zero : {
+                    from : 27,
+                    to: 27,
+                },
+                pressedone : {
+                    from : 1,
+                    to: 2,
+                },
+                pressedtwo : {
+                    from : 4,
+                    to: 5,
+                },
+                pressedthree : {
+                    from : 7,
+                    to: 8,
+                },
+                pressedfour : {
+                    from : 10,
+                    to: 11,
+                },
+                pressedfive : {
+                    from : 13,
+                    to: 14,
+                },
+                pressedsix : {
+                    from : 16,
+                    to: 17,
+                },
+                pressedseven : {
+                    from : 19,
+                    to: 20,
+                },
+                pressedeight : {
+                    from : 22,
+                    to: 23,
+                },
+                pressednine : {
+                    from : 25,
+                    to: 26,
+                },
+                pressedzero : {
+                    from : 28,
+                    to: 29,
+                },
+                unpressedone : {
+                    from : 2,
+                    to: 0,
+                },
+                unpressedtwo : {
+                    from : 5,
+                    to: 3,
+                },
+                unpressedthree : {
+                    from : 8,
+                    to: 6,
+                },
+                unpressedfour : {
+                    from : 11,
+                    to: 9,
+                },
+                unpressedfive : {
+                    from : 14,
+                    to: 12,
+                },
+                unpressedsix : {
+                    from : 17,
+                    to: 15,
+                },
+                unpressedseven : {
+                    from : 20,
+                    to: 18,
+                },
+                unpressedeight : {
+                    from : 23,
+                    to: 21,
+                },
+                unpressednine : {
+                    from : 26,
+                    to: 24,
+                },
+                unpressedzero : {
+                    from : 29,
+                    to: 27,
+                },
+            }        
+        })
+
+        loadSprite("brick-button", "static/game/assets/brick/brick_button.png", {
+            sliceX: 3,
+            sliceY: 9,
+            anims: {
+                blank: {
+                    from: 0,
+                    to: 0,
+                },
+                right: {
+                    from: 3,
+                    to: 3,
+                },
+                left: {
+                    from: 6,
+                    to: 6,
+                },
+                up: {
+                    from: 9,
+                    to: 9,
+                },
+                down: {
+                    from: 12,
+                    to: 12,
+                },
+                happy: {
                     from: 15,
                     to: 15,
                 },
-                pressedhappy: {
+                sad: {
+                    from : 18,
+                    to: 18,
+                },
+                normal: {
+                    from: 21,
+                    to: 21,
+                },
+                restart: {
+                    from: 24,
+                    to: 24,
+                },
+                pressedright: {
+                    from: 4,
+                    to: 5,
+                },
+                pressedleft: {
+                    from: 7,
+                    to: 8,
+                },
+                pressedup: {
                     from: 10,
                     to: 11,
                 },
-                pressedsad: {
+                presseddown: {
                     from: 13,
                     to: 14,
                 },
-                pressednormal: {
+                pressedrestart: {
+                    from : 25,
+                    to: 26,
+                },
+                pressedblank: {
+                    from: 1,
+                    to: 2,
+                },
+                pressedhappy: {
                     from: 16,
                     to: 17,
+                },
+                pressedsad: {
+                    from: 19,
+                    to: 20,
+                },
+                pressednormal: {
+                    from: 22,
+                    to: 23,
+                },
+                unpressedblank: {
+                    from: 2,
+                    to: 0,
+                },
+                unpressedright: {
+                    from: 5,
+                    to: 3,
+                },
+                unpressedleft: {
+                    from : 8,
+                    to: 6,
+                },
+                unpressedup: {
+                    from: 11,
+                    to: 9,
+                },
+                unpresseddown: {
+                    from: 14,
+                    to: 12,
+                },
+                unpressedrestart: {
+                    from: 26,
+                    to: 24,
+                }
+            }
+        })
+        loadSprite("wood-simbols", "static/game/assets/wood/woodSimbols.png", {
+            sliceX: 9,
+            sliceY: 1,
+            anims: {
+                question: {
+                    from: 0,
+                    to: 0,
+                },
+                exclamation: {
+                    from: 1,
+                    to: 1,
+                },
+                igual: {
+                    from: 2,
+                    to: 2,
+                },
+                multiplication: {
+                    from: 3,
+                    to: 3,
+                },
+                division: {
+                    from: 4,
+                    to: 4,
+                },
+                up: {
+                    from: 5,
+                    to: 5,
+                },
+                right: {
+                    from: 6,
+                    to: 6,
+                },
+                down: {
+                    from: 7,
+                    to: 7,
+                },
+                left: {
+                    from: 8,
+                    to: 8,
+                }
+            }
+        })
+        loadSprite("wood-numbers", "static/game/assets/wood/woodNumbers.png", {
+            sliceX: 10,
+            sliceY: 1,
+            anims: {
+                one: {
+                    from: 0,
+                    to: 0,
+                },
+                two: {
+                    from: 1,
+                    to: 1,
+                },
+                three: {
+                    from: 2,
+                    to: 2,
+                },
+                four: {
+                    from: 3,
+                    to: 3,
+                },
+                five: {
+                    from: 4,
+                    to: 4,
+                },
+                six: {
+                    from: 5,
+                    to: 5,
+                },
+                seven: {
+                    from: 6,
+                    to: 6,
+                },
+                eight: {
+                    from: 7,
+                    to: 7,
+                },
+                nine: {
+                    from: 8,
+                    to: 8,
+                },
+                zero: {
+                  from : 9,
+                  to: 9,  
                 }
             }
         })
 
         loadSprite("wood-button", "static/game/assets/wood/wood_button.png", {
             sliceX: 3,
-            sliceY: 6,
+            sliceY: 9,
             anims: {
                 blank: {
                     from: 0,
                     to: 0,
+                },
+                right: {
+                    from: 3,
+                    to: 3,
+                },
+                left: {
+                    from: 6,
+                    to: 6,
+                },
+                up: {
+                    from: 9,
+                    to: 9,
+                },
+                down: {
+                    from: 12,
+                    to: 12,
                 },
                 happy: {
                     from: 9,
@@ -115,6 +437,30 @@ export const load = {
                 normal: {
                     from: 15,
                     to: 15,
+                },
+                restart: {
+                    from: 24,
+                    to: 24,
+                },
+                pressedright: {
+                    from: 4,
+                    to: 5,
+                },
+                pressedleft: {
+                    from: 7,
+                    to: 8,
+                },
+                pressedup: {
+                    from: 10,
+                    to: 11,
+                },
+                presseddown: {
+                    from: 13,
+                    to: 14,
+                },
+                pressedrestart: {
+                    from : 25,
+                    to: 26,
                 },
                 pressedblank: {
                     from: 1,
@@ -131,13 +477,161 @@ export const load = {
                 pressednormal: {
                     from: 16,
                     to: 17,
+                },
+                unpressedblank: {
+                    from: 2,
+                    to: 0,
+                },
+                unpressedright: {
+                    from: 5,
+                    to: 3,
+                },
+                unpressedleft: {
+                    from : 8,
+                    to: 6,
+                },
+                unpressedup: {
+                    from: 11,
+                    to: 9,
+                },
+                unpresseddown: {
+                    from: 14,
+                    to: 12,
+                },
+                unpressedrestart: {
+                    from: 26,
+                    to: 24,
                 }
             }
         })
 
+        loadSprite("woodNumbers-button", "static/game/assets/wood/wood_button_numbers.png", {
+            sliceX: 3,
+            sliceY: 10,
+            anims: {
+                one : {
+                    from: 0,
+                    to: 0,
+                },
+                two : {
+                    from : 3,
+                    to: 3,
+                },
+                three : {
+                    from : 6,
+                    to: 6,  
+                },
+                four : {
+                    from : 9,
+                    to: 9,
+                },
+                five : {
+                    from : 12,
+                    to: 12,
+                },
+                six : {
+                    from : 15,
+                    to: 15,
+                }, 
+                seven : {
+                    from : 18,
+                    to: 18,
+                },
+                eight : {
+                    from : 21,
+                    to: 21,
+                },
+                nine : {
+                    from : 24,
+                    to: 24,
+                },
+                zero : {
+                    from : 27,
+                    to: 27,
+                },
+                pressedone : {
+                    from : 1,
+                    to: 2,
+                },
+                pressedtwo : {
+                    from : 4,
+                    to: 5,
+                },
+                pressedthree : {
+                    from : 7,
+                    to: 8,
+                },
+                pressedfour : {
+                    from : 10,
+                    to: 11,
+                },
+                pressedfive : {
+                    from : 13,
+                    to: 14,
+                },
+                pressedsix : {
+                    from : 16,
+                    to: 17,
+                },
+                pressedseven : {
+                    from : 19,
+                    to: 20,
+                },
+                pressedeight : {
+                    from : 22,
+                    to: 23,
+                },
+                pressednine : {
+                    from : 25,
+                    to: 26,
+                },
+                pressedzero : {
+                    from : 28,
+                    to: 29,
+                },
+                unpressedone : {
+                    from : 2,
+                    to: 0,
+                },
+                unpressedtwo : {
+                    from : 5,
+                    to: 3,
+                },
+                unpressedthree : {
+                    from : 8,
+                    to: 6,
+                },
+                unpressedfour : {
+                    from : 11,
+                    to: 9,
+                },
+                unpressedfive : {
+                    from : 14,
+                    to: 12,
+                },
+                unpressedsix : {
+                    from : 17,
+                    to: 15,
+                },
+                unpressedseven : {
+                    from : 20,
+                    to: 18,
+                },
+                unpressedeight : {
+                    from : 23,
+                    to: 21,
+                },
+                unpressednine : {
+                    from : 26,
+                    to: 24,
+                },
+                unpressedzero : {
+                    from : 29,
+                    to: 27,
+                },
+            }        
+        })
 
-
-        
         loadSprite("iron-bars", "static/game/assets/others/iron_bars.png", {
             sliceX : 7,
             sliceY : 1,
@@ -179,7 +673,7 @@ export const load = {
                 }
             }
         })
-        loadSprite("wood-box", "static/game/assets/crates/wooden_crates.png", {
+        loadSprite("wood-box-normal", "static/game/assets/crates/wooden_crates.png", {
             sliceX: 6,
             sliceY: 1,
             anims: {
@@ -187,11 +681,11 @@ export const load = {
                     from: 0,
                     to: 0,
                 },
-                box1: {
+                maior: {
                     from: 1,
                     to: 1,
                 },
-                box2: {
+                menor: {
                     from: 2,
                     to: 2,
                 },
@@ -206,6 +700,53 @@ export const load = {
                 normal: {
                     from: 5,
                     to: 5,
+                }
+            }
+        })
+
+        loadSprite("wood-box-numbers", "static/game/assets/crates/wooden_crates_numbers.png", {
+            sliceX: 10,
+            sliceY: 1,
+            anims: {
+                one: {
+                    from: 0,
+                    to: 0,
+                },
+                two: {
+                    from: 1,
+                    to: 1,
+                },
+                three: {
+                    from: 2,
+                    to: 2,
+                },
+                four: {
+                    from: 3,
+                    to: 3,
+                },
+                five: {
+                    from: 4,
+                    to: 4,
+                },
+                six: {
+                    from: 5,
+                    to: 5,
+                },
+                seven: {
+                    from: 6,
+                    to: 6,
+                },
+                eight: {
+                    from: 7,
+                    to: 7,
+                },
+                nine: {
+                    from: 8,
+                    to: 8,
+                },
+                zero: {
+                  from : 9,
+                  to: 9,  
                 }
             }
         })
@@ -399,7 +940,8 @@ export const load = {
             }
         })
 
-        loadSprite("question-tile", "static/game/assets/brick/stoneQuestion.png")
+        loadSprite("question-brick", "static/game/assets/brick/stoneQuestion.png")
+        loadSprite("question-wood", "static/game/assets/wood/woodQuestion.png")
         loadSprite("alert-tile", "static/game/assets/brick/stoneAlert.png")
         loadSprite("mark-tile", "static/game/assets/brick/stoneMark.png")
         loadSprite("heart-tile", "static/game/assets/brick/stoneHeart.png")
@@ -501,6 +1043,7 @@ export const load = {
         loadSound("skeleton-walk", "static/game/sounds/skeleton.mp3")
         loadSound("menu", "static/game/sounds/menu.mp3")
         loadSound("level1", "static/game/sounds/level1.mp3")
+        loadSound("level2", "static/game/sounds/level2.mp3")
     }
 
 } 

@@ -76,6 +76,13 @@ export class Level {
                 "b": () => [sprite("lava-left-top"), area(), scale(4), body({isStatic: true})],
                 "g": () => [sprite("lava-right-top"), area(), scale(4)],
                 
+
+                "$": () => [sprite("blacktar", {anim: "blacktar"}), "blacktar", area(), scale(4),body({isStatic: true})],
+                "(": () => [sprite("blacktar-left"), area(), scale(4), body({isStatic: true})],
+                "+": () => [sprite("blacktar-right"), area(), scale(4), body({isStatic: true})],
+                "^": () => [sprite("blacktar-top"), area(), scale(4), body({isStatic: true})],
+                "%": () => [sprite("blacktar-bottom"), area(), scale(4), body({isStatic: true})],
+
                 "?": () => [sprite("t1", {anim: "tile" + Math.floor(Math.random() * 7)  }), area(), scale(4)],
                 "!": () => [sprite("t2", {anim: "tile" + Math.floor(Math.random() * 7)  }), area(), scale(4)],
                 ".": () => [sprite("t3", {anim: "tile" + Math.floor(Math.random() * 4)  }), area(), scale(4)],

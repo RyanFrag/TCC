@@ -129,7 +129,6 @@ export class Enemy {
             })
 
             const walkRight = enemy.onStateEnter("walk-right",  async ()=>{
-                play("skeleton-walk", {volume: 0.1})
                 enemy.flipX = true
                 await this.walk(
                     enemy, 
@@ -140,12 +139,15 @@ export class Enemy {
             })
 
             const walkUp = enemy.onStateEnter("walk-up",  async ()=>{
-                play("skeleton-walk", {volume: 0.1})
                 await this.walkVertical(
                     enemy, 
                     -this.rangeY[index], 
                     this.speeds[index]
                 )
+                const randomDelay = Math.floor(Math.random() * 10 + 1) * 1000;
+                setTimeout(() => {
+                    play("skeleton-walk", {volume: 0.1})
+                  }, randomDelay);
                 enemy.enterState("idle", "walk-up")
             })
 
@@ -206,7 +208,6 @@ export class Enemy {
     update(){
         onUpdate(() => {
             this.openBarriers();
-
             for (const enemy of this.enemys) {
                 this.followPlayer(enemy);
             }

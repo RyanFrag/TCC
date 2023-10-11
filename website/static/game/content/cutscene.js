@@ -79,7 +79,7 @@ export class Cutscene {
     }
 
     confirm(){
-        play("confirm-ui", {speed: 1.5});
+        play("confirm-ui", {speed: 1.5, volume: 0.4});
     }
 
     callMessageAuthor(character){

@@ -1,11 +1,11 @@
 export class Question {
-    constructor(positions, questionNumber) {
+    constructor(positions, questionNumber, type) {
         this.questionNumber = questionNumber
         this.questions = []
         for(const position of positions){
             this.questions.push(
                 add([
-                    sprite("question-tile"),
+                    sprite(`question-${type}`),
                     pos(position),
                     area({
                         shape: new Rect(vec2(1, 3), 8, 8),

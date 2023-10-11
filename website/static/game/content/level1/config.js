@@ -8,7 +8,7 @@ export const level1Config = {
         () => vec2(970,470),
         () => vec2(970,350),
         ],
-    enemysRange: [50,50,50],
+    enemysRangeX: [50,50,50],
     enemysRangeY: [50,50,50],
     enemysSpeeds: [1, 1, 1],
     enemysType: 1,

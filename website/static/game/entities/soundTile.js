@@ -16,7 +16,7 @@ export class SoundTile{
         this.soundMap[sound] = play(sound, options)
 
     }
-    play(sound) {
+    playSound(sound) {
         this.soundMap[sound].seek = 0
         this.soundMap[sound].paused = false
       }
