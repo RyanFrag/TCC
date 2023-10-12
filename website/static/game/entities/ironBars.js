@@ -1,7 +1,7 @@
 import events from "../controller/events.js";
 import { SoundTile } from "./soundTile.js";
 
-export const Bars = (positions, key, boxesRequired, openWithBox) => {
+export const Bars = (positions, key, boxesRequired, openWithBox, type) => {
     let open = false;
     let barsList = [];
     let boxesPressed = 0; 
@@ -9,7 +9,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
     for (const position of positions) {
         barsList.push(
             add([
-                sprite(`iron-bars`, { anim: "closed" }),
+                sprite(`iron-bars-${type}`, { anim: "closed" }),
                 pos(position),
                 area({
                     shape: new Rect(vec2(1, 3), 32, 32),
@@ -28,6 +28,8 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
                 boxesPressed++;
                 if (boxesPressed >= boxesRequired) {
                     events.emit("open_bars_"+key)
+                    events.emit("progress_" + key)
+
                 }
             } 
         }    
@@ -63,8 +65,10 @@ export const Bars = (positions, key, boxesRequired, openWithBox) => {
                 })
                 open = true;
                 bar.play("open");
+                events.emit("progress_" + key)
                 events.remove("open_bars_" + key, openBars);
                 bar.unuse("body")          
+                
             }
         }
     }

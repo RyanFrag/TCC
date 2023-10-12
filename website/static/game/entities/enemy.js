@@ -34,14 +34,17 @@ export class Enemy {
         openBarriers(){
             const allEnemiesKilled = this.enemys.every(enemy => enemy.killed === true);
             if (allEnemiesKilled) {
+                
                 events.emit("open_bars_" + this.key);
+
             }
         }
 
         killEnemy(index){
-            this.enemys[index].onCollide("player", () => {
+            this.enemys[index].onCollide("slash", () => {
                 if (index >= 0 && index < this.enemys.length) {
                     this.enemys[index].killed = true;
+                    destroy(this.enemys[index]);
                 }
             })
         }

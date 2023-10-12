@@ -76,6 +76,8 @@ def save_game():
         args = {'method': 'post', 'suffix': 'game', 'route': 'game/save'}
         data = json.loads(request.data)
         user = User.query.filter_by(id=current_user.id).first()
+        user.startX = data['startX']
+        user.startY = data['startY']
         user.level = data['level']
         db.session.commit()
         return args
@@ -91,6 +93,8 @@ def get_game_data():
                 "character": user.character,
                 "win": user.win,
                 "level": user.level,
-                "name": user.first_name
+                "name": user.first_name,
+                "startX": user.startX,
+                "startY": user.startY
             }
         return args

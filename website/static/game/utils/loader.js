@@ -632,7 +632,7 @@ export const load = {
             }        
         })
 
-        loadSprite("iron-bars", "static/game/assets/others/iron_bars.png", {
+        loadSprite("iron-bars-horizontal", "static/game/assets/others/iron_bars.png", {
             sliceX : 7,
             sliceY : 1,
             anims: {
@@ -649,8 +649,26 @@ export const load = {
                     to: 6,
                 }
             }
-
         })
+        loadSprite("iron-bars-vertical", "static/game/assets/others/iron_bars_vertical.png", {
+            sliceX : 7,
+            sliceY : 1,
+            anims: {
+                closed: {
+                    from: 0,
+                    to: 0,
+                },
+                open: {
+                    from: 0,
+                    to: 3,
+                },
+                closeUp: {
+                    from: 3,
+                    to: 6,
+                }
+            }
+        })
+
         loadSprite("lever", "static/game/assets/others/lever.png", {
             sliceX: 5,
             sliceY: 1,
@@ -972,6 +990,19 @@ export const load = {
                 
             }
         })
+
+        loadSprite("attack-hero", "static/game/assets/male-attack.png",{
+            sliceX: 6,
+            sliceY: 1,
+            anims: {
+                attack: {
+                    from: 0,
+                    to: 5,
+                },
+                
+            }
+        })
+
 
         loadSprite("run-sacerdotisa", "static/game/assets/player-sacerdotisa.png",{
             sliceX: 8,

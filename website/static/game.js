@@ -27,6 +27,8 @@ import { SoundTile } from "./game/entities/soundTile.js";
 import { NumberTiles } from "./game/entities/numberTiles.js";
 import { Simbols } from "./game/entities/simbols.js";
 import { Car } from "./game/entities/car.js";
+import events from "./game/controller/events.js";
+import { Save } from "./game/utils/Save.js";
 
 export const k = kaboom({
     width: 1200,
@@ -49,20 +51,20 @@ const scenes = {
         uiManager.displaySelection()
     },
     
-    1: async (character, reEnter=false) => {
+    1: async (character, positionX, positionY) => {
+        const save = new Save()
+        save.saveGame(1, positionX, positionY)
+        let onCutscene = true
+        if(positionX > 600){
+            onCutscene = false
+        }
         const music = play("level1", {
-            volume: 0.4,
+            volume: 0.2,
             loop: true
         })
-        let  onCutscene = true
-        if(reEnter){
-            onCutscene = false,
-            level1Config.playerPositionX = 2190
-            level1Config.playerPositionY = 160
-        }
         const level1 = new Level()
         level1.drawMapLayout(level1Layout, "stoneWall")
-
+        level1.displayLevel(1)
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
             new Npc([vec2(220,180)], "sacerdotisa",)
@@ -73,12 +75,12 @@ const scenes = {
         Bars([
             vec2(1570, 690),
             vec2(1570, 770),
-        ], 'open1', 0, false)
+        ], 'open1', 0, false, 'vertical')
 
         Bars([
             vec2(610, 690),
             vec2(610, 770),
-        ], 'open3', 3, true)
+        ], 'open3', 3, true, 'vertical')
         const soundTile = new SoundTile()
         const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
         
@@ -97,20 +99,20 @@ const scenes = {
         pressPlate2.pressPlate(false, false, true)
         pressPlate3.pressPlate(false, false,  true)
 
-   
+
         const question1 = new Question([vec2(1650, 440)], 0, "brick")
         const question2 = new Question([vec2(1375, 160)], 2, "brick")
         const question3 = new Question([vec2(420, 225)], 3, "brick")
 
         Bars([
             vec2(1175, 220)
-        ], "lever1", 0, false)
+        ], "lever1", 0, false, 'vertical')
         Bars([
             vec2(1175, 350)
-        ], "lever2", 0, false)
+        ], "lever2", 0, false, 'vertical')
         Bars([
             vec2(1175, 470)
-        ], "lever3", 0, false)
+        ], "lever3", 0, false, 'vertical')
    
         const lever1 = new Lever(
             [
@@ -134,27 +136,27 @@ const scenes = {
             vec2(1880, 600),
             vec2(1880, 500),
             vec2(1880, 400),
-        ], 'barrier1', 0, false
+        ], 'barrier1', 0, false, 'vertical'
         )
 
         Bars([
             vec2(2020, 400),
             vec2(2020, 500),
             vec2(2020, 600),
-        ], 'barrier2', 0, false
+        ], 'barrier2', 0, false, 'vertical'
         )
 
         Bars([
             vec2(2150, 400),
             vec2(2150, 500),
             vec2(2150, 600),
-        ], 'barrier3', 0, false
+        ], 'barrier3', 0, false, 'vertical'
         )
 
         Bars([
             vec2(2360, 460),
             vec2(2360, 550),
-        ], 'barrier4', 0, false
+        ], 'barrier4', 0, false, 'vertical'
         )
 
         
@@ -183,8 +185,8 @@ const scenes = {
         lever7.pullLever(true)
 
         const player = new Player(
-            level1Config.playerPositionX,
-            level1Config.playerPositionY,
+            positionX,
+            positionY,
             level1Config.playerSpeed,
             1,
             false,
@@ -197,12 +199,10 @@ const scenes = {
         box1.collideWithPlayer(playerObj)
         box2.collideWithPlayer(playerObj)
         box3.collideWithPlayer(playerObj)
-
-
         let playing  = false
-        onUpdate(() => {
 
-            // player.attack(['left', 'right', 'up', 'down'])
+  
+        onUpdate(() => {
             if (playerObj.isColliding(sound)) {
                 if (!playing) {
                     playing = true;
@@ -221,7 +221,7 @@ const scenes = {
                 }
             } 
         });
-        
+  
         player.playIdleAnimation()
         player.hitQuestionTile(question1.questionNumber);
         player.hitQuestionTile(question2.questionNumber);
@@ -247,19 +247,27 @@ const scenes = {
         enemys.killEnemy(1)
         enemys.killEnemy(2)
         enemys.update()
-        player.hitByMobs()
 
-        
-        
+        events.listen("progress_open3", () => {
+            save.saveGame(1,810, 700)
+        })
+        events.listen("progress_open1", () => {
+            save.saveGame(1, 1700, 700)
+        })
+        player.hitByMobs()
         if(onCutscene){
-            level1.displayLevel(player.currentLevel)
             const cutscene = new Cutscene()
             player.onCutscene = await cutscene.cutsceneCreator(textLines)
         }  
         player.setPlayerControls()
-        player.attack(['left', 'right', 'up', 'down'])
+        onKeyPress("space", () => {
+            player.attack(["left", "right", "up", "down"])
+        })
+        onKeyRelease("space", () => {
+                destroyAll("slash")
+        });  
         player.hitByNpc(npc);
-        player.goNextLevel(character)
+        player.goNextLevel(character, 230, 470)
         player.update()
 
         onSceneLeave(() => {
@@ -267,7 +275,9 @@ const scenes = {
         }); 
     
     },
-    2: async (character, reEnter=false) => {
+    2: async (character, positionX, positionY) => {
+        const save = new Save()
+        save.saveGame(2, positionX, positionY)
         const music = play("level2", {
             volume: 0.4,
             loop: true
@@ -279,25 +289,25 @@ const scenes = {
         Bars([
             vec2(220, 780),
             vec2(220, 720),
-        ], 'leverLevel1', 0, false)
+        ], 'leverLevel1', 0, false, 'vertical')
         Bars([
             vec2(675, 780),
             vec2(675, 720),
-        ], 'leverLevel2', 0, false),
+        ], 'leverLevel2', 0, false, 'vertical'),
         Bars([
             vec2(930, 340),
             vec2(870, 340),
-        ], 'leverLevel3', 0, false)
+        ], 'leverLevel3', 0, false, 'horizontal')
         
         Bars([
             vec2(990, 780),
             vec2(990, 720),
-        ], 'blank', 0, false)
+        ], 'blank', 0, false, 'vertical')
 
         Bars([
             vec2(1950, 540),
             vec2(1950, 480),
-        ], 'open', 4, true)
+        ], 'open', 4, true, 'vertical')
         
         const lever1 = new Lever(
             [
@@ -365,6 +375,7 @@ const scenes = {
             false,
             'open2', 
         )
+        enemys.killEnemy(0)
         if(character == "hero"){
             new Npc([vec2(200,300)], "sacerdotisa")
             new Npc([vec2(4430,750)], "sacerdotisa")
@@ -374,8 +385,8 @@ const scenes = {
         }
 
         const player = new Player(
-            level2Config.playerPositionX,
-            level2Config.playerPositionY,
+            positionX,
+            positionY,
             level2Config.playerSpeed,
             2,
             false,
@@ -384,6 +395,7 @@ const scenes = {
             )
 
         playerObj =  player.makePlayer(character)
+        
         box1.collideWithPlayer(playerObj)
         box2.collideWithPlayer(playerObj)
         box3.collideWithPlayer(playerObj)
@@ -401,29 +413,39 @@ const scenes = {
         
         // player.onCutscene = await cutscene.cutsceneCreator(textLines)
         player.setPlayerControls()
+        onKeyPress("space", () => {
+            player.attack(["left", "right", "up", "down"])
+        })
+        onKeyRelease("space", () => {
+                destroyAll("slash")
+        });  
         player.hitByMobs()
         player.hitQuestionTile();
         player.hitQuestionTile(question1.questionNumber);
         player.hitQuestionTile(question2.questionNumber);
         const npc = character === "hero" ? "sacerdotisa" : "hero";
-        player.attack(['left', 'right', 'up', 'down'])
         player.hitByNpc(npc);
-        player.goNextLevel(character)
-        player.goPreviousLevel(character)
+        player.goNextLevel(character, 230, 690)
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
         player.update()
-  
+        events.listen("progress_blank", () => {
+            save.saveGame(2,1040, 700)
+        })
+        events.listen("progress_open", () => {
+            save.saveGame(2, 2100, 420)
+        })
 
         onUpdate(() => {
-            // player.attack(['left', 'right', 'up', 'down'])
             onSceneLeave(() => {
                 music.pause = true
             }); 
         });
 
     },
-    3: async (character, reEnter=false) => {
+    3: async (character, positionX, positionY) => {
+        const save = new Save()
+        save.saveGame(3, positionX, positionY)        
         const soundTile = new SoundTile()
         const sound = soundTile.addSoundTile("t1-wood", 'blacktar', vec2(2100, 256))
  
@@ -432,7 +454,7 @@ const scenes = {
         Bars([
             vec2(3170, 280),
             vec2(3170, 220),
-        ], 'open1', 0, false)
+        ], 'open1', 0, false, "vertical")
         new NumberTiles(vec2(500, 770), "two")
         new NumberTiles(vec2(900, 520), "eight")
         new NumberTiles(vec2(1700, 510), "four")
@@ -470,8 +492,8 @@ const scenes = {
             new Npc([vec2(800, 720)], "hero")
         }
         const player = new Player(
-            level3Config.playerPositionX,
-            level3Config.playerPositionY,
+            positionX,
+            positionY,
             level3Config.playerSpeed,
             3,
             false,
@@ -485,37 +507,50 @@ const scenes = {
             level3Config.enemysSpeeds,
             level3Config.enemysType,
             false,
-            'open1',
+            'open$',
         )
-
+        enemys.killEnemy(0)
+        enemys.killEnemy(1)
+        enemys.killEnemy(2)
+        enemys.killEnemy(3)
+        enemys.killEnemy(4)
         enemys.update()
         enemys.setMovementEnemy()
         playerObj =  player.makePlayer(character)
         player.playIdleAnimation()
         player.setPlayerControls()
+        onKeyPress("space", () => {
+            player.attack(["left", "right", "up", "down"])
+        })
+        onKeyRelease("space", () => {
+                destroyAll("slash")
+        });  
         player.hitByMobs()
         player.hitQuestionTile();
         const npc = character === "hero" ? "sacerdotisa" : "hero";
-        player.attack(['left', 'right', 'up', 'down'])
         player.hitByNpc(npc);
-        player.goNextLevel(character)
-        player.goPreviousLevel(character)
+        player.goNextLevel(character, 230, 690)
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
         player.update()
         level3.displayLevel(player.currentLevel)
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level3Config.cameraLeftBound, level3Config.cameraRightBound, level3Config.cameraTopBound, level3Config.cameraBottomBound)
-
+        events.listen("progress_open$", () => {
+            save.saveGame(3, 3200, 600)
+        })
     
     },
-    4: async (character, reEnter=false) => {
+    4: async (character, positionX, positionY) => {
+        const save = new Save()
+        save.saveGame(4, positionX, positionY)          
+        
         const level4 = new Level()
         level4.drawMapLayout(level4Layout, "stoneWall")
     
         const player = new Player(
-            level4Config.playerPositionX,
-            level4Config.playerPositionY,
+            positionX,
+            positionY,
             level4Config.playerSpeed,
             4,
             false,
@@ -525,29 +560,28 @@ const scenes = {
 
         Bars([
             vec2(140, 470)
-        ], "lever3", 0, false)
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(240, 470)
-        ], "lever3", 0, false)
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(340, 470)
-        ], "lever3", 0, false)
-
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(440, 470)
-        ], "lever3", 0, false)
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(540, 470)
-        ], "lever3", 0, false)
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(640, 470)
-        ])
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(740, 470)
-        ])
+        ], "lever3", 0, false, "horizontal")
         Bars([
             vec2(840, 470)
-        ])
+        ], "lever3", 0, false, "horizontal")
 
         const pressPlate = new Pressure(vec2(820, 270), "macqueen", "brick", "blank")
         pressPlate.pressPlate()
@@ -555,7 +589,7 @@ const scenes = {
         Bars([
             vec2(930, 740),
             vec2(930, 800),
-        ], "macqueen", 0, false)
+        ], "macqueen", 0, false, "vertical")
 
         const pressPlateWalkRight = new Pressure(vec2(200, 560), "macqueen", "brick", "left")
         const pressPlateWalkLeft = new Pressure(vec2(120, 560), "macqueen", "brick", "right")
@@ -606,32 +640,32 @@ const scenes = {
 
         Bars([
             vec2(1440, 470)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1440, 570)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1440, 670)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
 
         Bars([
             vec2(1440, 370)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1440, 270)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1440, 170)
-        ],"jose", 0, false)
+        ],"jose", 0, false, "vertical")
         Bars([
             vec2(1440, 770)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1950, 540)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
         Bars([
             vec2(1950, 480)
-        ], "jose", 0, false)
+        ], "jose", 0, false, "vertical")
 
         if(character == "hero"){
             new Npc([vec2(500,720)], "sacerdotisa")
@@ -644,6 +678,12 @@ const scenes = {
         Car(vec2(1500, 200), 1500, "jose")
         Car(vec2(200, 200), 1500, "macqueen")
         player.setPlayerControls()
+        onKeyPress("space", () => {
+            player.attack(["left", "right", "up", "down"])
+        })
+        onKeyRelease("space", () => {
+                destroyAll("slash")
+        });  
         player.playIdleAnimation()
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
@@ -651,16 +691,21 @@ const scenes = {
         level4.displayLevel(player.currentLevel)
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level4Config.cameraLeftBound, level4Config.cameraRightBound, level4Config.cameraTopBound, level4Config.cameraBottomBound)
-        player.goNextLevel(character)
+        player.goNextLevel(character, 600, 1040)
+        events.listen("progress_macqueen", () => {
+            save.saveGame(4, 1100, 690)
+        })
 
     },
-    5: async (character, reEnter=false) => {
+    5: async (character, positionX, positionY) => {
+        const save = new Save()
+        save.saveGame(5, positionX, positionY)          
         const level5 = new Level()
         level5.drawMapLayout(level5Layout, "stoneWall")
 
         const player = new Player(
-            level5Config.playerPositionX,
-            level5Config.playerPositionY,
+            positionX,
+            positionY, 
             level5Config.playerSpeed,
             5,
             true,
@@ -670,6 +715,12 @@ const scenes = {
 
         playerObj =  player.makePlayer(character)
         player.setPlayerControls()
+        onKeyPress("space", () => {
+            player.attack(["left", "right", "up", "down"])
+        })
+        onKeyRelease("space", () => {
+                destroyAll("slash")
+        });  
         player.playIdleAnimation()
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
@@ -677,8 +728,7 @@ const scenes = {
         level5.displayLevel(player.currentLevel)
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level5Config.cameraLeftBound, level5Config.cameraRightBound, level5Config.cameraTopBound, level5Config.cameraBottomBound)
-        player.goNextLevel(character)
-
+        player.goNextLevel(character, 128, 700)
     },
     gameOver: () =>{
         uiManager.displayGameOver()

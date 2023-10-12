@@ -1,6 +1,8 @@
 import { Cutscene } from "../content/cutscene.js"
 import { NpcTextLines } from "../content/level1/npcText1.js"
 import { QuestionTextLines } from "../content/level1/questionText1.js"
+import { Save } from "../utils/Save.js"
+let currentFlip = null
 
 export class Player {
     constructor(
@@ -22,6 +24,7 @@ export class Player {
 
         }
         makePlayer(character){
+            console.log(character)
             this.gameObj = add([
                 {
                     sprites: {
@@ -50,6 +53,7 @@ export class Player {
         setPlayerControls() {
                 if(this.speed == 0) this.gameObj.play("idle")
                 onKeyDown("left", () => {
+                    currentFlip = true
                     if(this.gameObj.curAnim() !== "run" && this.speed > 0){
                         this.gameObj.use(sprite(this.gameObj.sprites.run))
                         this.gameObj.play("run")
@@ -58,6 +62,7 @@ export class Player {
                     this.gameObj.move(-this.speed, 0)
                 })
                 onKeyDown("right", () => {
+                    currentFlip = false
                     if(this.gameObj.curAnim() !== "run" && this.speed > 0){
                         this.gameObj.use(sprite(this.gameObj.sprites.run))
                         this.gameObj.play("run")
@@ -140,58 +145,49 @@ export class Player {
                     return
                 }
             }
-
-            const currentFlip = this.gameObj
-            if(this.gameObj.curAnim() !== "attack"){         
-                // this.gameObj.use(sprite(this.gameObj.sprites.attack))
-                this.gameObj.flipX = currentFlip
-                const slashX = this.gameObj.pos.x + 110
-                const slashXFlipped = this.gameObj.pos.x - 110
-                let x = null
-                x = currentFlip ? slashXFlipped : slashX
-            add([
-                rect(50,50),
-                area(),
-                pos(vec2(x, this.gameObj.pos.y -70)),
-                scale(3),
-                opacity(0),
-                "slash"
-            ])
-    
-            onKeyPress("space", () => {
+            const slashX = this.gameObj.pos.x + 40
+            const slashXFlipped = this.gameObj.pos.x - 110
+            let x = null
+            x = currentFlip ? slashXFlipped : slashX           
+            this.gameObj.use(sprite(this.gameObj.sprites.attack));
+            if (currentFlip) {
+                this.gameObj.flipX = true;
                 this.gameObj.play("attack", {
                     onEnd: () => {
-                        this.playIdleAnimation()
-                        this.gameObj.flipX = currentFlip
-                        }
-                    }) 
+                        this.playIdleAnimation();
+                        this.gameObj.flipX = true
                     }
-                )
-            onKeyRelease("space", () => {
-                destroyAll("slash")
-            })
-                
-            }  
+                });
+            } else {
+                this.gameObj.flipX = false;
+                this.gameObj.play("attack", {
+                    onEnd: () => {
+                        this.playIdleAnimation();
+                        this.gameObj.flipX = false
+                    }
+                });
+            }
+            add([
+                rect(30,30),
+                area(),
+                pos(vec2(x, this.gameObj.pos.y -40)),
+                scale(3),
+                opacity(0), 
+                "slash"
+            ])
         }
-        goNextLevel(character){
-            function newLevel(context, character){
+        goNextLevel(character, positionX, positionY){
+            function newLevel(context, character, positionX, positionY){
                 if(context.finalLevel === true){
+                    Save.saveGame(1, positionX, positionY)
                     go("end")
                 }else{
-                    go(context.currentLevel+1, character)
+                    go(context.currentLevel+1, character, positionX, positionY)
                 }
             }
-            this.gameObj.onCollide("ladder-down", () => newLevel(this, character))
+            this.gameObj.onCollide("ladder-down", () => newLevel(this, character, positionX, positionY))
         }
         
-        goPreviousLevel(character){
-            function previousLevel(context, character){
-                go(context.currentLevel-1, character, true)
-            }
-            this.gameObj.onCollide("ladder-up", () => previousLevel(this, character))
-        }
-
-
         update(){
             onUpdate(() => {
               if(this.onCutscene){

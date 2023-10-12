@@ -34,6 +34,7 @@ export class Pressure {
                         volume: 0.1
                     })
                     events.emit("open_bars_" + this.key)   
+                    events.emit("progress_" + this.key)   
                 }) 
             } else if(playerPress){
                 const sound = new SoundTile()
@@ -48,6 +49,7 @@ export class Pressure {
                             false,
                             'open2', 
                         )
+                        enemys.killEnemy(0)
                         enemys.setMovementEnemy()
                         enemys.update()
                         this.pressed =  true
@@ -76,6 +78,7 @@ export class Pressure {
                         volume: 0.1
                     })
                     events.emit("box_pressed", this.key)   
+
                 }) 
                 
             }else{
@@ -89,7 +92,6 @@ export class Pressure {
                     events.emit("open_bars_" + this.key)
                 })
             }
-  
         }
     }
 

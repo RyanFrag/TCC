@@ -17,5 +17,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     character = db.Column(db.String(150), nullable=True)
     level = db.Column(db.Integer, default=0)
+    startX = db.Column(db.Integer, default=128)
+    startY = db.Column(db.Integer, default=700)
     win = db.Column(db.Boolean, default=False)
 

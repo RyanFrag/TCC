@@ -109,7 +109,7 @@ class UIManager {
                 vec2(center().x, center().y + 200)
             )
 
-            this.loadGame(responseData['response']['level'], responseData['response']['character']);
+            this.loadGame(responseData['response']['level'], responseData['response']['character'], responseData['response']['startX'], responseData['response']['startY']);
             
         }else{
             this.displayBlinkingUiMessage(
@@ -188,10 +188,10 @@ class UIManager {
         }) 
     }
     
-    loadGame(fase, character){
+    loadGame(fase, character, positionX, positionY){
         onKeyPress("enter", () => {
             play("confirm-ui", {speed: 1.5});
-            go(fase, character)
+            go(fase, character, positionX, positionY);
         })
 
     }

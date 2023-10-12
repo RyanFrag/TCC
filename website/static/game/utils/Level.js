@@ -3,15 +3,7 @@
 export class Level {
 
     async displayLevel(level){
-        const dataToSend = { level: level };
-        await fetch('/save-game', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        })    
+    
 
         const message = add([
             text(`Level: ${level}`, {

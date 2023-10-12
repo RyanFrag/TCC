@@ -1,5 +1,5 @@
 export const level3Config = {
-    playerPositionX: 2000,
+    playerPositionX: 200,
     playerPositionY: 690,
     nbLives: 3,
     playerSpeed: 400,
