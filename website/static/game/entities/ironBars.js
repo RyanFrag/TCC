@@ -40,6 +40,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox, type) => {
         if (open) {
             open = false;
             for (const bar of barsList) {
+                console.log("fui chamada")
                 const sound = new SoundTile()
                 sound.addSound("lever", {
                     volume: 0.1

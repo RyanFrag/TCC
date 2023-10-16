@@ -12,28 +12,8 @@ export class Box {
                     body(),
                     scale(2),
                     `box-${key}`,
-                    `wood-box-${type}`,
+                    `wood-box`,
                 ])
-    }
-
-    
-    collideWithPlayer(playerObj){
-        let playing  = false
-        onUpdate(() => {
-            if(this.gameObj.isColliding(playerObj)){
-                if (!playing) {
-                    playing = true;
-                    const sound = new SoundTile()
-                    sound.addSound("wood-box", {
-                        volume: 0.5,
-                    })
-                    onCollideEnd("player", `wood-box-${this.type}`, () => {
-                        console.log('entrei')
-                        playing = false
-                        soundTile.pause("wood-box")
-                    })       
-                }
-            }
-        })
+            return this.gameObj
     }
 }

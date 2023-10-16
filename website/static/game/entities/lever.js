@@ -12,7 +12,7 @@ export class Lever {
                     sprite(`lever`, {anim: "right"}),
                     pos(position),
                     area({
-                        shape: new Rect(vec2(1, 3), 16, 16),
+                        shape: new Rect(vec2(1, 3), 8, 8),
                     }),
                     anchor("center"),
                     body({isStatic: true}),

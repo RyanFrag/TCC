@@ -13,13 +13,16 @@ $(document).ready(function() {
     let progress = 0
     
     if(level == 1){
-      progress = 25
+      progress = 20
     }else if(level == 2){
-      progress = 50
+      progress = 40
     }else if(level == 3){
-      progress = 75
+      progress = 60
     }else if(level == 4){
-      progress = 99
+      progress = 80
+    }
+    else if(level == 5){
+      progress = 100
     }
     $("#dynamic")
       .css("width", progress + "%")

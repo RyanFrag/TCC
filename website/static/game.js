@@ -49,6 +49,18 @@ const scenes = {
     },
     selection: () => {
         uiManager.displaySelection()
+        const save = new Save()
+        save.saveGame(1, 130, 700)
+    },
+    cutscene: () => {
+        uiManager.displayIntroCutscene()
+        const music = play("start", {
+            volume: 0.1,
+            loop: true
+        })
+        onSceneLeave(() => {
+            music.paused = true
+        })
     },
     
     1: async (character, positionX, positionY) => {
@@ -82,27 +94,40 @@ const scenes = {
             vec2(610, 770),
         ], 'open3', 3, true, 'vertical')
         const soundTile = new SoundTile()
-        const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256))
-        
+        const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256), 200)
+        const question1 = new Question([vec2(1650, 420)], 0, "brick")
+        const question2 = new Question([vec2(1375, 160)], 2, "brick")
+        const question3 = new Question([vec2(420, 225)], 3, "brick")
         const pressPlate = new Pressure(vec2(730, 360), "normal", "brick", "normal")
         const pressPlate2 = new Pressure(vec2(730, 260), "happy", "brick", "happy")
         const pressPlate3 = new Pressure(vec2(730, 450),"sad", "brick", "sad")
-
+        const pressPlate4 = new Pressure(vec2(384, 450),"restart", "brick", "restart")
         const box1 = new Box()
-        box1.createBoxes(vec2(500, 260),'normal', 'normal' )
+
+        const boxObj = box1.createBoxes(vec2(500, 260),'normal', 'normal' )
         const box2 = new Box()
-        box2.createBoxes(vec2(600, 360),'happy', 'normal' )
+        const boxObj2 = box2.createBoxes(vec2(600, 360),'happy', 'normal' )
         const box3 = new Box()
-        box3.createBoxes(vec2(540, 400),'sad', 'normal' )
+        const boxObj3 = box3.createBoxes(vec2(540, 400),'sad', 'normal' )
 
         pressPlate.pressPlate(false, false, true)
         pressPlate2.pressPlate(false, false, true)
         pressPlate3.pressPlate(false, false,  true)
+        const boxesObjsPosition = [
+            {
+                boxObj1: { box: boxObj, position: vec2(500, 260)},
+            },
+            {
+                boxObj2: { box: boxObj2, position: vec2(600, 360)},
+            },
+            {
+                boxObj3: { box: boxObj3, position: vec2(540, 400)},
+            }
+        ];
+            
+        pressPlate4.resetBoxes(boxesObjsPosition)
 
 
-        const question1 = new Question([vec2(1650, 440)], 0, "brick")
-        const question2 = new Question([vec2(1375, 160)], 2, "brick")
-        const question3 = new Question([vec2(420, 225)], 3, "brick")
 
         Bars([
             vec2(1175, 220)
@@ -162,19 +187,19 @@ const scenes = {
         
         const lever4 = new Lever(
             [
-                vec2(1640, 350),
+                vec2(1640, 325),
             ], "barrier1")
         lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
-                vec2(1640, 270),
+                vec2(1640, 220),
             ], "barrier2")
         lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
-                vec2(1640, 530),
+                vec2(1640, 500),
             ], "barrier3")
         lever6.pullLever(true)
         
@@ -196,13 +221,28 @@ const scenes = {
 
             
         playerObj = player.makePlayer(character)
-        box1.collideWithPlayer(playerObj)
-        box2.collideWithPlayer(playerObj)
-        box3.collideWithPlayer(playerObj)
-        let playing  = false
 
+        let playing  = false
+        let playingBox = false
   
         onUpdate(() => {
+            for (const boxObjPosition of boxesObjsPosition) {
+                const boxObject = Object.values(boxObjPosition)[0].box;
+                if (boxObject.isColliding(playerObj)) {
+                    if (!playingBox) {
+                        soundTile.addSound("wood-box", {
+                            volume: 0.2,
+                            loop: true,
+                            speed: 1.5
+                        });
+                        playingBox = true;
+                        onCollideEnd("player", `wood-box`, () => {
+                            playingBox = false;
+                            soundTile.pause("wood-box");
+                        });
+                    }
+                }
+            }
             if (playerObj.isColliding(sound)) {
                 if (!playing) {
                     playing = true;
@@ -216,16 +256,16 @@ const scenes = {
                     })       
                     onSceneLeave(() => {
                         soundTile.pause("lava")
-                        music.pause = true
+                        music.paused = true
                 }); 
                 }
             } 
         });
   
         player.playIdleAnimation()
-        player.hitQuestionTile(question1.questionNumber);
-        player.hitQuestionTile(question2.questionNumber);
-        player.hitQuestionTile(question3.questionNumber);
+        player.hitQuestionTile(question1.questionNumber, player.currentLevel);
+        player.hitQuestionTile(question2.questionNumber, player.currentLevel);
+        player.hitQuestionTile(question3.questionNumber, player.currentLevel);
         uiManager.displayLivesCounter()
 
         player.updateLives(uiManager.livesCountUi)
@@ -254,7 +294,7 @@ const scenes = {
         events.listen("progress_open1", () => {
             save.saveGame(1, 1700, 700)
         })
-        player.hitByMobs()
+        player.hitByMobs(character)
         if(onCutscene){
             const cutscene = new Cutscene()
             player.onCutscene = await cutscene.cutsceneCreator(textLines)
@@ -266,12 +306,12 @@ const scenes = {
         onKeyRelease("space", () => {
                 destroyAll("slash")
         });  
-        player.hitByNpc(npc);
+        player.hitByNpc(npc, player.currentLevel);
         player.goNextLevel(character, 230, 470)
         player.update()
 
         onSceneLeave(() => {
-            music.pause = true
+            music.paused = true
         }); 
     
     },
@@ -279,7 +319,7 @@ const scenes = {
         const save = new Save()
         save.saveGame(2, positionX, positionY)
         const music = play("level2", {
-            volume: 0.4,
+            volume: 0.2,
             loop: true
         })
         const level2 = new Level()
@@ -358,12 +398,30 @@ const scenes = {
         const box2 = new Box()
         const box3 = new Box()
         const box4 = new Box()
-        box1.createBoxes(vec2(1800, 530),'nine', 'numbers')
-        box2.createBoxes(vec2(1800, 400),'two', 'numbers')
-        box3.createBoxes(vec2(1800, 270),'one', 'numbers')
-        box4.createBoxes(vec2(1800, 660),'maior', 'normal')
+        const boxObj = box1.createBoxes(vec2(1800, 530),'nine', 'numbers')
+        const boxObj2 = box2.createBoxes(vec2(1800, 400),'two', 'numbers')
+        const boxObj3 = box3.createBoxes(vec2(1800, 270),'one', 'numbers')
+        const boxObj4 = box4.createBoxes(vec2(1800, 660),'maior', 'normal')
 
-        const question2 = new Question([vec2(1800, 760)], 0,"wood")
+        const pressPlateR = new Pressure(vec2(1090, 250),"restart", "wood", "restart")
+
+        const boxesObjsPosition = [
+            {
+                boxObj1: { box: boxObj, position: vec2(1800, 530)},
+            },
+            {
+                boxObj2: { box: boxObj2, position: vec2(1800, 400)},
+            },
+            {
+                boxObj3: { box: boxObj3, position: vec2(1800, 270)}, 
+            },
+            {
+                boxObj4: { box: boxObj4, position: vec2(1800, 660)},
+            }
+        ];
+
+        pressPlateR.resetBoxes(boxesObjsPosition)
+        const question2 = new Question([vec2(1800, 760)], 1,"wood")
         
 
         const enemys = new Enemy(
@@ -395,11 +453,7 @@ const scenes = {
             )
 
         playerObj =  player.makePlayer(character)
-        
-        box1.collideWithPlayer(playerObj)
-        box2.collideWithPlayer(playerObj)
-        box3.collideWithPlayer(playerObj)
-        box4.collideWithPlayer(playerObj)
+
 
         player.playIdleAnimation()
         level2.displayLevel(player.currentLevel)
@@ -419,12 +473,11 @@ const scenes = {
         onKeyRelease("space", () => {
                 destroyAll("slash")
         });  
-        player.hitByMobs()
-        player.hitQuestionTile();
-        player.hitQuestionTile(question1.questionNumber);
-        player.hitQuestionTile(question2.questionNumber);
+        player.hitByMobs(character)
+        player.hitQuestionTile(question1.questionNumber, player.currentLevel);
+        player.hitQuestionTile(question2.questionNumber, player.currentLevel);
         const npc = character === "hero" ? "sacerdotisa" : "hero";
-        player.hitByNpc(npc);
+        player.hitByNpc(npc, player.currentLevel);
         player.goNextLevel(character, 230, 690)
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
@@ -435,22 +488,49 @@ const scenes = {
         events.listen("progress_open", () => {
             save.saveGame(2, 2100, 420)
         })
+        let playingBox = false
+        const soundTile = new SoundTile()
 
         onUpdate(() => {
+            for (const boxObjPosition of boxesObjsPosition) {
+                const boxObject = Object.values(boxObjPosition)[0].box;
+                if (boxObject.isColliding(playerObj)) {
+                    if (!playingBox) {
+                        soundTile.addSound("wood-box", {
+                            volume: 0.2,
+                            loop: true,
+                            speed: 1.5
+                        });
+                        playingBox = true;
+                        onCollideEnd("player", `wood-box`, () => {
+                            playingBox = false;
+                            soundTile.pause("wood-box");
+                        });
+                    }
+                }
+            }
             onSceneLeave(() => {
-                music.pause = true
+                music.paused = true
             }); 
         });
 
     },
     3: async (character, positionX, positionY) => {
+        const music = play("level2", {
+            volume: 0.1,
+            loop: true
+        })
         const save = new Save()
         save.saveGame(3, positionX, positionY)        
         const soundTile = new SoundTile()
-        const sound = soundTile.addSoundTile("t1-wood", 'blacktar', vec2(2100, 256))
+
  
         const level3 = new Level()
+        const sound = soundTile.addSoundTile("t1-wood", 'blacktar', vec2(80, 200), 300)
+
         level3.drawMapLayout(level3Layout, "woodWall")
+        const sound2 = soundTile.addSoundTile("t1-wood", 'blacktar', vec2(2000, 200), 220)
+
         Bars([
             vec2(3170, 280),
             vec2(3170, 220),
@@ -461,7 +541,7 @@ const scenes = {
         new NumberTiles(vec2(2050, 770), "three")
         new NumberTiles(vec2(2800, 250), "five")
         new NumberTiles(vec2(2600, 770), "nine")
-
+        new Question([vec2(2900, 770)], 1, "wood")
         const pressPlate0 = new Pressure(vec2(3200, 500), "open1", "woodNumbers", "zero")
         const pressPlate1 = new Pressure(vec2(3300, 500), "open1", "woodNumbers", "one")
         const pressPlate2 = new Pressure(vec2(3400, 500), "open1", "woodNumbers", "two")
@@ -525,10 +605,10 @@ const scenes = {
         onKeyRelease("space", () => {
                 destroyAll("slash")
         });  
-        player.hitByMobs()
-        player.hitQuestionTile();
+        player.hitByMobs(character)
+        player.hitQuestionTile(1, player.currentLevel);
         const npc = character === "hero" ? "sacerdotisa" : "hero";
-        player.hitByNpc(npc);
+        player.hitByNpc(npc, player.currentLevel);
         player.goNextLevel(character, 230, 690)
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
@@ -539,12 +619,40 @@ const scenes = {
         events.listen("progress_open$", () => {
             save.saveGame(3, 3200, 600)
         })
-    
+
+
+        let playing = false
+        onUpdate(() => {
+            onSceneLeave(() => {
+                music.paused = true
+            }); 
+            if (playerObj.isColliding(sound) || playerObj.isColliding(sound2)) {
+                if (!playing) {
+                    playing = true;
+                    soundTile.addSound("blacktar", {
+                        volume: 0.5,
+                        loop: true
+                    })
+                    onCollideEnd("player", "blacktar", () => {
+                        playing = false
+                        soundTile.pause("blacktar")
+                    })       
+                    onSceneLeave(() => {
+                        soundTile.pause("blacktar")
+                }); 
+                }
+            } 
+        });
     },
     4: async (character, positionX, positionY) => {
         const save = new Save()
         save.saveGame(4, positionX, positionY)          
-        
+        const music = play("level1", {
+            volume: 0.1,
+            loop: true       
+        })
+        const soundTile = new SoundTile()
+        const sound = soundTile.addSoundTile("t1", 'lava', vec2(65, 190), 800)
         const level4 = new Level()
         level4.drawMapLayout(level4Layout, "stoneWall")
     
@@ -558,6 +666,7 @@ const scenes = {
             false
         )
 
+        const question1 = new Question([vec2(300, 700)], 1,"brick")
         Bars([
             vec2(140, 470)
         ], "lever3", 0, false, "horizontal")
@@ -583,7 +692,8 @@ const scenes = {
             vec2(840, 470)
         ], "lever3", 0, false, "horizontal")
 
-        const pressPlate = new Pressure(vec2(820, 270), "macqueen", "brick", "blank")
+
+        const pressPlate = new Pressure(vec2(820, 280), "macqueen", "brick", "blank")
         pressPlate.pressPlate()
 
         Bars([
@@ -613,11 +723,11 @@ const scenes = {
 
 
 
-        const pressPlateWalkRight1 = new Pressure(vec2(1330, 270), "jose", "brick", "left")
-        const pressPlateWalkLeft1 = new Pressure(vec2(1330, 370), "jose", "brick", "right")
-        const pressPlateWalkUp1 = new Pressure(vec2(1330, 470), "jose", "brick", "up")
-        const pressPlateWalkDown1 = new Pressure(vec2(1330, 570), "jose", "brick", "down")
-        const reset1 = new Pressure(vec2(1330, 670), "jose", "brick", "restart")
+        const pressPlateWalkRight1 = new Pressure(vec2(1330, 660), "jose", "brick", "left")
+        const pressPlateWalkLeft1 = new Pressure(vec2(1330, 460), "jose", "brick", "right")
+        const pressPlateWalkUp1 = new Pressure(vec2(1330, 560), "jose", "brick", "up")
+        const pressPlateWalkDown1 = new Pressure(vec2(1330, 760), "jose", "brick", "down")
+        const reset1 = new Pressure(vec2(1000, 670), "jose", "brick", "restart")
 
 
         const twoTime1 = new Pressure(vec2(1000, 370), "jose", "brickNumbers", "two")
@@ -639,26 +749,24 @@ const scenes = {
         pressPlateFinal.pressPlate()
 
         Bars([
-            vec2(1440, 470)
+            vec2(1410, 470)
         ], "jose", 0, false, "vertical")
         Bars([
-            vec2(1440, 570)
+            vec2(1410, 570)
         ], "jose", 0, false, "vertical")
         Bars([
-            vec2(1440, 670)
+            vec2(1410, 670)
         ], "jose", 0, false, "vertical")
 
         Bars([
-            vec2(1440, 370)
+            vec2(1410, 340)
         ], "jose", 0, false, "vertical")
         Bars([
-            vec2(1440, 270)
+            vec2(1410, 230)
         ], "jose", 0, false, "vertical")
+
         Bars([
-            vec2(1440, 170)
-        ],"jose", 0, false, "vertical")
-        Bars([
-            vec2(1440, 770)
+            vec2(1410, 770)
         ], "jose", 0, false, "vertical")
         Bars([
             vec2(1950, 540)
@@ -666,6 +774,18 @@ const scenes = {
         Bars([
             vec2(1950, 480)
         ], "jose", 0, false, "vertical")
+        
+        Bars([
+            vec2(1750, 510)
+        ], "jose", 0, false, "horizontal")
+
+        Bars([
+            vec2(1880, 340)
+        ], "jose", 0, false, "horizontal")
+
+        Bars([
+            vec2(1880, 700)
+        ], "jose", 0, false, "horizontal")
 
         if(character == "hero"){
             new Npc([vec2(500,720)], "sacerdotisa")
@@ -675,8 +795,8 @@ const scenes = {
 
 
         playerObj =  player.makePlayer(character)
-        Car(vec2(1500, 200), 1500, "jose")
-        Car(vec2(200, 200), 1500, "macqueen")
+        Car(vec2(1490, 220), 800, "jose")
+        Car(vec2(150, 200), 800, "macqueen")
         player.setPlayerControls()
         onKeyPress("space", () => {
             player.attack(["left", "right", "up", "down"])
@@ -685,6 +805,10 @@ const scenes = {
                 destroyAll("slash")
         });  
         player.playIdleAnimation()
+        player.hitQuestionTile(0, player.currentLevel)
+        const npc = character === "hero" ? "sacerdotisa" : "hero";
+        player.hitQuestionTile(question1.questionNumber, player.currentLevel);
+        player.hitByNpc(npc, player.currentLevel);
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
         player.update()
@@ -695,7 +819,31 @@ const scenes = {
         events.listen("progress_macqueen", () => {
             save.saveGame(4, 1100, 690)
         })
+        onSceneLeave(() => {
+            music.paused = true
+        })
 
+
+        let playing = false
+        onUpdate(() => {
+            if (playerObj.isColliding(sound)) {
+                if (!playing) {
+                    playing = true;
+                    soundTile.addSound("lava", {
+                        volume: 0.5,
+                        loop: true
+                    })
+                    onCollideEnd("player", "lava", () => {
+                        playing = false
+                        soundTile.pause("lava")
+                    })       
+                    onSceneLeave(() => {
+                        soundTile.pause("lava")
+                        music.paused = true
+                }); 
+                }
+            } 
+        });
     },
     5: async (character, positionX, positionY) => {
         const save = new Save()
@@ -732,12 +880,13 @@ const scenes = {
     },
     gameOver: () =>{
         uiManager.displayGameOver()
+
     },
     end: () =>{
         uiManager.displayWinScreen()
+
     }
 }
-
 
 for ( const key in scenes ){
     scene(key, scenes[key]) 

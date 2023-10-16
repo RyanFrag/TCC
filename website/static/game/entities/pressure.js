@@ -94,6 +94,30 @@ export class Pressure {
             }
         }
     }
+    resetBoxes(boxesObjsPosition){
+        const sound = new SoundTile()
+        this.gameObj.onCollide(`player`, () => {
+        for (const boxData of boxesObjsPosition) {
+            for (const objName in boxData) {
+                if (boxData.hasOwnProperty(objName)) {
+                    const { box, position } = boxData[objName];
+                    box.moveTo(position);
+                }
+            }
+        }
+        this.gameObj.play(`pressed${this.buttonType}`)
+        sound.addSound("button", {
+            volume: 0.001
+        })
+        setTimeout(() => {
+            this.pressed =  false
+            sound.playSound("button", {
+                volume: 0.1
+            })
+            this.gameObj.play(`unpressed${this.buttonType}`)
+        }, 4000)
+    })
+    }
 
     puzzleNumbers(entry){
         this.gameObj.onCollide(`player`, () => {

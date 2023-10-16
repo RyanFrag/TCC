@@ -17,7 +17,7 @@ export class Cutscene {
         ])
 
 
-        
+        character = textLines[0].character
         if(textLines[0].sprite){
             this.spriteEmotions = add([
                 sprite('emotions', {anim: 1}),
@@ -25,10 +25,6 @@ export class Cutscene {
                 scale(2),
                 fixed()
             ])
-            character = textLines[0].character
-        }else{
-            typeQuestion = true
-            character = "Questao"
         }
         let currentMessageIndex = 0; 
         let currentMessage = this.callMessage(textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite)
@@ -42,15 +38,17 @@ export class Cutscene {
                     destroy(z),
                     destroy(MessageAuthor),
                     destroy(currentMessage)
-                    if(!typeQuestion) destroy(this.spriteEmotions)
+                    if(this.spriteEmotions) destroy(this.spriteEmotions)
                     resolve(false)
                     return
                 }
                 if (currentMessage){
                     destroy(currentMessage);
+                    destroy(MessageAuthor);
                 }
                 this.confirm();
                 currentMessage = this.callMessage( textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
+                MessageAuthor = this.callMessageAuthor(textLines[currentMessageIndex].character)
                 currentMessageIndex++;
                 })
             });   
@@ -62,8 +60,7 @@ export class Cutscene {
         
         return add([
             text(message, {
-                size: 16,
-                font: "Round",
+                size: 20,
                 width: width() - 230, 
                 align: "center",
                 
@@ -74,7 +71,7 @@ export class Cutscene {
             area(),
             anchor("center"),
             fixed(),
-            pos(center().x + 100, center().y + 120),
+            pos(center().x + 220, center().y + 180),
         ]);
     }
 

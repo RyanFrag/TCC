@@ -1,7 +1,6 @@
 import { Cutscene } from "../content/cutscene.js"
-import { NpcTextLines } from "../content/level1/npcText1.js"
-import { QuestionTextLines } from "../content/level1/questionText1.js"
-import { Save } from "../utils/Save.js"
+import { NpcTextLines } from "../content/npcText.js"
+import { QuestionTextLines } from "../content/questionText.js"
 let currentFlip = null
 
 export class Player {
@@ -24,7 +23,6 @@ export class Player {
 
         }
         makePlayer(character){
-            console.log(character)
             this.gameObj = add([
                 {
                     sprites: {
@@ -102,6 +100,9 @@ export class Player {
         }
         respawnPlayer(){
             if(this.lives > 0){
+                play("lost-heart", {
+                    volume: 0.3
+                })
                 this.lives--
                 this.gameObj.pos = vec2(this.initialX, this.initialY)
                 return
@@ -109,34 +110,39 @@ export class Player {
             go("gameOver")
         }
 
-        hitByMobs(){
+        hitByMobs(character){
             function hitAndRespawn(context){
-                // context.respawnPlayer()
+                console.log(character)
+                console.log(`player-hit-${character}`)
+                play(`player-hit-${character}`, {
+                    volume: 0.3
+                })
+                context.respawnPlayer()
             }
-            this.gameObj.onCollide("dangerous", () => hitAndRespawn(this))
+            this.gameObj.onCollide("dangerous", () => hitAndRespawn(this, character))
         }
 
 
-        hitQuestionTile(numberOfQuestion){
+        hitQuestionTile(numberOfQuestion, level){
             async function  startDialogueQuestion(context){
                 context.onCutscene = true
                 const cutscene = new Cutscene()
-                const questionLines = QuestionTextLines(numberOfQuestion)
-
+                const questionLines = QuestionTextLines(numberOfQuestion, level)
                 context.onCutscene = await cutscene.cutsceneCreator(questionLines)
             }
-            this.gameObj.onCollide(`question-${numberOfQuestion}`, () => startDialogueQuestion(this))
+            this.gameObj.onCollide(`question-${numberOfQuestion}`, () => startDialogueQuestion(this, numberOfQuestion, level))
         }
 
-        async hitByNpc(npc){
-            async function  startDialogue(context){
+        async hitByNpc(npc, level){
+            async function  startDialogue(context, npc, level){
                 context.onCutscene = true
                 const cutscene = new Cutscene()
-                const npcLines = NpcTextLines(npc)
+                const npcLines = NpcTextLines(npc, level)
+                console.log(npcLines)
                 context.onCutscene = await cutscene.cutsceneCreator(npcLines)
 
             }
-            this.gameObj.onCollide("npc", () => startDialogue(this))
+            this.gameObj.onCollide("npc", () => startDialogue(this, npc, level))
         }
         
         attack(excludedKeys) {
@@ -145,8 +151,11 @@ export class Player {
                     return
                 }
             }
-            const slashX = this.gameObj.pos.x + 40
-            const slashXFlipped = this.gameObj.pos.x - 110
+            play("attack", {
+                volume: 0.2
+            })
+            const slashX = this.gameObj.pos.x + 10
+            const slashXFlipped = this.gameObj.pos.x - 90
             let x = null
             x = currentFlip ? slashXFlipped : slashX           
             this.gameObj.use(sprite(this.gameObj.sprites.attack));
@@ -179,7 +188,6 @@ export class Player {
         goNextLevel(character, positionX, positionY){
             function newLevel(context, character, positionX, positionY){
                 if(context.finalLevel === true){
-                    Save.saveGame(1, positionX, positionY)
                     go("end")
                 }else{
                     go(context.currentLevel+1, character, positionX, positionY)

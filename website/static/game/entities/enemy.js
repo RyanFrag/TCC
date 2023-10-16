@@ -34,7 +34,7 @@ export class Enemy {
         openBarriers(){
             const allEnemiesKilled = this.enemys.every(enemy => enemy.killed === true);
             if (allEnemiesKilled) {
-                
+                events.emit("progress_" + this.key);
                 events.emit("open_bars_" + this.key);
 
             }
@@ -42,6 +42,9 @@ export class Enemy {
 
         killEnemy(index){
             this.enemys[index].onCollide("slash", () => {
+                play("hit", {
+                    volume: 0.2
+                })
                 if (index >= 0 && index < this.enemys.length) {
                     this.enemys[index].killed = true;
                     destroy(this.enemys[index]);
@@ -91,8 +94,10 @@ export class Enemy {
             }
         }
 
+        
         setMovementEnemy(){
         for (const [index, enemy] of this.enemys.entries()){
+
             const idle = enemy.onStateEnter("idle", async (previousState)=>{
                 let isMoving = false;
                 if(enemy.currAnim !== "idle") enemy.play("idle")
@@ -149,7 +154,10 @@ export class Enemy {
                 )
                 const randomDelay = Math.floor(Math.random() * 10 + 1) * 1000;
                 setTimeout(() => {
-                    play("skeleton-walk", {volume: 0.1})
+                    const sound = play("skeleton-walk", {volume: 0.1})
+                    onSceneLeave(() => {
+                        sound.paused = true
+                    })
                   }, randomDelay);
                 enemy.enterState("idle", "walk-up")
             })
@@ -198,6 +206,16 @@ export class Enemy {
                 }
             })    
 
+            onUpdate(() => {
+                    if(this.enemys[index].killed){
+                        idle.cancel(),
+                        walkLeft.cancel(),
+                        walkRight.cancel(),
+                        walkUp.cancel(),
+                        walkDown.cancel(),
+                        followPlayer.cancel()
+                    }
+                })
             onSceneLeave(() => {
                 idle.cancel(),
                 walkLeft.cancel(),
@@ -213,6 +231,7 @@ export class Enemy {
             this.openBarriers();
             for (const enemy of this.enemys) {
                 this.followPlayer(enemy);
+                
             }
         });
     }

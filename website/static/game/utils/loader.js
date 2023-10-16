@@ -3,6 +3,9 @@ export const load = {
         loadFont("Round", "static/game/assets/Round9x13.ttf")
     },
     assets: () => {
+        loadSprite("cutsceneStart", "static/game/assets/cutsceneStart.png" )
+        loadSprite("cutsceneEnd", "static/game/assets/cutsceneEnd.png" )
+        loadSprite("gameOver", "static/game/assets/gameover.png" )
         loadSprite("castle-background", "static/game/assets/castle_background.png" )
         loadSprite("logo", "static/game/assets/logo.png" )
         loadSprite("z", "static/game/assets/others/z.png" )
@@ -991,7 +994,7 @@ export const load = {
             }
         })
 
-        loadSprite("attack-hero", "static/game/assets/male-attack.png",{
+        loadSprite("attack-hero", "static/game/assets/here.png",{
             sliceX: 6,
             sliceY: 1,
             anims: {
@@ -1067,14 +1070,24 @@ export const load = {
     },
     sounds: () => {
         loadSound("confirm-ui", "static/game/sounds/confirm-ui.wav")
+        loadSound("lost-heart", "static/game/sounds/lost-heart.wav")
+        loadSound("player-hit-sacerdotisa", "static/game/sounds/player-hit-girl.wav")
+        loadSound("player-hit-hero", "static/game/sounds/player-hit-man.wav")
         loadSound("lava", "static/game/sounds/lava.wav")
+        loadSound("blacktar", "static/game/sounds/blacktar.mp3")
         loadSound("lever", "static/game/sounds/lever.mp3")
         loadSound("wood-box", "static/game/sounds/wood-box.wav")
         loadSound("button", "static/game/sounds/button.wav")
         loadSound("skeleton-walk", "static/game/sounds/skeleton.mp3")
+        loadSound("hit", "static/game/sounds/hit.wav")
+        loadSound("attack", "static/game/sounds/attack.mp3")
         loadSound("menu", "static/game/sounds/menu.mp3")
         loadSound("level1", "static/game/sounds/level1.mp3")
         loadSound("level2", "static/game/sounds/level2.mp3")
+        loadSound("ending", "static/game/sounds/ending.wav")
+        loadSound("game-over", "static/game/sounds/game-over.wav")
+
+        loadSound("start", "static/game/sounds/start.wav")
     }
 
 } 

@@ -118,7 +118,7 @@ class UIManager {
             )
             onKeyPress("enter", () => {
                 play("confirm-ui", {speed: 1.5});
-                go("selection");
+                go("cutscene");
             })
 
         }
@@ -129,9 +129,13 @@ class UIManager {
     displayGameOver(){
         add([rect(1280, 720), color(0,0,0)])
         add([
-            sprite("castle-background"),
-            scale(4),
+            sprite("gameOver"),
+            scale(2.5),
         ])
+        const music = play("game-over", 
+            {
+                volume: 0.2,
+            })
         add([
             text("Game Over", {
                 size: 65,
@@ -139,39 +143,63 @@ class UIManager {
             }),
             area(),
             anchor("center"),
-            pos(center())
+            pos(center().x, center().y - 100),
         ])
+        add([
+            text("Infelizmente, nossos heróis não conseguiram escapar do labirinto\n e nunca mais foram vistos, o conhecimento está perdido.", {
+              size: 32,
+              align: 'center',
+    
+            }),
+            pos(20, 350)
+        ])
+
         this.displayBlinkingUiMessage(
             "Pressione ENTER para jogar novamente", 
-            vec2(center().x, center().y + 200)
         )
     
         onKeyPress("enter", () => {
             play("confirm-ui", {speed: 1.5});
             go("selection");
         })
+        onSceneLeave(() => {
+            music.paused = true
+        })
     }
     
     displayWinScreen(){
         add([rect(1280, 720), color(0,0,0)])
         add([
-            sprite("castle-background"),
-            scale(4),
+            sprite("cutsceneEnd"),
+            scale(2.5),
         ])
         add([
-            text("Voce venceu Parabens! um diploma apareceu no seu Perfil", {
-                size: 32,
+            text("            Voce venceu Parabens!\num diploma apareceu no seu Perfil", {
+                size: 42,
                 font: "Round",
             }),
             area(),
             anchor("center"),
-            pos(center())
+            pos(center().x, center().y - 100),
         ])
-
+        play("ending", 
+            {
+                volume: 0.2,
+            })
         this.displayBlinkingUiMessage(
-            "Pressione ENTER para Recomeçar", 
-            vec2(center().x, center().y + 200)
+            "Pressione ENTER para Recomecar", 
+            vec2(center().x, center().y + 300)
         )
+
+        add([
+            text("Os herós superam os desafios\n e recuperaram o cetro para o Povo Grego,\n assim restaurando o conhecimento,\n e para você,\nO bravo herói que merece uma recompensa acessse seu perfil!", {
+              size:28,
+              align: 'center',
+     
+            }),
+            
+            pos(80, center().y + 30)
+        ])
     
         onKeyPress("enter", async () => {
             const dataToSend = { win: true, level: 0 };
@@ -195,6 +223,40 @@ class UIManager {
         })
 
     }
+    
+    displayIntroCutscene(){
+        add([
+            sprite("cutsceneStart"),
+            scale(2.2)
+        ])
+        add([
+            text("Era uma vez..", {
+              size: 48,
+              align: 'center',
+              font: "Round",
+              transform: () => ({
+                  color: BLACK,
+              }), 
+            }),
+            pos(450, 240)
+
+        ]) 
+        add([
+            text("Em uma antiga Grécia repleta de lendas e sabedoria,\n a Sacerdotisa descobre que o Cetro da Sabedoria desapareceu!\nCom grande temor de perder  o conhecimento ancestral, \n a Sacerdotisa convoca o Herói, mestre na resolução de enigmas.\n  Juntos, eles embarcam em uma jornada épica ao labirinto do Minotauro,\n para recuperar o Cetro e preservar o conhecimento da civilização.\n O labirinto esconde segredos que irão testar sua determinação,\n começando uma missão para preservar a sabedoria da Grécia Antiga.", {
+              size: 28,
+              align: 'center',
+              transform: () => ({
+                color: BLACK,
+                }),
+            }),
+            
+            pos(30, 300)
+        ])
+        onKeyPress("enter", () => {
+            go("selection");
+        })
+    }
+    
     displaySelection(){
         const background = add([
             sprite("castle-background"),
@@ -234,7 +296,7 @@ class UIManager {
                 },
                 body: JSON.stringify(dataToSend),
             })    
-            go(1, "hero")
+            go(1, "hero", 130, 700)
         })
     
         selectMale.onUpdate(() => {
@@ -272,7 +334,7 @@ class UIManager {
                 },
                 body: JSON.stringify(dataToSend),
             })    
-            go(1,  "sacerdotisa")
+            go(1,  "sacerdotisa", 130, 700)
         })
     
         selectFemale.onUpdate(() => {

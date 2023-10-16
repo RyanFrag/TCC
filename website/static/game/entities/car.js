@@ -6,7 +6,7 @@ export const Car = (position, walkSpeed, key) => {
         sprite(`enemy-1`),
         pos(position),
         area({
-            shape: new Rect(vec2(0,3), 32, 32),
+            shape: new Rect(vec2(0,3), 8, 8),
         }),
         anchor("center"),
         body({ isStatic: true }),
@@ -57,5 +57,12 @@ export const Car = (position, walkSpeed, key) => {
                 gameObj.move(-walkSpeed, 0)
             }, i * 1000);
         }
+    })
+
+    gameObj.onCollide("lava", () => {
+        gameObj.moveTo(position)
+    })
+    gameObj.onCollide("barsList", () => {
+        gameObj.moveTo(position)
     })
 }
