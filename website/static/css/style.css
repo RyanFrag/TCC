@@ -6,6 +6,11 @@ body {
 	animation: gradient 60s ease infinite;
 	height: 100vh;
 }
+.botaoLogin{    
+	background: linear-gradient(-45deg, #034b27b7, #1d0250cc, #071168, #23d5ab);
+    background-size: 400% 400%;
+	animation: gradient 60s ease infinite;
+}
 
 @keyframes gradient {
 	0% {
