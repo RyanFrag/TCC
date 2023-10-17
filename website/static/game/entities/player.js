@@ -112,8 +112,6 @@ export class Player {
 
         hitByMobs(character){
             function hitAndRespawn(context){
-                console.log(character)
-                console.log(`player-hit-${character}`)
                 play(`player-hit-${character}`, {
                     volume: 0.3
                 })
@@ -138,14 +136,13 @@ export class Player {
                 context.onCutscene = true
                 const cutscene = new Cutscene()
                 const npcLines = NpcTextLines(npc, level)
-                console.log(npcLines)
                 context.onCutscene = await cutscene.cutsceneCreator(npcLines)
 
             }
             this.gameObj.onCollide("npc", () => startDialogue(this, npc, level))
         }
         
-        attack(excludedKeys) {
+        attack(excludedKeys, character) {
             for (const key of excludedKeys) {
                 if (isKeyDown(key)) {
                     return
@@ -154,8 +151,15 @@ export class Player {
             play("attack", {
                 volume: 0.2
             })
-            const slashX = this.gameObj.pos.x + 10
-            const slashXFlipped = this.gameObj.pos.x - 90
+            let slashX = null
+            let slashXFlipped = null
+            if(character == "hero"){
+                 slashX = this.gameObj.pos.x + 10
+                 slashXFlipped = this.gameObj.pos.x - 90
+            }else{
+                 slashX = this.gameObj.pos.x + 40
+                 slashXFlipped = this.gameObj.pos.x - 130
+            }
             let x = null
             x = currentFlip ? slashXFlipped : slashX           
             this.gameObj.use(sprite(this.gameObj.sprites.attack));
@@ -176,14 +180,26 @@ export class Player {
                     }
                 });
             }
-            add([
-                rect(30,30),
-                area(),
-                pos(vec2(x, this.gameObj.pos.y -40)),
-                scale(3),
-                opacity(0), 
-                "slash"
-            ])
+            if(character == "hero"){
+                add([
+                    rect(30,30),
+                    area(),
+                    pos(vec2(x, this.gameObj.pos.y -40)),
+                    scale(3),
+                    opacity(0), 
+                    "slash"
+                ])         
+            }else{
+                add([
+                    rect(30,30),
+                    area(),
+                    pos(vec2(x, this.gameObj.pos.y -40)),
+                    scale(3),
+                    opacity(0), 
+                    "slash"
+                ])    
+            }
+
         }
         goNextLevel(character, positionX, positionY){
             function newLevel(context, character, positionX, positionY){

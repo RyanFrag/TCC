@@ -38,7 +38,7 @@ export class Pressure {
                 }) 
             } else if(playerPress){
                 const sound = new SoundTile()
-                this.gameObj.onCollide(`player`, () => {
+                this.gameObj.onCollide(`player`,  () => {
                     if (!playing) {
                         const enemys = new Enemy(
                             [vec2(910,200)],
@@ -49,9 +49,10 @@ export class Pressure {
                             false,
                             'open2', 
                         )
+                        enemys.birth(0)
                         enemys.killEnemy(0)
                         enemys.setMovementEnemy()
-                        enemys.update()
+                        enemys.update()   
                         this.pressed =  true
                         playing = true;
                         this.gameObj.play(`pressed${this.buttonType}`)

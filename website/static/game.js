@@ -85,18 +85,19 @@ const scenes = {
         }
      
         Bars([
-            vec2(1570, 690),
-            vec2(1570, 770),
+            vec2(1440, 690),
+            vec2(1440, 770),
         ], 'open1', 0, false, 'vertical')
 
         Bars([
             vec2(610, 690),
             vec2(610, 770),
         ], 'open3', 3, true, 'vertical')
+
         const soundTile = new SoundTile()
         const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256), 200)
         const question1 = new Question([vec2(1650, 420)], 0, "brick")
-        const question2 = new Question([vec2(1375, 160)], 2, "brick")
+        const question2 = new Question([vec2(1150, 700)], 2, "brick")
         const question3 = new Question([vec2(420, 225)], 3, "brick")
         const pressPlate = new Pressure(vec2(730, 360), "normal", "brick", "normal")
         const pressPlate2 = new Pressure(vec2(730, 260), "happy", "brick", "happy")
@@ -130,32 +131,29 @@ const scenes = {
 
 
         Bars([
-            vec2(1175, 220)
-        ], "lever1", 0, false, 'vertical')
+            vec2(950, 415)
+        ], "lever1", 0, false, 'horizontal')
         Bars([
-            vec2(1175, 350)
-        ], "lever2", 0, false, 'vertical')
+            vec2(1150, 415)
+        ], "lever2", 0, false, 'horizontal')
         Bars([
-            vec2(1175, 470)
-        ], "lever3", 0, false, 'vertical')
+            vec2(1345, 415)
+        ], "lever3", 0, false, 'horizontal')
    
         const lever1 = new Lever(
             [
-                vec2(1500, 220),
+                vec2(950, 600),
             ], "lever1")
-        lever1.pullLever()
         
         const lever2 = new Lever(
             [
-                vec2(1500, 350),
+                vec2(1150, 600),
             ], "lever2")
-        lever2.pullLever()
 
         const lever3 = new Lever(
             [
-            vec2(1500, 470),
+            vec2(1350, 600),
             ], "lever3")
-        lever3.pullLever()
 
         Bars([
             vec2(1880, 600),
@@ -189,25 +187,21 @@ const scenes = {
             [
                 vec2(1640, 325),
             ], "barrier1")
-        lever4.pullLever(true)
 
         const lever5 = new Lever(
             [
                 vec2(1640, 220),
             ], "barrier2")
-        lever5.pullLever(true)
 
         const lever6 = new Lever(
             [
                 vec2(1640, 500),
             ], "barrier3")
-        lever6.pullLever(true)
         
         const lever7 = new Lever(
             [
                 vec2(1640, 620),
             ], "barrier4")
-        lever7.pullLever(true)
 
         const player = new Player(
             positionX,
@@ -226,6 +220,13 @@ const scenes = {
         let playingBox = false
   
         onUpdate(() => {
+            lever1.pullLever()
+            lever2.pullLever()
+            lever3.pullLever()
+            lever4.pullLever(true)
+            lever5.pullLever(true)
+            lever6.pullLever(true)
+            lever7.pullLever(true)
             for (const boxObjPosition of boxesObjsPosition) {
                 const boxObject = Object.values(boxObjPosition)[0].box;
                 if (boxObject.isColliding(playerObj)) {
@@ -290,9 +291,12 @@ const scenes = {
 
         events.listen("progress_open3", () => {
             save.saveGame(1,810, 700)
+            save.displayMessage()
+
         })
         events.listen("progress_open1", () => {
             save.saveGame(1, 1700, 700)
+            save.displayMessage()
         })
         player.hitByMobs(character)
         if(onCutscene){
@@ -301,7 +305,7 @@ const scenes = {
         }  
         player.setPlayerControls()
         onKeyPress("space", () => {
-            player.attack(["left", "right", "up", "down"])
+            player.attack(["left", "right", "up", "down"], character)
         })
         onKeyRelease("space", () => {
                 destroyAll("slash")
@@ -353,17 +357,14 @@ const scenes = {
             [
                 vec2(560,550),
             ], "leverLevel1")
-        lever1.pullLever()
         const lever2 = new Lever(
             [
                 vec2(370, 550),
             ], "leverLevel2")
-        lever2.pullLever()
         const lever3 = new Lever(
             [
                 vec2(800, 400),
             ], "leverLevel3")
-        lever3.pullLever()
 
         const question1 = new Question([vec2(470, 440)], 0, "wood")
         const pressPlate = new Pressure(vec2(460, 760), "blank", "wood", "blank")
@@ -468,7 +469,7 @@ const scenes = {
         // player.onCutscene = await cutscene.cutsceneCreator(textLines)
         player.setPlayerControls()
         onKeyPress("space", () => {
-            player.attack(["left", "right", "up", "down"])
+            player.attack(["left", "right", "up", "down"], character)
         })
         onKeyRelease("space", () => {
                 destroyAll("slash")
@@ -492,6 +493,9 @@ const scenes = {
         const soundTile = new SoundTile()
 
         onUpdate(() => {
+            lever1.pullLever()
+            lever2.pullLever()
+            lever3.pullLever()
             for (const boxObjPosition of boxesObjsPosition) {
                 const boxObject = Object.values(boxObjPosition)[0].box;
                 if (boxObject.isColliding(playerObj)) {
@@ -580,6 +584,7 @@ const scenes = {
             level3Config.nbLives,
             false
             )
+        playerObj =  player.makePlayer(character)
         const enemys = new Enemy(
             level3Config.enemysPositions.map(enemyPos => enemyPos()),
             level3Config.enemysRangeX,
@@ -587,7 +592,8 @@ const scenes = {
             level3Config.enemysSpeeds,
             level3Config.enemysType,
             false,
-            'open$',
+            ' ',
+
         )
         enemys.killEnemy(0)
         enemys.killEnemy(1)
@@ -596,11 +602,10 @@ const scenes = {
         enemys.killEnemy(4)
         enemys.update()
         enemys.setMovementEnemy()
-        playerObj =  player.makePlayer(character)
         player.playIdleAnimation()
         player.setPlayerControls()
         onKeyPress("space", () => {
-            player.attack(["left", "right", "up", "down"])
+            player.attack(["left", "right", "up", "down"], character)
         })
         onKeyRelease("space", () => {
                 destroyAll("slash")
@@ -776,12 +781,10 @@ const scenes = {
         ], "jose", 0, false, "vertical")
         
         Bars([
-            vec2(1750, 510)
+            vec2(1750, 470)
         ], "jose", 0, false, "horizontal")
 
-        Bars([
-            vec2(1880, 340)
-        ], "jose", 0, false, "horizontal")
+ 
 
         Bars([
             vec2(1880, 700)
@@ -799,7 +802,7 @@ const scenes = {
         Car(vec2(150, 200), 800, "macqueen")
         player.setPlayerControls()
         onKeyPress("space", () => {
-            player.attack(["left", "right", "up", "down"])
+            player.attack(["left", "right", "up", "down"], character)
         })
         onKeyRelease("space", () => {
                 destroyAll("slash")
@@ -860,11 +863,17 @@ const scenes = {
             level5Config.nbLives,
             false
         )
+        const npc = character === "hero" ? "sacerdotisa" : "hero";
+        if(character == "hero"){
+            new Npc([vec2(220,880)], "sacerdotisa",)
+        }else{
+            new Npc([vec2(220, 880)], "hero")
+        }
 
         playerObj =  player.makePlayer(character)
         player.setPlayerControls()
         onKeyPress("space", () => {
-            player.attack(["left", "right", "up", "down"])
+            player.attack(["left", "right", "up", "down"], character)
         })
         onKeyRelease("space", () => {
                 destroyAll("slash")
@@ -873,6 +882,8 @@ const scenes = {
         uiManager.displayLivesCounter()
         player.updateLives(uiManager.livesCountUi)
         player.update()
+        player.hitByNpc(npc, player.currentLevel);
+
         level5.displayLevel(player.currentLevel)
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level5Config.cameraLeftBound, level5Config.cameraRightBound, level5Config.cameraTopBound, level5Config.cameraBottomBound)
@@ -884,7 +895,8 @@ const scenes = {
     },
     end: () =>{
         uiManager.displayWinScreen()
-
+        const save = new Save()
+        save.saveGame(0, 0, 0)
     }
 }
 

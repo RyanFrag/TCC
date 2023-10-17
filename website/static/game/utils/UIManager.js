@@ -156,6 +156,7 @@ class UIManager {
 
         this.displayBlinkingUiMessage(
             "Pressione ENTER para jogar novamente", 
+             vec2(center().x, center().y + 200)
         )
     
         onKeyPress("enter", () => {
@@ -177,10 +178,13 @@ class UIManager {
             text("            Voce venceu Parabens!\num diploma apareceu no seu Perfil", {
                 size: 42,
                 font: "Round",
+                transform: () => ({
+                    color: BLACK,
+                    }), 
             }),
             area(),
             anchor("center"),
-            pos(center().x, center().y - 100),
+            pos(center().x, center().y ),
         ])
         play("ending", 
             {
@@ -192,13 +196,15 @@ class UIManager {
         )
 
         add([
-            text("Os herós superam os desafios\n e recuperaram o cetro para o Povo Grego,\n assim restaurando o conhecimento,\n e para você,\nO bravo herói que merece uma recompensa acessse seu perfil!", {
+            text("Os herós superam os desafios\n e recuperaram o cetro para o Povo Grego,\n assim restaurando o conhecimento,\n e para você, O bravo heró i que merece\n uma recompensa, acessse seu perfil!", {
               size:28,
               align: 'center',
-     
+              transform: () => ({
+                color: BLACK,
+                }), 
             }),
             
-            pos(80, center().y + 30)
+            pos(center().x - 320, center().y + 100)
         ])
     
         onKeyPress("enter", async () => {
@@ -266,18 +272,22 @@ class UIManager {
           text("Escolha seu personagem", {
             size: 65,
             align: 'center',
-          }),
-          pos(250, 90)
+            font: "Round",  
+        }),
+          pos(200, 90)
         ])
 
         add([
-            pos(290, 250),
-            sprite("hero-profile"),
-            scale(2),
+            pos(230, 230),
+            sprite(`idle-hero`, {anim: "idle"}),
+
+            scale(6),
         ])
         add([
-          text("Hero"),
-          pos(370, 250)
+          text("Hero", {
+                font: "Round",
+          }),
+          pos(380, 200)
         ])
         const selectMale = add([
           rect(300, 300),
@@ -306,15 +316,18 @@ class UIManager {
             selectMale.color = rgb()
           }
         })
-        
+
         add([
-            pos(730, 250),
-            sprite("priestness-profile"),
-            scale(2),
+            pos(680, 230),
+            sprite(`idle-sacerdotisa`, {anim: "idle"}),
+            scale(6),
         ])
         add([
-            text("Sacerdotisa"),
-            pos(740, 250)
+            text("Sacerdotisa",
+            {
+                font: "Round",  
+            }),
+            pos(740, 200)
         ])
         
         const selectFemale = add([

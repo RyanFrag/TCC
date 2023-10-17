@@ -40,11 +40,6 @@ export const Bars = (positions, key, boxesRequired, openWithBox, type) => {
         if (open) {
             open = false;
             for (const bar of barsList) {
-                console.log("fui chamada")
-                const sound = new SoundTile()
-                sound.addSound("lever", {
-                    volume: 0.1
-                })
                 bar.play("closeUp");
                 bar.use(body({ isStatic: true }));
                
@@ -60,10 +55,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox, type) => {
      function openBars() {
         if (barsList.length > 0) {
             for (const bar of barsList) {
-                const sound = new SoundTile()
-                sound.addSound("lever", {
-                    volume: 0.1
-                })
+ 
                 open = true;
                 bar.play("open");
                 events.emit("progress_" + key)

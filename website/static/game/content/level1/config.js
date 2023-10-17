@@ -5,8 +5,8 @@ export const level1Config = {
     playerSpeed: 200,
     enemysPositions: [
         () => vec2(970,220),
-        () => vec2(970,470),
-        () => vec2(970,350),
+        () => vec2(1160,280),
+        () => vec2(1350,270),
         ],
     enemysRangeX: [50,50,50],
     enemysRangeY: [50,50,50],

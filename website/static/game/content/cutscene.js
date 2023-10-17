@@ -16,19 +16,18 @@ export class Cutscene {
             fixed()
         ])
 
+        let currentMessageIndex = 0; 
 
-        character = textLines[0].character
-        if(textLines[0].sprite){
+        if(textLines[currentMessageIndex].sprite){
             this.spriteEmotions = add([
-                sprite('emotions', {anim: 1}),
-                pos(center().x -350, center().y + 20),
-                scale(2),
+                sprite(`idle-${textLines[currentMessageIndex].character}`, {anim: "static"}),
+                pos(center().x -480, center().y - 20),
+                scale(8.5),
                 fixed()
             ])
         }
-        let currentMessageIndex = 0; 
         let currentMessage = this.callMessage(textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite)
-        let MessageAuthor = this.callMessageAuthor(character)
+        let MessageAuthor = this.callMessageAuthor(textLines[currentMessageIndex].character)
         currentMessageIndex++;
         
         return new Promise((resolve) => {
@@ -45,8 +44,17 @@ export class Cutscene {
                 if (currentMessage){
                     destroy(currentMessage);
                     destroy(MessageAuthor);
+                    if(this.spriteEmotions) destroy(this.spriteEmotions)
                 }
                 this.confirm();
+                if(textLines[currentMessageIndex].sprite){
+                        this.spriteEmotions = add([
+                        sprite(`idle-${textLines[currentMessageIndex].character}`, {anim: "static"}),
+                        pos(center().x -480, center().y - 20),
+                        scale(8.5),
+                        fixed()
+                    ])
+                }
                 currentMessage = this.callMessage( textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
                 MessageAuthor = this.callMessageAuthor(textLines[currentMessageIndex].character)
                 currentMessageIndex++;

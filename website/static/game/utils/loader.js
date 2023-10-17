@@ -967,11 +967,15 @@ export const load = {
         loadSprite("mark-tile", "static/game/assets/brick/stoneMark.png")
         loadSprite("heart-tile", "static/game/assets/brick/stoneHeart.png")
 
-
+ 
         loadSprite("idle-hero", "static/game/assets/player-hero-idle.png",{
             sliceX: 11,
             sliceY: 1,
             anims: {
+                static: {
+                    from: 0,
+                    to: 0,
+                },
                 idle: {
                     from: 0,
                     to: 10,
@@ -994,7 +998,7 @@ export const load = {
             }
         })
 
-        loadSprite("attack-hero", "static/game/assets/here.png",{
+        loadSprite("attack-hero", "static/game/assets/male-attack.png",{
             sliceX: 6,
             sliceY: 1,
             anims: {
@@ -1003,6 +1007,16 @@ export const load = {
                     to: 5,
                 },
                 
+            }
+        })
+        loadSprite("attack-sacerdotisa", "static/game/assets/female-attack.png",{
+            sliceX: 7,
+            sliceY: 1,
+            anims: {
+                attack: {
+                    from: 0,
+                    to: 6,
+                },
             }
         })
 
@@ -1022,6 +1036,10 @@ export const load = {
             sliceX: 10,
             sliceY: 1,
             anims: {
+                static: {
+                    from: 0,
+                    to: 0,
+                },
                 idle: {
                     from: 0,
                     to: 9,
@@ -1030,7 +1048,7 @@ export const load = {
             }
         })
         loadSprite("enemy-1", "static/game/assets/skeleton.png", {
-            sliceX: 4,
+            sliceX: 15,
             sliceY: 1,
             anims: {
                 idle: {
@@ -1039,30 +1057,16 @@ export const load = {
                 },
                 walk: {
                     from: 0,
-                    to: 3,
+                    to: 9,
                     loop: true
-                }
-            }
-        })
-        loadSprite("emotions", "static/game/assets/emotions.png", {
-            sliceX: 4,
-            sliceY: 1,
-            anims: {
-                1: {
-                    from: 0,
-                    to: 0,
                 },
-                2: {
-                    from: 1,
-                    to: 1,
+                death: {
+                    from: 10,
+                    to: 14,
                 },
-                3: {
-                    from: 2,
-                    to: 2,                    
-                },
-                4: {
-                    from: 3,
-                    to: 3,
+                birth: {
+                    from: 14,
+                    to: 9,
                 }
             }
         })
