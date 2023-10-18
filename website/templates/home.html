@@ -1,15 +1,41 @@
 {% extends "base.html" %} {% block title %}PuzzleCrafter{% endblock %} {% block content%}
+
+
   <div class="home" align="center">
-    <h1><strong>Aprenda programação</strong> e raciocínio Lógico de forma divertida </h1>  
-      <br>
-      <h3>Um jogo feito para aprendizagem de forma simples e divertida, para leigos e conheçedores da área</h3>
-    <br />
-    <div align="center">
-      <button type="submit" class="btn btn-secondary btn-lg"><a href="/play-game">Jogar</a></button>
-      <button type="submit" class="btn btn-secondary btn-lg"><a href="/sobre-projeto">Sobre o Projeto</a></button>
+    <div id="captioned-gallery">
+      <figure class="slider">
+        <figure>
+          <img src="static/images/menu.png" alt>
+          <figcaption>Menu Principal</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/level1.png" alt>
+          <figcaption>Level 1</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/level2.png" alt>
+          <figcaption>Level 2</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/level3.png" alt>
+          <figcaption>Level 3</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/level4.png" alt>
+          <figcaption>Level 4</figcaption>
+        </figure>
+      </figure>
+    </div>
+    <div class="callToAction"> 
+      <h1><strong>Aprenda programação</strong> e raciocínio Lógico de forma divertida</h1>  
+        <h3>Um jogo feito para aprendizagem de forma simples e divertida, para leigos e conheçedores da área</h3>
+      <div align="center">
+        <button type="submit" class="btn btn-secondary btn-lg"><a href="/play-game">Jogar</a></button>
+        <button type="submit" class="btn btn-secondary btn-lg"><a href="/sobre-projeto">Sobre o Projeto</a></button>
+      </div>
     </div>
     <div class="content">
-      <h3>O que podemos aprender?</h3>
+      <h3>O que podemos aprender com lógica?</h3>
       <div class="col-3 texto-bloco">
         <i class="bi bi-arrow-left-right"></i>                  
         <h3> <b>Tomada de Decisões</b></h3>
@@ -28,26 +54,29 @@
       </div>
       <div class="col-3 texto-bloco">
         <i class="bi bi-book"></i>        
-        <h3><b>Melhoria no Desempenho Acadêmico e Profissi  onal</b></h3>
+        <h3><b>Melhoria no Desempenho Acadêmico e Profissional</b></h3>
           <p>
             Ter um raciocínio lógico afiado pode impulsionar o desempenho em disciplinas acadêmicas, 
             bem como na resolução de problemas no ambiente de trabalho.
           </p>
         </div>   
     </div>
+    <div class="contentHero">
+      <div>
+        <img src="static/game/assets/logo.png" alt="">
+      </div>
+      <div id="img1">
+      </div>
+      <div id="img2">
+      </div>
+      <div>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas quis distinctio unde magni maiores, ad similique sed quos necessitatibus voluptatem labore repellat. Vero saepe numquam ducimus deserunt libero maxime aspernatur!
+        Beatae veniam maiores quas aut consectetur neque eaque quod. Iusto tempora beatae sunt inventore adipisci cumque, repudiandae distinctio quam id ab amet, harum architecto reiciendis nesciunt nam aliquid. Ullam, temporibus!</p>
+      </div>
+    </div>
   </div>
   </div>
-
-  <div class="content-video"align="center">
-    <h2>
-       Labirinto Lógico <br> 
-      <small class="text-body-secondary">Torne-se um mestre na solução de quebra-cabeças lógicos.</small>
-    </h2>
-    <iframe   width="900" height="600" src="https://www.youtube.com/embed/2P_esm8cNgU"
-                  title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
   </div>
-
   <br><br><br><br>
+
     {% endblock %}

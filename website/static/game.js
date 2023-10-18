@@ -291,12 +291,10 @@ const scenes = {
 
         events.listen("progress_open3", () => {
             save.saveGame(1,810, 700)
-            save.displayMessage()
 
         })
         events.listen("progress_open1", () => {
             save.saveGame(1, 1700, 700)
-            save.displayMessage()
         })
         player.hitByMobs(character)
         if(onCutscene){

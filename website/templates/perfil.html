@@ -2,15 +2,15 @@
     %}
     <div class="perfil-container container-fluid d-flex align-items-center justify-content-center">
         <div class="info-container">
-            <div class="info row">
+            <div class="info row d-flex align-items-center justify-content-center">
                 {% if args['response']['character'] == "hero" %}
                 <img src="../static/game/assets/hero-profile.png" alt="Foto de perfil" class="perfil-imagem col-md-6">
                 {% else %}
                 <img src="../static/game/assets/priestness-profile.png" alt="Foto de perfil" class="perfil-imagem col-md-6">
                 {% endif %}
                 <div class="info-item col-md-4">
-                    <span class="info-label col">Nome</span><br><p>{{args['response']['first_name']}}</p>
-                    <span class="info-label col">Level</span><br><p>{{args['response']['level']}}</p>
+                    <span class="info-label col">Nome: </span><br><p>{{args['response']['first_name']}}</p>
+                    <span class="info-label col">Level: </span><br><p>{{args['response']['level']}}</p>
                    
                 </div>
                 <div class="info-item col-md-4">
@@ -20,21 +20,27 @@
                 </div>
             </div>
             <br>
+            <hr class="hr hr-blurry" />
+            <br>
             {% if args['response']['win'] == True %}
+            <br>
             <div class="certificado" align="center"> 
                 <h4><strong>Parabéns</strong> por completar a campanha de puzzlecrafter</h4>
                 <p>Abaixo está o certificado de sua conquista, obrigado por jogar nosso jogo!</p>
-                <a href="#" class="btn btn-primary mt-3" onclick="generatePDF()">Baixar Certificado</a>
+                <a href="#" class="btn btn-primary mt-3 botaoLogin" onclick="generatePDF()">Baixar Certificado</a>
             </div>
+            <hr class="hr hr-blurry" />
+            <br>
             {% endif %}
             <div class="progress-bar">
                 <h3>Progresso na campanha</h3>
                 <div class="progress">
-                <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                     <span id="current-progress"></span>
                 </div>
                 </div>
             </div>
+            <br>
         </div>
     </div>
 

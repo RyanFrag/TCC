@@ -1,5 +1,9 @@
 
+
+
 $(document).ready(function() {
+
+
   async function progressBar() {
     var response = await fetch('/get-game-data', {
       method: 'GET',
@@ -92,3 +96,4 @@ async function generateCertificate (name){
   );
   saveAs(file);
   };
+

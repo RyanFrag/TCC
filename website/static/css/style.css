@@ -1,5 +1,76 @@
 
 
+@import url(https://fonts.googleapis.com/css?family=Istok+Web);
+@keyframes slidy {
+0% { left: 0%; }
+20% { left: 0%; }
+25% { left: -100%; }
+45% { left: -100%; }
+50% { left: -200%; }
+70% { left: -200%; }
+75% { left: -300%; }
+95% { left: -300%; }
+100% { left: -400%; }
+}
+* {
+  box-sizing: border-box;
+  
+}
+
+div#captioned-gallery { 
+  margin-top: 1rem;  
+  width: 100%; overflow: hidden; 
+}
+figure.slider { 
+  position: relative; width: 500%;
+  font-size: 0; animation: 30s slidy infinite; 
+}
+figure.slider figure { 
+  width: 20%; height: auto;
+  display: inline-block;  position: inherit; 
+}
+figure.slider img { width: 100%; height: auto; }
+figure.slider figure figcaption { 
+  position: absolute; bottom: 0;
+  background: #0711688c;
+  color: #ffffff; width: 100%;
+  font-size: 2rem; padding: .6rem; 
+  display: flex;
+  justify-content: center;
+}
+
+.contentHero{
+    margin-top: 22rem;
+}
+
+#img1 {
+  background: url('../game/assets/hero-profile.png');
+}
+
+#img2 {
+  background: url('../game/assets/priestness-profile-flip.png');
+}
+
+#img1, #img2 {
+  display: inline-block;
+  margin: -100px 20px 0px;
+  position: relative;
+  top: 50%;
+  border-radius: 10px;
+  border: 1px #06312c solid;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  width: 200px; height: 200px;
+  cursor: pointer;
+  transition: all 0.2s linear 0s
+}
+
+#img1:hover, #img2:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
 body {
 	background: linear-gradient(-45deg, #034b27b7, #1d0250cc, #071168, #23d5ab);
 	background-size: 400% 400%;
@@ -69,14 +140,14 @@ h2 small{
     font-size: 18px!important;
 }
 
-
-iframe{
-    margin-top: 25px;
-    border: 2px solid #584f67a8;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-
+.callToAction{
+    margin-top: 1rem;
 }
+
+.callToAction h3{
+    margin: 3rem;
+}
+
 
 .home{
     margin-top: 40px;
@@ -161,7 +232,7 @@ i {
     color: #fff;
     padding: 10px 0;
     text-align: center;
-    margin-top: 19rem;
+    margin-top: 25rem;
     bottom: 0;
     width: 100%;
 }
@@ -230,12 +301,17 @@ button a{
     width: 150px;
     height: 150px;
     margin-right: 20px;
+    border: 1px black solid;
+    border-radius: 50%;
 }
 
 
-.info-item {
-    margin-bottom: 10px;
+
+
+.info{
+    margin-top: 3%;
 }
+
 
 .info-label {
     font-weight: bold;
@@ -253,6 +329,12 @@ button a{
 .progress-bar h3{
     color: black;
     align-self: center;
+}
+
+
+hr {
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 /* pagina jogo */
@@ -299,3 +381,4 @@ canvas {
     width: 20%;
     max-width: 100px; 
 }
+

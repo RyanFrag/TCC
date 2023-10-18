@@ -1,4 +1,4 @@
-import { uiManager } from "./UIManager";
+import { uiManager } from "./UIManager.js";
 
 export class Save {
 
