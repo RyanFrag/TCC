@@ -2,7 +2,15 @@
 
 
 $(document).ready(function() {
-
+  async function showMessageError() {
+      $('.message').show();
+      
+  }
+  if (window.innerWidth <= 1280) {  
+    showMessageError();
+  }else{
+    $('#gamePage').show();
+  }
 
   async function progressBar() {
     var response = await fetch('/get-game-data', {
