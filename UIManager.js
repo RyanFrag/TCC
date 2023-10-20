@@ -212,7 +212,7 @@ class UIManager {
             }),
             area(),
             anchor("center"),
-            pos(center().x, center().y ),
+            pos(center().x, center().y -100 ),
         ])
         play("ending", 
             {
@@ -220,7 +220,7 @@ class UIManager {
             })
         this.displayBlinkingUiMessage(
             "Pressione ENTER para Recomecar", 
-            vec2(center().x, center().y + 300)
+            vec2(center().x, center().y + 200)
         )
 
         add([
@@ -232,7 +232,7 @@ class UIManager {
                 }), 
             }),
             
-            pos(center().x - 320, center().y + 100)
+            pos(center().x - 320, center().y )
         ])
     
         onKeyPress("enter", async () => {
