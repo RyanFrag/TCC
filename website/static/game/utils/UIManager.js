@@ -21,7 +21,35 @@ class UIManager {
         ])
     }
 
+    displaySaveUiMessage(){
+        const message =  add([
+            text("Salvando...", {
+                size: 24,
+                font: "Round",
+            }),
+            area(),
+            anchor("center"),
+            fixed(),
+            pos(vec2(center().x + 500, center().y + 300)),
+            opacity(),
+            state("flash-up", ["flash-up", "flash-down"]),
+        ])
+        message.onStateEnter("flash-up", async ()=>{
+            await tween(
+                message.opacity,
+                0,
+                0.5,
+                (nextOpacityValue) => message.opacity = nextOpacityValue,
+                easings.linear
+            )
+            message.enterState("flash-down")
+        })
 
+        message.onStateEnter("flash-down", async ()=>{
+            destroy(message)
+        })
+        
+    }
     displayBlinkingUiMessage(content, position){
         const message = add([
             text(content, {
@@ -184,7 +212,7 @@ class UIManager {
             }),
             area(),
             anchor("center"),
-            pos(center().x, center().y ),
+            pos(center().x, center().y -100 ),
         ])
         play("ending", 
             {
@@ -192,7 +220,7 @@ class UIManager {
             })
         this.displayBlinkingUiMessage(
             "Pressione ENTER para Recomecar", 
-            vec2(center().x, center().y + 300)
+            vec2(center().x, center().y + 200)
         )
 
         add([
@@ -204,7 +232,7 @@ class UIManager {
                 }), 
             }),
             
-            pos(center().x - 320, center().y + 100)
+            pos(center().x - 320, center().y )
         ])
     
         onKeyPress("enter", async () => {

@@ -1,7 +1,6 @@
 
 import events from "../controller/events.js"
 import { playerObj } from "../../game.js"
-let isFollowingPlayer = false
 const followDistance = 200; 
 
 export class Enemy {
@@ -49,14 +48,19 @@ export class Enemy {
                 play("hit", {
                     volume: 0.2
                 })
+
                 if (index >= 0 && index < this.enemys.length) {
                     this.enemys[index].unuse("dangerous");
-                    this.enemys[index].play("death", {
-                        onEnd: () => {
-                            this.enemys[index].killed = true;
-                            destroy(this.enemys[index]);
-                        }
-                    });
+                    if(!this.enemys[index].killed ){
+                        this.enemys[index].killed = true;
+                        this.enemys[index].play("death", {
+                            
+                            onEnd: () => {
+                                destroy(this.enemys[index]);
+                            }
+                        });
+                    }
+
                 }
             })
         }
@@ -113,7 +117,7 @@ export class Enemy {
                         setTimeout(() =>  resolve(), 2000)
                     })
                     
-                    if (!this.enemys[index].isFollowingPlayer) {
+                    if (!this.enemys[index].isFollowingPlayer && enemy.currAnim !== "death") {
                         if (!isMoving) {
                             isMoving = true; 
                             if (previousState === "walk-left") {
@@ -127,7 +131,7 @@ export class Enemy {
                             }
                             isMoving = false
                         }
-                    } else {
+                    } else if(enemy.currAnim !== "death") {
                         enemy.enterState("follow-player");
                     }
                 })

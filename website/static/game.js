@@ -79,9 +79,9 @@ const scenes = {
         level1.displayLevel(1)
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
-            new Npc([vec2(220,180)], "sacerdotisa",)
+            new Npc([vec2(320,710)], "sacerdotisa",)
         }else{
-            new Npc([vec2(220, 180)], "hero")
+            new Npc([vec2(320, 710)], "hero")
         }
      
         Bars([
@@ -90,26 +90,26 @@ const scenes = {
         ], 'open1', 0, false, 'vertical')
 
         Bars([
-            vec2(610, 690),
-            vec2(610, 770),
+            vec2(870, 690),
+            vec2(870, 770),
         ], 'open3', 3, true, 'vertical')
 
         const soundTile = new SoundTile()
         const sound = soundTile.addSoundTile("t1", 'lava', vec2(1600, 256), 200)
         const question1 = new Question([vec2(1650, 420)], 0, "brick")
         const question2 = new Question([vec2(1150, 700)], 2, "brick")
-        const question3 = new Question([vec2(420, 225)], 3, "brick")
-        const pressPlate = new Pressure(vec2(730, 360), "normal", "brick", "normal")
+        const question3 = new Question([vec2(220, 525)], 3, "brick")
+        const pressPlate = new Pressure(vec2(730, 420), "normal", "brick", "normal")
         const pressPlate2 = new Pressure(vec2(730, 260), "happy", "brick", "happy")
-        const pressPlate3 = new Pressure(vec2(730, 450),"sad", "brick", "sad")
-        const pressPlate4 = new Pressure(vec2(384, 450),"restart", "brick", "restart")
+        const pressPlate3 = new Pressure(vec2(730, 550),"sad", "brick", "sad")
+        const pressPlate4 = new Pressure(vec2(100, 225),"restart", "brick", "restart")
         const box1 = new Box()
 
-        const boxObj = box1.createBoxes(vec2(500, 260),'normal', 'normal' )
+        const boxObj = box1.createBoxes(vec2(300, 330),'normal', 'normal' )
         const box2 = new Box()
         const boxObj2 = box2.createBoxes(vec2(600, 360),'happy', 'normal' )
         const box3 = new Box()
-        const boxObj3 = box3.createBoxes(vec2(540, 400),'sad', 'normal' )
+        const boxObj3 = box3.createBoxes(vec2(520, 460),'sad', 'normal' )
 
         pressPlate.pressPlate(false, false, true)
         pressPlate2.pressPlate(false, false, true)
@@ -484,8 +484,10 @@ const scenes = {
         events.listen("progress_blank", () => {
             save.saveGame(2,1040, 700)
         })
+
         events.listen("progress_open", () => {
             save.saveGame(2, 2100, 420)
+            
         })
         let playingBox = false
         const soundTile = new SoundTile()

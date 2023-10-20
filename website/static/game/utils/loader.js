@@ -86,7 +86,26 @@ export const load = {
         loadSprite("blacktar-bottom", "static/game/assets/wood/blacktar_B.png")
         loadSprite("blacktar-top", "static/game/assets/wood/blacktar_T.png")
         
-        
+        loadSprite("fire", "static/game/assets/fire.png", {
+            sliceX: 8,
+            sliceY: 2,
+            anims: {
+                idle:{
+                    from: 0,
+                    to: 7,
+                    loop: true,
+                    speed: 10
+                },
+                vanish: {
+                    from: 8,
+                    to: 15,
+                },
+                appear: {
+                    from: 15,
+                    to: 8
+                }
+            }
+        })
         loadSprite("brickNumbers-button", "static/game/assets/brick/brick_button_numbers.png", {
             sliceX: 3,
             sliceY: 10,

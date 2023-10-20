@@ -32,7 +32,7 @@ export class Player {
                         death: "death-" + character
                     }
                 },
-                area({shape: new Rect(vec2(0,3), 16, 16) }),
+                area({shape: new Rect(vec2(0, 10), 16, 16) }),
                 anchor("center"),
                 pos(this.initialX, this.initialY),
                 scale(3),

@@ -1,4 +1,3 @@
-import { SoundTile } from "./soundTile.js"
 
 export class Box {
     createBoxes(position, key, type){
@@ -10,7 +9,7 @@ export class Box {
                     }),
                     anchor("center"),
                     body(),
-                    scale(2),
+                    scale(3),
                     `box-${key}`,
                     `wood-box`,
                 ])
