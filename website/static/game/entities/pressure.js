@@ -27,7 +27,6 @@ export class Pressure {
         if(!this.pressed){
             if(enemyPress){
                 this.gameObj.onCollide(`dangerous`, () => {
-                    console.log("pressed")
                     this.pressed =  true
                     this.gameObj.play(`pressed${this.buttonType}`)
                     const sound = new SoundTile()
