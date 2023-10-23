@@ -1,12 +1,12 @@
-{% extends "base.html" %} {% block title %}PuzzleCrafter{% endblock %} {% block content
+{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block content
     %}
-    <div class="perfil-container container-fluid d-flex align-items-center justify-content-center">
+    <div class="perfil-container container-fluid d-flex align-items-center justify-content-center centralize">
         <div class="info-container">
             <div class="info row d-flex align-items-center justify-content-center">
                 {% if args['response']['character'] == "hero" %}
                 <img src="../static/game/assets/hero-profile.png" alt="Foto de perfil" class="perfil-imagem imagem col-md-6">
                 {% else %}
-                <img src="../static/game/assets/priestness-profile.png" alt="Foto de perfil" class="perfil-imagem col-md-6">
+                <img src="../static/game/assets/priestness-profile.png" alt="Foto de perfil" class="perfil-imagem imagem col-md-6">
                 {% endif %}
                 <div class="info-item col-md-4">
                     <span class="info-label col">Nome: </span><br><p>{{args['response']['first_name']}}</p>

@@ -12,7 +12,7 @@ views = Blueprint('views', __name__)
 def home():
     if request.method == 'GET': 
         pagina = "home"
-    return render_template("home.html", user=current_user, pagina=pagina)
+    return render_template("home.html", user=current_user, pagina=pagina, full_height_container=False)
 
 
 @views.route('/delete-note', methods=['POST'])
@@ -31,7 +31,7 @@ def delete_note():
 @views.route('/sobre-projeto', methods=['GET'])
 @login_required
 def projeto():
-    return render_template("projeto.html", user=current_user)
+    return render_template("projeto.html", user=current_user, full_height_container=True)
 
 
 @views.route('/perfil', methods=['GET'])
@@ -49,7 +49,7 @@ def perfil():
                 "win": user.win,
                 "level": user.level
             }
-            return render_template("perfil.html", user=current_user, args=args)
+            return render_template("perfil.html", user=current_user, args=args, full_height_container=True)
 
 
 @views.route('/play-game', methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def game():
         if(data.get('level') == 0):
             user.level = data['level']
         db.session.commit()
-    return render_template("game.html", user=current_user)
+    return render_template("game.html", user=current_user, full_height_container=False)
 
 
 @views.route('/save-game', methods=['POST'])

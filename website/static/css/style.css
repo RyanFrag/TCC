@@ -49,10 +49,17 @@ body, html {
     height: 100%;    
 }
 
-
+.centralize{
+    height: 100%;
+}
 .container{
     min-height: 100%;
 }
+
+.full-height-container {
+    height: 100%;
+}
+
 
 div#captioned-gallery { 
   margin-top: 1rem;  
@@ -304,7 +311,6 @@ button a{
 #circle-shape-example { 
     color: white;
     margin: 2rem; 
-    margin-top: 6rem;
 }
 #circle-shape-example p { 
   line-height: 1.8; 
@@ -401,7 +407,8 @@ button a{
     height: 150px;
     border: 1px black solid;
     border-radius: 50%;
-}
+    margin-top: 0rem;
+    }
 
 .info{
     margin-top: 3%;
@@ -417,8 +424,6 @@ button a{
     border-radius: 29px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
     padding: 20px;
-    margin-top: 9rem;
-    margin-bottom: 2rem;
 
 }
 
