@@ -29,6 +29,8 @@ import { Simbols } from "./game/entities/simbols.js";
 import { Car } from "./game/entities/car.js";
 import events from "./game/controller/events.js";
 import { Save } from "./game/utils/Save.js";
+import { Altar } from "./game/entities/altar.js";
+import { Collums } from "./game/entities/collums.js";
 
 export const k = kaboom({
     width: 1200,
@@ -326,7 +328,8 @@ const scenes = {
         })
         const level2 = new Level()
         level2.drawMapLayout(level2Layout, "woodWall")
-        const pressPlate0 = new Pressure(vec2(700, 260), "blank", "wood", "blank")
+        const pressPlate0 = new Pressure(vec2(700, 260), "blank", "woodNumbers", "heart")
+
         pressPlate0.pressPlate(false, true, false)
         Bars([
             vec2(220, 780),
@@ -365,7 +368,7 @@ const scenes = {
             ], "leverLevel3")
 
         const question1 = new Question([vec2(470, 440)], 0, "wood")
-        const pressPlate = new Pressure(vec2(460, 760), "blank", "wood", "blank")
+        const pressPlate = new Pressure(vec2(460, 760), "blank", "woodNumbers", "skull")
         pressPlate.pressPlate(true, false, false)
 
         new NumberTiles(vec2(1200, 270), "two")
@@ -853,6 +856,8 @@ const scenes = {
         save.saveGame(5, positionX, positionY)          
         const level5 = new Level()
         level5.drawMapLayout(level5Layout, "stoneWall")
+        const altar = new Altar()
+        altar.createAltar(vec2(380, 0), "End")
 
         const player = new Player(
             positionX,
@@ -865,12 +870,34 @@ const scenes = {
         )
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
-            new Npc([vec2(220,880)], "sacerdotisa",)
+            new Npc([vec2(400,980)], "sacerdotisa",)
         }else{
-            new Npc([vec2(220, 880)], "hero")
+            new Npc([vec2(400, 980)], "hero")
         }
 
         playerObj =  player.makePlayer(character)
+
+        const collums = new Collums();
+        collums.createCollums(      
+            level5Config.columsPositions.map(collumPos => collumPos()),
+            level5Config.columsTypes.map(collumType => collumType())
+        )
+        const collums2 = new Collums();
+        collums2.createCollums(
+            level5Config.columsPositions2.map(collumPos => collumPos()),
+            level5Config.columsTypes2.map(collumType => collumType())
+        )
+        const collums3 = new Collums();
+        collums3.createCollums(
+            level5Config.columsPositions3.map(collumPos => collumPos()),
+            level5Config.columsTypes3.map(collumType => collumType())
+        )
+        const collums4 = new Collums();
+        collums4.createCollums(
+            level5Config.columsPositions4.map(collumPos => collumPos()),
+            level5Config.columsTypes4.map(collumType => collumType())
+        )
+
         player.setPlayerControls()
         onKeyPress("space", () => {
             player.attack(["left", "right", "up", "down"], character)
@@ -888,6 +915,7 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level5Config.cameraLeftBound, level5Config.cameraRightBound, level5Config.cameraTopBound, level5Config.cameraBottomBound)
         player.goNextLevel(character, 128, 700)
+        altar.endGame()
     },
     gameOver: () =>{
         uiManager.displayGameOver()

@@ -3,6 +3,18 @@ export const load = {
         loadFont("Round", "static/game/assets/Round9x13.ttf")
     },
     assets: () => {
+        loadSprite("altar", "static/game/assets/altar.png", {
+            sliceX: 4,
+            sliceY: 1,
+            anims: {
+                animAltar:{
+                    from: 0,
+                    to: 3,
+                    loop: true
+                }
+            }
+
+        } )
         loadSprite("cutsceneStart", "static/game/assets/cutsceneStart.png" )
         loadSprite("cutsceneEnd", "static/game/assets/cutsceneEnd.png" )
         loadSprite("gameOver", "static/game/assets/gameover.png" )
@@ -42,10 +54,7 @@ export const load = {
         loadSprite("heart", "static/game/assets/pickup/heart.png")
 
         loadSprite("ladder-down", "static/game/assets/brick/brick_down_stairs.png")
-        loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png", {
-            sliceX: 1,
-            sliceY: 1
-        })
+        loadSprite("ladder-up", "static/game/assets/brick/brick_up_stairs.png")
 
 
         loadSprite("ladder-down-wood", "static/game/assets/wood/wooden_down_stairs.png")
@@ -70,6 +79,50 @@ export const load = {
                 }
             }
         })
+        loadSprite("collum", "static/game/assets/brick/collums.png", {
+            sliceX: 9,
+            sliceY: 1,
+            anims: {
+                upcollum: {
+                    from: 0,
+                    to: 0,
+                },
+                basecollum: {
+                    from: 1,
+                    to: 1,
+                },
+                bosscollum: {
+                    from: 7,
+                    to: 7,
+                },
+                simbolcollum: {
+                    from: 8,
+                    to: 8,
+                },
+                midle1: {
+                    from: 2,
+                    to: 2,
+                },
+                midle2: {
+                    from: 3,
+                    to: 3,
+                },
+                midle3: {
+                    from: 4,
+                    to: 4,
+                },
+                midle4: {
+                    from: 5,
+                    to: 5,
+                },
+                midle5: {
+                    from: 6,
+                    to: 6,
+                }
+            }
+        })
+
+
         loadSprite("blacktar", "static/game/assets/wood/blacktar.png", {
             sliceX: 5,
             sliceY: 1,
@@ -108,127 +161,151 @@ export const load = {
         })
         loadSprite("brickNumbers-button", "static/game/assets/brick/brick_button_numbers.png", {
             sliceX: 3,
-            sliceY: 10,
+            sliceY: 14,
             anims: {
-                one : {
-                    from: 0,
+                heart: {
+                    from : 0,
                     to: 0,
                 },
-                two : {
-                    from : 3,
+                skull:{
+                    from: 3,
                     to: 3,
                 },
-                three : {
-                    from : 6,
-                    to: 6,  
-                },
-                four : {
-                    from : 9,
-                    to: 9,
-                },
-                five : {
-                    from : 12,
+                one : {
+                    from: 12,
                     to: 12,
                 },
-                six : {
+                two : {
                     from : 15,
                     to: 15,
-                }, 
-                seven : {
-                    from : 18,
-                    to: 18,
                 },
-                eight : {
+                three : {
+                    from : 18,
+                    to: 18,  
+                },
+                four : {
                     from : 21,
                     to: 21,
                 },
-                nine : {
+                five : {
                     from : 24,
                     to: 24,
                 },
-                zero : {
+                six : {
                     from : 27,
                     to: 27,
+                }, 
+                seven : {
+                    from : 30,
+                    to: 30,
                 },
-                pressedone : {
+                eight : {
+                    from : 33,
+                    to: 33,
+                },
+                nine : {
+                    from : 36,
+                    to: 36,
+                },
+                zero : {
+                    from : 39,
+                    to: 39,
+                },
+                pressedheart:{
                     from : 1,
                     to: 2,
                 },
-                pressedtwo : {
+                pressedskull:{
                     from : 4,
                     to: 5,
                 },
-                pressedthree : {
-                    from : 7,
-                    to: 8,
-                },
-                pressedfour : {
-                    from : 10,
-                    to: 11,
-                },
-                pressedfive : {
+                pressedone : {
                     from : 13,
                     to: 14,
                 },
-                pressedsix : {
+                pressedtwo : {
                     from : 16,
                     to: 17,
                 },
-                pressedseven : {
+                pressedthree : {
                     from : 19,
                     to: 20,
                 },
-                pressedeight : {
+                pressedfour : {
                     from : 22,
                     to: 23,
                 },
-                pressednine : {
+                pressedfive : {
                     from : 25,
                     to: 26,
                 },
-                pressedzero : {
+                pressedsix : {
                     from : 28,
                     to: 29,
                 },
-                unpressedone : {
+                pressedseven : {
+                    from : 31,
+                    to: 32,
+                },
+                pressedeight : {
+                    from : 34,
+                    to: 35,
+                },
+                pressednine : {
+                    from : 37,
+                    to: 38,
+                },
+                pressedzero : {
+                    from : 40,
+                    to: 41,
+                },                
+                unpressedheart:{
                     from : 2,
                     to: 0,
                 },
-                unpressedtwo : {
+                unpressedskull:{
                     from : 5,
                     to: 3,
                 },
-                unpressedthree : {
-                    from : 8,
-                    to: 6,
-                },
-                unpressedfour : {
-                    from : 11,
-                    to: 9,
-                },
-                unpressedfive : {
+                unpressedone : {
                     from : 14,
                     to: 12,
                 },
-                unpressedsix : {
+                unpressedtwo : {
                     from : 17,
                     to: 15,
                 },
-                unpressedseven : {
+                unpressedthree : {
                     from : 20,
                     to: 18,
                 },
-                unpressedeight : {
+                unpressedfour : {
                     from : 23,
                     to: 21,
                 },
-                unpressednine : {
+                unpressedfive : {
                     from : 26,
                     to: 24,
                 },
-                unpressedzero : {
+                unpressedsix : {
                     from : 29,
                     to: 27,
+                },
+                unpressedseven : {
+                    from : 32,
+                    to: 30,
+                },
+                unpressedeight : {
+                    from : 35,
+                    to: 33,
+                },
+                unpressednine : {
+                    from : 38,
+                    to: 36,
+                },
+                unpressedzero : {
+                    from : 41,
+                    to: 39,
                 },
             }        
         })
@@ -529,127 +606,151 @@ export const load = {
 
         loadSprite("woodNumbers-button", "static/game/assets/wood/wood_button_numbers.png", {
             sliceX: 3,
-            sliceY: 10,
+            sliceY: 14,
             anims: {
-                one : {
-                    from: 0,
+                heart: {
+                    from : 0,
                     to: 0,
                 },
-                two : {
-                    from : 3,
+                skull:{
+                    from: 3,
                     to: 3,
                 },
-                three : {
-                    from : 6,
-                    to: 6,  
-                },
-                four : {
-                    from : 9,
-                    to: 9,
-                },
-                five : {
-                    from : 12,
+                one : {
+                    from: 12,
                     to: 12,
                 },
-                six : {
+                two : {
                     from : 15,
                     to: 15,
-                }, 
-                seven : {
-                    from : 18,
-                    to: 18,
                 },
-                eight : {
+                three : {
+                    from : 18,
+                    to: 18,  
+                },
+                four : {
                     from : 21,
                     to: 21,
                 },
-                nine : {
+                five : {
                     from : 24,
                     to: 24,
                 },
-                zero : {
+                six : {
                     from : 27,
                     to: 27,
+                }, 
+                seven : {
+                    from : 30,
+                    to: 30,
                 },
-                pressedone : {
+                eight : {
+                    from : 33,
+                    to: 33,
+                },
+                nine : {
+                    from : 36,
+                    to: 36,
+                },
+                zero : {
+                    from : 39,
+                    to: 39,
+                },
+                pressedheart:{
                     from : 1,
                     to: 2,
                 },
-                pressedtwo : {
+                pressedskull:{
                     from : 4,
                     to: 5,
                 },
-                pressedthree : {
-                    from : 7,
-                    to: 8,
-                },
-                pressedfour : {
-                    from : 10,
-                    to: 11,
-                },
-                pressedfive : {
+                pressedone : {
                     from : 13,
                     to: 14,
                 },
-                pressedsix : {
+                pressedtwo : {
                     from : 16,
                     to: 17,
                 },
-                pressedseven : {
+                pressedthree : {
                     from : 19,
                     to: 20,
                 },
-                pressedeight : {
+                pressedfour : {
                     from : 22,
                     to: 23,
                 },
-                pressednine : {
+                pressedfive : {
                     from : 25,
                     to: 26,
                 },
-                pressedzero : {
+                pressedsix : {
                     from : 28,
                     to: 29,
                 },
-                unpressedone : {
+                pressedseven : {
+                    from : 31,
+                    to: 32,
+                },
+                pressedeight : {
+                    from : 34,
+                    to: 35,
+                },
+                pressednine : {
+                    from : 37,
+                    to: 38,
+                },
+                pressedzero : {
+                    from : 40,
+                    to: 41,
+                },                
+                unpressedheart:{
                     from : 2,
                     to: 0,
                 },
-                unpressedtwo : {
+                unpressedskull:{
                     from : 5,
                     to: 3,
                 },
-                unpressedthree : {
-                    from : 8,
-                    to: 6,
-                },
-                unpressedfour : {
-                    from : 11,
-                    to: 9,
-                },
-                unpressedfive : {
+                unpressedone : {
                     from : 14,
                     to: 12,
                 },
-                unpressedsix : {
+                unpressedtwo : {
                     from : 17,
                     to: 15,
                 },
-                unpressedseven : {
+                unpressedthree : {
                     from : 20,
                     to: 18,
                 },
-                unpressedeight : {
+                unpressedfour : {
                     from : 23,
                     to: 21,
                 },
-                unpressednine : {
+                unpressedfive : {
                     from : 26,
                     to: 24,
                 },
-                unpressedzero : {
+                unpressedsix : {
                     from : 29,
                     to: 27,
+                },
+                unpressedseven : {
+                    from : 32,
+                    to: 30,
+                },
+                unpressedeight : {
+                    from : 35,
+                    to: 33,
+                },
+                unpressednine : {
+                    from : 38,
+                    to: 36,
+                },
+                unpressedzero : {
+                    from : 41,
+                    to: 39,
                 },
             }        
         })

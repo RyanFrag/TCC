@@ -5,7 +5,7 @@ export class Box {
                     sprite(`wood-box-${type}`, {anim: `${key}`}),
                     pos(position),
                     area({
-                        shape: new Rect(vec2(1, 3), 32, 32),
+                        shape: new Rect(vec2(1, 3), 16, 16),
                     }),
                     anchor("center"),
                     body(),

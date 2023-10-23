@@ -191,7 +191,7 @@ export class Enemy {
                     if (this.enemys[index].killed) return
 
                     if(followDistance < this.distanceFromPlayer(enemy.pos, playerObj.pos)){
-                        isFollowingPlayer = false
+                        this.isFollowingPlayer = false; 
                         enemy.enterState("idle", "walk-right")
                     }else{
                         const moveByX = playerObj.pos.x > enemy.pos.x ? 1 : -1; 

@@ -68,7 +68,7 @@ export class Level {
                 "b": () => [sprite("lava-left-top"), area(), scale(4), body({isStatic: true})],
                 "g": () => [sprite("lava-right-top"), area(), scale(4)],
                 
-
+                
                 "$": () => [sprite("blacktar", {anim: "blacktar"}), "blacktar", area(), scale(4),body({isStatic: true})],
                 "(": () => [sprite("blacktar-left"), area(), scale(4), body({isStatic: true})],
                 "+": () => [sprite("blacktar-right"), area(), scale(4), body({isStatic: true})],
