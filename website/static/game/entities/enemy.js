@@ -2,6 +2,7 @@
 import events from "../controller/events.js"
 import { playerObj } from "../../game.js"
 const followDistance = 200; 
+let call = false;
 
 export class Enemy {
     constructor(positions, rangeX, rangeY, speeds, type, killed, key, ){
@@ -34,9 +35,11 @@ export class Enemy {
         openBarriers(){
             const allEnemiesKilled = this.enemys.every(enemy => enemy.killed === true);
             if (allEnemiesKilled) {
-                events.emit("progress_" + this.key);
-                events.emit("open_bars_" + this.key);
-
+                if(!call){
+                    events.emit("open_bars_" + this.key);
+                    events.emit("progress_open$");
+                    call = true
+                }
             }
         }
         birth(index){

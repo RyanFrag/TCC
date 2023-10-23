@@ -89,7 +89,7 @@ const scenes = {
         Bars([
             vec2(1440, 690),
             vec2(1440, 770),
-        ], 'open1', 0, false, 'vertical')
+        ], 'open2', 0, false, 'vertical')
 
         Bars([
             vec2(870, 690),
@@ -179,8 +179,9 @@ const scenes = {
         )
 
         Bars([
-            vec2(2360, 460),
-            vec2(2360, 550),
+            vec2(2260, 400),
+            vec2(2260, 500),
+            vec2(2260, 600),
         ], 'barrier4', 0, false, 'vertical'
         )
 
@@ -282,7 +283,7 @@ const scenes = {
             level1Config.enemysSpeeds,
             level1Config.enemysType,
             false,
-            'open1',
+            'open2',
         )
 
         enemys.setMovementEnemy()
@@ -292,10 +293,10 @@ const scenes = {
         enemys.update()
 
         events.listen("progress_open3", () => {
-            save.saveGame(1,810, 700)
+            save.saveGame(1,900, 700)
 
         })
-        events.listen("progress_open1", () => {
+        events.listen("progress_open2", () => {
             save.saveGame(1, 1700, 700)
         })
         player.hitByMobs(character)
@@ -322,6 +323,7 @@ const scenes = {
     2: async (character, positionX, positionY) => {
         const save = new Save()
         save.saveGame(2, positionX, positionY)
+        
         const music = play("level2", {
             volume: 0.2,
             loop: true

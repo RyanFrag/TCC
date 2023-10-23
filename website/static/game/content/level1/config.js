@@ -1,7 +1,7 @@
 export const level1Config = {
     playerPositionX: 128,
     playerPositionY: 768,
-    nbLives: 0,
+    nbLives: 3,
     playerSpeed: 200,
     enemysPositions: [
         () => vec2(970,220),
