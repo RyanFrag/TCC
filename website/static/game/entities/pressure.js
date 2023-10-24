@@ -14,7 +14,7 @@ export class Pressure {
             sprite(`${type}-button`, { anim: `${buttonType}` }),
             pos(position),
             area({
-                shape: new Rect(vec2(1, 3), 8, 8),
+                shape: new Rect(vec2(0, 0), 16, 16),
             }),
             anchor("center"),
             scale(4),

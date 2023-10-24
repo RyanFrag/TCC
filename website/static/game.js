@@ -31,6 +31,7 @@ import events from "./game/controller/events.js";
 import { Save } from "./game/utils/Save.js";
 import { Altar } from "./game/entities/altar.js";
 import { Collums } from "./game/entities/collums.js";
+import { Boss } from "./game/entities/boss.js";
 
 export const k = kaboom({
     width: 1200,
@@ -206,6 +207,13 @@ const scenes = {
                 vec2(1640, 620),
             ], "barrier4")
 
+
+        new NumberTiles(vec2(1540, 230), "one", "brick")
+        new NumberTiles(vec2(1540, 330), "two", "brick")
+        new NumberTiles(vec2(1540, 520), "three", "brick")
+        new NumberTiles(vec2(1540, 620), "four", "brick")
+
+
         const player = new Player(
             positionX,
             positionY,
@@ -226,10 +234,10 @@ const scenes = {
             lever1.pullLever()
             lever2.pullLever()
             lever3.pullLever()
-            lever4.pullLever(true)
-            lever5.pullLever(true)
-            lever6.pullLever(true)
-            lever7.pullLever(true)
+            lever4.pullLever()
+            lever5.pullLever()
+            lever6.pullLever()
+            lever7.pullLever()
             for (const boxObjPosition of boxesObjsPosition) {
                 const boxObject = Object.values(boxObjPosition)[0].box;
                 if (boxObject.isColliding(playerObj)) {
@@ -373,31 +381,31 @@ const scenes = {
         const pressPlate = new Pressure(vec2(460, 760), "blank", "woodNumbers", "skull")
         pressPlate.pressPlate(true, false, false)
 
-        new NumberTiles(vec2(1200, 270), "two")
+        new NumberTiles(vec2(1200, 270), "two", "wood")
         new Simbols(vec2(1300, 270), "multiplication")
         const pressPlate2 = new Pressure(vec2(1400, 270), "nine", "wood", "blank")
         pressPlate2.pressPlate(false, false, true)
         new Simbols(vec2(1500, 270), "igual")
-        new NumberTiles(vec2(1600, 270), "one")
-        new NumberTiles(vec2(1660, 270), "eight")
-        new NumberTiles(vec2(1200, 400), "six")
+        new NumberTiles(vec2(1600, 270), "one", "wood")
+        new NumberTiles(vec2(1660, 270), "eight", "wood")
+        new NumberTiles(vec2(1200, 400), "six", "wood")
         new Simbols(vec2(1300, 400), "division")
         const pressPlate3 = new Pressure(vec2(1400, 400), "two", "wood", "blank")
         pressPlate3.pressPlate(false, false, true)
         new Simbols(vec2(1500, 400), "igual")
-        new NumberTiles(vec2(1600, 400), "three")
-        new NumberTiles(vec2(1200, 530), "nine")
-        new NumberTiles(vec2(1300, 530), "seven")
+        new NumberTiles(vec2(1600, 400), "three", "wood")
+        new NumberTiles(vec2(1200, 530), "nine", "wood")
+        new NumberTiles(vec2(1300, 530), "seven", "wood")
         const pressPlate4 = new Pressure(vec2(1400, 530), "maior", "wood", "blank")
         pressPlate4.pressPlate(false, false, true)
-        new NumberTiles(vec2(1500, 530), "four")
-        new NumberTiles(vec2(1600, 530), "five")
-        new NumberTiles(vec2(1200, 660), "seven")
+        new NumberTiles(vec2(1500, 530), "four", "wood")
+        new NumberTiles(vec2(1600, 530), "five", "wood")
+        new NumberTiles(vec2(1200, 660), "seven", "wood")
         new Simbols(vec2(1300, 660), "exclamation")
         new Simbols(vec2(1400, 660), "igual")
         const pressPlate5 = new Pressure(vec2(1500, 660), "one", "wood", "blank")
         pressPlate5.pressPlate(false, false, true)
-        new NumberTiles(vec2(1600, 660), "one")
+        new NumberTiles(vec2(1600, 660), "one" , "wood")
         const box1 = new Box()
         const box2 = new Box()
         const box3 = new Box()
@@ -544,12 +552,12 @@ const scenes = {
             vec2(3170, 280),
             vec2(3170, 220),
         ], 'open1', 0, false, "vertical")
-        new NumberTiles(vec2(500, 770), "two")
-        new NumberTiles(vec2(900, 520), "eight")
-        new NumberTiles(vec2(1700, 510), "four")
-        new NumberTiles(vec2(2050, 770), "three")
-        new NumberTiles(vec2(2800, 250), "five")
-        new NumberTiles(vec2(2600, 770), "nine")
+        new NumberTiles(vec2(500, 770), "two", "wood")
+        new NumberTiles(vec2(900, 520), "eight", "wood")
+        new NumberTiles(vec2(1700, 510), "four", "wood")
+        new NumberTiles(vec2(2050, 770), "three", "wood")
+        new NumberTiles(vec2(2800, 250), "five", "wood")
+        new NumberTiles(vec2(2600, 770), "nine", "wood")
         new Question([vec2(2900, 770)], 1, "wood")
         const pressPlate0 = new Pressure(vec2(3200, 500), "open1", "woodNumbers", "zero")
         const pressPlate1 = new Pressure(vec2(3300, 500), "open1", "woodNumbers", "one")
@@ -733,17 +741,17 @@ const scenes = {
 
 
 
-        const pressPlateWalkRight1 = new Pressure(vec2(1330, 660), "jose", "brick", "left")
-        const pressPlateWalkLeft1 = new Pressure(vec2(1330, 460), "jose", "brick", "right")
-        const pressPlateWalkUp1 = new Pressure(vec2(1330, 560), "jose", "brick", "up")
+        const pressPlateWalkRight1 = new Pressure(vec2(1330, 620), "jose", "brick", "left")
+        const pressPlateWalkLeft1 = new Pressure(vec2(1330, 360), "jose", "brick", "right")
+        const pressPlateWalkUp1 = new Pressure(vec2(1330, 490), "jose", "brick", "up")
         const pressPlateWalkDown1 = new Pressure(vec2(1330, 760), "jose", "brick", "down")
-        const reset1 = new Pressure(vec2(1000, 670), "jose", "brick", "restart")
+        const reset1 = new Pressure(vec2(1330, 230), "jose", "brick", "restart")
 
 
-        const twoTime1 = new Pressure(vec2(1000, 370), "jose", "brickNumbers", "two")
+        const twoTime1 = new Pressure(vec2(1000, 340), "jose", "brickNumbers", "two")
         const threeTime1 = new Pressure(vec2(1000, 470), "jose", "brickNumbers", "three")
-        const fourTime1 = new Pressure(vec2(1000, 570), "jose", "brickNumbers", "four")
-        const oneTime1 = new Pressure(vec2(1000, 270), "jose", "brickNumbers", "one")
+        const fourTime1 = new Pressure(vec2(1000, 600), "jose", "brickNumbers", "four")
+        const oneTime1 = new Pressure(vec2(1000, 230), "jose", "brickNumbers", "one")
 
         pressPlateWalkRight1.puzzle("walk-right")
         pressPlateWalkLeft1.puzzle("walk-left")
@@ -803,8 +811,8 @@ const scenes = {
 
 
         playerObj =  player.makePlayer(character)
-        Car(vec2(1490, 220), 800, "jose")
-        Car(vec2(150, 200), 800, "macqueen")
+        Car(vec2(1510, 220), 1200, "jose")
+        Car(vec2(150, 200), 1200, "macqueen")
         player.setPlayerControls()
         onKeyPress("space", () => {
             player.attack(["left", "right", "up", "down"], character)
@@ -870,6 +878,7 @@ const scenes = {
             level5Config.nbLives,
             false
         )
+
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
             new Npc([vec2(400,980)], "sacerdotisa",)
@@ -877,18 +886,38 @@ const scenes = {
             new Npc([vec2(400, 980)], "hero")
         }
 
-        playerObj =  player.makePlayer(character)
+        const boss = new Boss(vec2(300, 600), 100, 100, 1, "boss")
+        boss.setMovementBoss()
+        boss.update()
+        boss.killBoss()
+        Bars([
+            vec2(100, 760),
+            vec2(200, 760),
+            vec2(300, 760),
+            vec2(400, 760),
+            vec2(500, 760),
+            vec2(600, 760),
+            vec2(700, 760),
+            vec2(800, 760),
+            vec2(900, 760),
+            vec2(1000, 760),
+            vec2(1100, 760),
+            vec2(1200, 760),
+        ], "boss", 0, false, "horizontal")
 
-        const collums = new Collums();
-        collums.createCollums(      
-            level5Config.columsPositions.map(collumPos => collumPos()),
-            level5Config.columsTypes.map(collumType => collumType())
-        )
-        const collums2 = new Collums();
-        collums2.createCollums(
-            level5Config.columsPositions2.map(collumPos => collumPos()),
-            level5Config.columsTypes2.map(collumType => collumType())
-        )
+        playerObj =  player.makePlayer(character)
+        player.hitByMobs(character)
+
+        // const collums = new Collums();
+        // collums.createCollums(      
+        //     level5Config.columsPositions.map(collumPos => collumPos()),
+        //     level5Config.columsTypes.map(collumType => collumType())
+        // )
+        // const collums2 = new Collums();
+        // collums2.createCollums(
+        //     level5Config.columsPositions2.map(collumPos => collumPos()),
+        //     level5Config.columsTypes2.map(collumType => collumType())
+        // )
         const collums3 = new Collums();
         collums3.createCollums(
             level5Config.columsPositions3.map(collumPos => collumPos()),
@@ -899,6 +928,8 @@ const scenes = {
             level5Config.columsPositions4.map(collumPos => collumPos()),
             level5Config.columsTypes4.map(collumType => collumType())
         )
+
+        
 
         player.setPlayerControls()
         onKeyPress("space", () => {

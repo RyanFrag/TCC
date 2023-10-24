@@ -34,15 +34,24 @@ export class Lever {
                         this.call = true;
                         await this.animate();
                         this.pull = true;
+                    
                         if (this.key == "barrier1") {
-                            events.emit("close_bars_barrier4");
-                        } else if (this.key == "barrier2") {
-                            events.emit("close_bars_barrier1");
-                        } else if (this.key == "barrier3") {
+                            events.emit("open_bars_barrier1");
                             events.emit("close_bars_barrier2");
+                        } else if (this.key == "barrier2") {
+                            events.emit("open_bars_barrier2");
+                        } else if (this.key == "barrier3") {
+                            events.emit("open_bars_barrier3");
+                            events.emit("close_bars_barrier1");
+                        } else if (this.key == "barrier4") {
+                            events.emit("open_bars_barrier4");
+                            events.emit("close_bars_barrier3");
+                        }else{
+                            events.emit("open_bars_" + this.key);
                         }
-                        events.emit("open_bars_" + this.key);
+                        
                     }
+                    
                 } else if (this.pull) {
                     if (this.gameObj.isColliding(playerObj)) {
                         this.call = true;

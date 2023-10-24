@@ -501,6 +501,54 @@ export const load = {
             }
         })
 
+
+        loadSprite("brick-numbers", "static/game/assets/brick/stoneNumbers.png", {
+            sliceX: 10,
+            sliceY: 1,
+            anims: {
+                one: {
+                    from: 0,
+                    to: 0,
+                },
+                two: {
+                    from: 1,
+                    to: 1,
+                },
+                three: {
+                    from: 2,
+                    to: 2,
+                },
+                four: {
+                    from: 3,
+                    to: 3,
+                },
+                five: {
+                    from: 4,
+                    to: 4,
+                },
+                six: {
+                    from: 5,
+                    to: 5,
+                },
+                seven: {
+                    from: 6,
+                    to: 6,
+                },
+                eight: {
+                    from: 7,
+                    to: 7,
+                },
+                nine: {
+                    from: 8,
+                    to: 8,
+                },
+                zero: {
+                  from : 9,
+                  to: 9,  
+                }
+            }
+        })
+
         loadSprite("wood-button", "static/game/assets/wood/wood_button.png", {
             sliceX: 3,
             sliceY: 9,

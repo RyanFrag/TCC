@@ -52,7 +52,7 @@ export class Level {
 
                 "1": () => [sprite("t1-wood", {anim: "tile" + Math.floor(Math.random() * 11)  }), area(), scale(4)],
                
-                "l": () => [sprite("ladder-down"), "ladder-down", area(), scale(2)],
+                "l": () => [sprite("ladder-down"), "ladder-down", area(), scale(2.5)],
                 "u": () => [sprite("ladder-up"), "ladder-up", area(), scale(2)],
 
                 "@": () => [sprite("ladder-down-wood"), "ladder-down", area(), scale(2)],

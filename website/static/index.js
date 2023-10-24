@@ -76,12 +76,19 @@ async function generateCertificate (name){
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
+  const { width: pageWidth } = firstPage.getSize()
+
+
+  firstPage.textAlign = "center";
+  
+
   firstPage.drawText(name, {
-    x: 300,
-    y: 320,
-    size: 58,
+    x:   Math.floor(pageWidth / 2)  - (Math.floor(name.length / 2) * 16),
+    y: 350,
+    size: 42,
     font: CharmFont,
-    color: rgb(1.0, 0.75, 0.0),
+    color: rgb(0.0, 0.0, 0.0),
+
   });
 
   firstPage.drawText(date, {
@@ -89,7 +96,7 @@ async function generateCertificate (name){
     y: 150,
     size: 22,
     font: CharmFont,
-    color: rgb(0, 0, 0),
+    color: rgb(0.0, 0.0, 0.0),
   });
 
 

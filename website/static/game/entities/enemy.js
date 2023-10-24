@@ -1,11 +1,11 @@
 
 import events from "../controller/events.js"
 import { playerObj } from "../../game.js"
-const followDistance = 200; 
+const followDistance = 300; 
 let call = false;
 
 export class Enemy {
-    constructor(positions, rangeX, rangeY, speeds, type, killed, key, ){
+    constructor(positions, rangeX, rangeY, speeds, type, killed, key){
             this.rangeX = rangeX
             this.rangeY = rangeY
             this.speeds = speeds
