@@ -881,43 +881,59 @@ const scenes = {
 
         const npc = character === "hero" ? "sacerdotisa" : "hero";
         if(character == "hero"){
-            new Npc([vec2(400,980)], "sacerdotisa",)
+            new Npc([vec2(400,1280)], "sacerdotisa",)
         }else{
-            new Npc([vec2(400, 980)], "hero")
+            new Npc([vec2(400,1280)], "hero")
         }
 
-        const boss = new Boss(vec2(300, 600), 100, 100, 1, "boss")
-        boss.setMovementBoss()
-        boss.update()
-        boss.killBoss()
-        Bars([
-            vec2(100, 760),
-            vec2(200, 760),
-            vec2(300, 760),
-            vec2(400, 760),
-            vec2(500, 760),
-            vec2(600, 760),
-            vec2(700, 760),
-            vec2(800, 760),
-            vec2(900, 760),
-            vec2(1000, 760),
-            vec2(1100, 760),
-            vec2(1200, 760),
-        ], "boss", 0, false, "horizontal")
+
+        // Bars([
+        //     vec2(100, 910),
+        //     vec2(200, 910),
+        //     vec2(300, 910),
+        //     vec2(400, 910),
+        //     vec2(500, 910),
+        //     vec2(700, 910),
+        //     vec2(800, 910),
+        //     vec2(900, 910),
+        //     vec2(1000, 910),
+        //     vec2(1100, 910),
+        // ], "static", 0, false, "horizontal")
+
+        // Bars([
+        //     vec2(100, 320),
+        //     vec2(200, 320),
+        //     vec2(300, 320),
+        //     vec2(400, 320),
+        //     vec2(500, 320),
+        //     vec2(600, 320),
+        //     vec2(700, 320),
+        //     vec2(800, 320),
+        //     vec2(900, 320),
+        //     vec2(1000, 320),
+        //     vec2(1100, 320),
+        // ], "boss", 0, false, "horizontal")
+
+
+        // const boss = new Boss(vec2(300, 600), 100, 100, 3, "boss")
+        // boss.playIdleAnimation()
+        // boss.setMovementBoss()
+        // boss.update()
+        // boss.killBoss()
 
         playerObj =  player.makePlayer(character)
         player.hitByMobs(character)
 
-        // const collums = new Collums();
-        // collums.createCollums(      
-        //     level5Config.columsPositions.map(collumPos => collumPos()),
-        //     level5Config.columsTypes.map(collumType => collumType())
-        // )
-        // const collums2 = new Collums();
-        // collums2.createCollums(
-        //     level5Config.columsPositions2.map(collumPos => collumPos()),
-        //     level5Config.columsTypes2.map(collumType => collumType())
-        // )
+        const collums = new Collums();
+        collums.createCollums(      
+            level5Config.columsPositions.map(collumPos => collumPos()),
+            level5Config.columsTypes.map(collumType => collumType())
+        )
+        const collums2 = new Collums();
+        collums2.createCollums(
+            level5Config.columsPositions2.map(collumPos => collumPos()),
+            level5Config.columsTypes2.map(collumType => collumType())
+        )
         const collums3 = new Collums();
         collums3.createCollums(
             level5Config.columsPositions3.map(collumPos => collumPos()),

@@ -4,6 +4,7 @@ import { playerObj } from "../../game.js"
 
 const followDistance = 400; 
 let call = false;
+let canAttack = true;
 
 export class Boss {
     constructor(position, rangeX, rangeY, speeds,  key){
@@ -14,8 +15,17 @@ export class Boss {
             this.health = 100
             this.key = key
             this.isFollowingPlayer = false; 
+            this.lastAttackTime = 0;
             this.gameObj = add([
-                sprite(`enemy-1`, {anim: "walk"}),
+                {
+                    sprites: {
+                        idle: "enemy-1",
+                        // run: "run-" + character,
+                        // idle: "idle-" + character,
+                        attack: "attack-boi",
+                        // death: "death-"
+                    }
+                },                
                 pos(position),
                 area({
                     shape: new Rect(vec2(0,3), 16, 16),
@@ -23,8 +33,8 @@ export class Boss {
                 }),
                 anchor("center"),
                 body(),
-                scale(5),
-                state("idle", ["idle", "walk-left", "walk-right", 'walk-up', 'walk-down', "follow-player"]),
+                scale(3),
+                state("idle", ["idle", "walk-left", "walk-right", 'walk-up', 'walk-down', "follow-player", "attack"]),
                 "dangerous"
                 ])         
             }
@@ -41,13 +51,17 @@ export class Boss {
         }
 
 
+        playIdleAnimation(){
+            this.gameObj.use(sprite(this.gameObj.sprites.idle))
+            this.gameObj.play("idle")
+        }
+
         killBoss(){
             this.gameObj.onCollide("slash", () => {
                 play("hit", {
                     volume: 0.2
                 })
                 this.health -= 20
-                console.log(this.health)
                 if (this.health == 0) {
                     this.gameObj.unuse("dangerous");
                     if(!this.killed ){
@@ -95,11 +109,9 @@ export class Boss {
         async followPlayer() {
             if (playerObj) {
                 const distanceToPlayer = this.distanceFromPlayer(this.gameObj.pos, playerObj.pos);
-                console.log(distanceToPlayer)
                 if (distanceToPlayer < followDistance) {
                     this.isFollowingPlayer = true;  
-                    console.log("aqui")
-                } else if (distanceToPlayer > followDistance) {
+                    } else if (distanceToPlayer > followDistance) {
                     this.isFollowingPlayer = false; 
                 }
                 
@@ -129,7 +141,6 @@ export class Boss {
                         isMoving = false
                     } 
                 } else if(this.gameObj.currAnim !== "death") {
-                        console.log("seguir jugando")
                         this.gameObj.enterState("follow-player");
                     }
                 })
@@ -178,13 +189,71 @@ export class Boss {
                     this.gameObj.enterState("idle", "walk-down")
                 })
 
+                const attack = this.gameObj.onStateEnter("attack",  async ()=>{
+
+                    this.gameObj.use(sprite(this.gameObj.sprites.attack));
+                    this.gameObj.play("attack")
+
+                    add([
+                        rect(30, 30),
+                        area(),
+                        pos(vec2(this.gameObj.pos.x - 40, this.gameObj.pos.y + 160)),
+                        scale(3),
+                        opacity(0),
+                        "boss-attack"
+                    ]);
+
+                    add([
+                        rect(30, 30),
+                        area(),
+                        pos(vec2(this.gameObj.pos.x - 40, this.gameObj.pos.y + 90)),
+                        scale(3),
+                        opacity(0),
+                        "boss-attack"
+                    ]);
+
+                    add([
+                        rect(30, 30),
+                        area(),
+                        pos(vec2(this.gameObj.pos.x - 140, this.gameObj.pos.y + 90)),
+                        scale(3),
+                        opacity(0),
+                        "boss-attack"
+                    ]);
+
+                    add([
+                        rect(30, 30),
+                        area(),
+                        pos(vec2(this.gameObj.pos.x -140, this.gameObj.pos.y + 160)),
+                        scale(3),
+                        opacity(0),
+                        "boss-attack"
+                    ]);
+
+                    setTimeout(() => {
+                        destroyAll("boss-attack");
+                        this.playIdleAnimation()
+                        this.gameObj.enterState("follow-player");
+                    }, 3000);
+                     
+                })
+
 
                 const followPlayer = this.gameObj.onStateEnter("follow-player",  async ()=>{
                     if (this.killed) return
-                    if(followDistance < this.distanceFromPlayer(this.gameObj.pos, playerObj.pos)){
+                    const distance  = this.distanceFromPlayer(this.gameObj.pos, playerObj.pos)
+                    if(followDistance < distance){
                         this.isFollowingPlayer = false; 
                         this.gameObj.enterState("idle", "walk-right")
-                    }else{
+                    }
+                    else if(canAttack && 200 > distance){
+                        this.gameObj.enterState("attack")
+                        canAttack = false; 
+                        setTimeout(() => {
+                            canAttack = true; 
+                        }, 5000);
+                    }   
+                    else{
                         const moveByX = playerObj.pos.x > this.gameObj.pos.x ? 1 : -1; 
                         const verticalDistance = Math.abs(playerObj.pos.y - this.gameObj.pos.y);
                         const horizontalDistance = Math.abs(playerObj.pos.x - this.gameObj.pos.x);
@@ -220,7 +289,9 @@ export class Boss {
                             walkRight.cancel(),
                             walkUp.cancel(),
                             walkDown.cancel(),
-                            followPlayer.cancel()
+                            followPlayer.cancel(),
+                            attack.cancel()
+
                         }
                     })
                 onSceneLeave(() => {
@@ -229,7 +300,8 @@ export class Boss {
                     walkRight.cancel(),
                     walkUp.cancel(),
                     walkDown.cancel(),
-                    followPlayer.cancel()
+                    followPlayer.cancel(),
+                    attack.cancel()
                 })
             }
     

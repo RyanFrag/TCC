@@ -1152,7 +1152,7 @@ export const load = {
             }
         })
         
-
+        loadSprite("idle-heroi", "static/game/assets/hero-profile-2.png")
         loadSprite("run-hero", "static/game/assets/player-run.png",{
             sliceX: 8,
             sliceY: 1,
@@ -1187,7 +1187,16 @@ export const load = {
                 },
             }
         })
-
+        loadSprite("attack-boi", "static/game/assets/boi-attack.png",{
+            sliceX: 10,
+            sliceY: 1,
+            anims: {
+                attack: {
+                    from: 0,
+                    to: 9,
+                },
+            }
+        })
 
         loadSprite("run-sacerdotisa", "static/game/assets/player-sacerdotisa.png",{
             sliceX: 8,

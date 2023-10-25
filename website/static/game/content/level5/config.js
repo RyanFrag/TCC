@@ -45,33 +45,33 @@ export const level5Config = {
         () => "basecollum",
     ],
     columsPositions3: [
-        () => vec2(200,780),
-        () => vec2(200,840),
-        () => vec2(200,900),
-        () => vec2(200,960),
-        () => vec2(200,1020),
         () => vec2(200,1080),
-        () => vec2(200,1120),
+        () => vec2(200,1140),
+        () => vec2(200,1200),
+        () => vec2(200,1260),
+        () => vec2(200,1320),
+        () => vec2(200,1380),
+        () => vec2(200,1420),
     ],
 
     columsTypes3: [
         () => "upcollum",
         () => "midle5",
         () => "midle4",
-        () => "simbolcollum",
+        () => "bosscollum",
         () => "midle3",
         () => "midle2",
         () => "basecollum",
     ],
 
     columsPositions4: [
-        () => vec2(930,780),
-        () => vec2(930,840),
-        () => vec2(930,900),
-        () => vec2(930,960),
-        () => vec2(930,1020),
         () => vec2(930,1080),
-        () => vec2(930,1120),
+        () => vec2(930,1140),
+        () => vec2(930,1200),
+        () => vec2(930,1260),
+        () => vec2(930,1320),
+        () => vec2(930,1380),
+        () => vec2(930,1420),
  
     ],
 
@@ -79,7 +79,7 @@ export const level5Config = {
         () => "upcollum",
         () => "midle1",
         () => "midle3",
-        () => "simbolcollum",
+        () => "bosscollum",
         () => "midle3",
         () => "midle1",
         () => "basecollum",
@@ -90,7 +90,7 @@ export const level5Config = {
     cameraLeftBound : 625,
     cameraRightBound : 610,
     cameraTopBound : 360,
-    cameraBottomBound : 910,
+    cameraBottomBound : 1220,
 
 }
 

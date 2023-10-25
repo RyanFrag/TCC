@@ -60,6 +60,14 @@ body, html {
     height: 100%;
 }
 
+@media  (max-width: 768px) {
+    .perfil-container {
+        margin-bottom: 1rem;
+
+    }
+    .full-height-container {
+        height: auto
+    }}
 
 div#captioned-gallery { 
   margin-top: 1rem;  
@@ -407,9 +415,8 @@ button a{
 
 
 .perfil-imagem {
-    width: 150px;
+    width: 175px;
     height: 150px;
-    border: 1px black solid;
     border-radius: 50%;
     margin-top: 0rem;
     }
