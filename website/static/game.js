@@ -862,6 +862,11 @@ const scenes = {
         });
     },
     5: async (character, positionX, positionY) => {
+
+        const music = play("battle-music", {
+            volume: 0.1,
+            loop: true       
+        })
         const save = new Save()
         save.saveGame(5, positionX, positionY)          
         const level5 = new Level()
@@ -887,53 +892,33 @@ const scenes = {
         }
 
 
-        // Bars([
-        //     vec2(100, 910),
-        //     vec2(200, 910),
-        //     vec2(300, 910),
-        //     vec2(400, 910),
-        //     vec2(500, 910),
-        //     vec2(700, 910),
-        //     vec2(800, 910),
-        //     vec2(900, 910),
-        //     vec2(1000, 910),
-        //     vec2(1100, 910),
-        // ], "static", 0, false, "horizontal")
+        Bars([
+            vec2(100, 910),
+            vec2(200, 910),
+            vec2(300, 910),
+            vec2(400, 910),
+            vec2(500, 910),
+            vec2(700, 910),
+            vec2(800, 910),
+            vec2(900, 910),
+            vec2(1000, 910),
+            vec2(1100, 910),
+        ], "static", 0, false, "horizontal")
 
-        // Bars([
-        //     vec2(100, 320),
-        //     vec2(200, 320),
-        //     vec2(300, 320),
-        //     vec2(400, 320),
-        //     vec2(500, 320),
-        //     vec2(600, 320),
-        //     vec2(700, 320),
-        //     vec2(800, 320),
-        //     vec2(900, 320),
-        //     vec2(1000, 320),
-        //     vec2(1100, 320),
-        // ], "boss", 0, false, "horizontal")
+        Bars([
+            vec2(100, 320),
+            vec2(200, 320),
+            vec2(300, 320),
+            vec2(400, 320),
+            vec2(500, 320),
+            vec2(600, 320),
+            vec2(700, 320),
+            vec2(800, 320),
+            vec2(900, 320),
+            vec2(1000, 320),
+            vec2(1100, 320),
+        ], "boss", 0, false, "horizontal")
 
-
-        // const boss = new Boss(vec2(300, 600), 100, 100, 3, "boss")
-        // boss.playIdleAnimation()
-        // boss.setMovementBoss()
-        // boss.update()
-        // boss.killBoss()
-
-        playerObj =  player.makePlayer(character)
-        player.hitByMobs(character)
-
-        const collums = new Collums();
-        collums.createCollums(      
-            level5Config.columsPositions.map(collumPos => collumPos()),
-            level5Config.columsTypes.map(collumType => collumType())
-        )
-        const collums2 = new Collums();
-        collums2.createCollums(
-            level5Config.columsPositions2.map(collumPos => collumPos()),
-            level5Config.columsTypes2.map(collumType => collumType())
-        )
         const collums3 = new Collums();
         collums3.createCollums(
             level5Config.columsPositions3.map(collumPos => collumPos()),
@@ -945,7 +930,20 @@ const scenes = {
             level5Config.columsTypes4.map(collumType => collumType())
         )
 
+
+        const boss = new Boss(vec2(300, 600), 100, 100, 3, "boss")
+        boss.playIdleAnimation()
+        boss.setMovementBoss()
+        boss.update()
+        boss.killBoss()
+
+        playerObj =  player.makePlayer(character)
         
+   
+        player.hitByMobs(character)
+        player.hitByBoss(character)
+
+
 
         player.setPlayerControls()
         onKeyPress("space", () => {
@@ -964,7 +962,12 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level5Config.cameraLeftBound, level5Config.cameraRightBound, level5Config.cameraTopBound, level5Config.cameraBottomBound)
         player.goNextLevel(character, 128, 700)
-        altar.endGame()
+        player.endGame()
+        onUpdate(() => {
+            onSceneLeave(() => {
+                music.paused = true
+            })
+        });
     },
     gameOver: () =>{
         uiManager.displayGameOver()

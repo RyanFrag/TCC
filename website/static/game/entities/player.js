@@ -29,7 +29,7 @@ export class Player {
                         run: "run-" + character,
                         idle: "idle-" + character,
                         attack: "attack-" + character,
-                        death: "death-" + character
+                        win: "win-" + character
                     }
                 },
                 area({shape: new Rect(vec2(0, 10), 16, 16) }),
@@ -120,6 +120,15 @@ export class Player {
             this.gameObj.onCollide("dangerous", () => hitAndRespawn(this, character))
         }
 
+        hitByBoss(character){
+            function GoRespawn(context){
+                play(`player-hit-${character}`, {
+                    volume: 0.3
+                })
+                context.respawnPlayer()
+            }
+            this.gameObj.onCollide("boss", () => GoRespawn(this, character))
+        }
 
         hitQuestionTile(numberOfQuestion, level){
             async function  startDialogueQuestion(context){
@@ -227,6 +236,24 @@ export class Player {
                 livesCountUi.text = this.lives
             })
         }
-        
-    
-    }
+        endGame(){
+            let hasEnded = false; 
+
+            this.gameObj.onCollide("altar", () => {
+                this.onCutscene = true;
+                if (!hasEnded) { 
+                    hasEnded = true; 
+                    setTimeout(() => {
+                        this.gameObj.use(sprite(this.gameObj.sprites.win))
+                        this.gameObj.play("win", {
+                            onEnd: () => {
+                                setTimeout(() => {
+                                    go("end")
+                                }, 500)
+                            }
+                        });    
+                    }, 500)
+                }
+            });
+        }    
+}

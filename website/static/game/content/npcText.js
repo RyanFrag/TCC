@@ -66,16 +66,19 @@
             if(character == 'hero'){
                 return [ 
                     { text: "Parece que chegamos ao fim,\nfinalmente podemos...", sprite: "static", character: 'hero' },
-                    { text: "Ah, quero que saiba,\n estou muito feliz de vir até aqui com você, obrigado.", sprite: "static", character: 'hero' },
-                    { text: "Vamos, você merece ir na frente.", sprite: "static", character: 'hero' },
-                    { text: "Pegue o Cajado e salve seu povo.",  sprite: "static", character: 'hero' },
+                    { text: "Espere, aquilo a nossa a frente é?", sprite: "static", character: 'hero' },
+                    { text: "Cuidado, o minotauro ele ainda vive, droga.", sprite: "static", character: 'hero' },
+                    { text: "Ele não é como os inimigos que enfrentamos até agora.",  sprite: "static", character: 'hero' },
+                    { text: "Espere a oportunidade para atacar,\n assim podemos derrotar ele.",  sprite: "static", character: 'hero' },
                 ]
             }else{    
                 return [ 
-                    { text: "Parece que chegamos ao fim, finalmente.", sprite: "static", character: 'sacerdotisa' },
-                    { text: "Olha, parece que o Cajado está bem na nossa frente.", sprite: "static", character: 'sacerdotisa' },
-                    { text: "Vamos, você merece fazer a frente.", sprite: "static", character: 'sacerdotisa' },
-                    { text: "Ah, quero que saiba,\n estou muito feliz de vir até aqui com você, obrigada.", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Parece que chegamos ao fim, finalmente...", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Não é possivel, aquele monstro é o minotauro??", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Não podemos pegar o cetro até derrotar ele, droga.", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Faça o seguinte,\n ele não é como os inimigos que enfrentamos ate agora", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Precisamos de uma bracha para Atacar", sprite: "static", character: 'sacerdotisa' },
+                    { text: "Logo depois, pegamos o cetro, capiche?", sprite: "static", character: 'sacerdotisa' },
                 ]
             }
         }      

@@ -1,3 +1,4 @@
+import events from "../controller/events.js"
 
 export class Altar {
     createAltar(position, key){
@@ -8,15 +9,8 @@ export class Altar {
                         shape: new Rect(vec2(36,32), 16, 23),
                     }),
                     scale(4.5),
-                    `altar-${key}`,
+                    `altar`,
                 ])
             return this.gameObj
     }
-
-    endGame(){
-        this.gameObj.onCollide("player", () => {
-            go("end")
-        })
-    }
-
 }

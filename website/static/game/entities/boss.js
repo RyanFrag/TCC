@@ -12,18 +12,17 @@ export class Boss {
             this.rangeY = rangeY
             this.speeds = speeds
             this.killed = false
-            this.health = 100
+            this.health = 20
             this.key = key
             this.isFollowingPlayer = false; 
             this.lastAttackTime = 0;
             this.gameObj = add([
                 {
                     sprites: {
-                        idle: "enemy-1",
-                        // run: "run-" + character,
-                        // idle: "idle-" + character,
+                        idle: "run-boi",
+                        run: "run-boi",
                         attack: "attack-boi",
-                        // death: "death-"
+                        death: "boi-death"
                     }
                 },                
                 pos(position),
@@ -33,9 +32,9 @@ export class Boss {
                 }),
                 anchor("center"),
                 body(),
-                scale(3),
+                scale(2.5),
                 state("idle", ["idle", "walk-left", "walk-right", 'walk-up', 'walk-down', "follow-player", "attack"]),
-                "dangerous"
+                "boss"
                 ])         
             }
         
@@ -55,30 +54,60 @@ export class Boss {
             this.gameObj.use(sprite(this.gameObj.sprites.idle))
             this.gameObj.play("idle")
         }
+        playWalkAnimation(){
+            this.gameObj.use(sprite(this.gameObj.sprites.run))
+            this.gameObj.play("run")
+        }
 
         killBoss(){
-            this.gameObj.onCollide("slash", () => {
-                play("hit", {
-                    volume: 0.2
-                })
-                this.health -= 20
-                if (this.health == 0) {
-                    this.gameObj.unuse("dangerous");
-                    if(!this.killed ){
-                        this.killed = true;
-                        this.gameObj.play("death", {
-                            onEnd: () => {
-                                destroy(this.gameObj);
-                            }
-                        });
-                    }
 
+            if(this.health == 20){
+                add([
+                    sprite("boi-barra", {
+                        anim: "full"
+                    }),
+                    fixed(),
+                    pos(center().x + 120, center().y + 240),
+                    scale(4),
+                    "barra",
+                ])
+             }
+
+             onCollide("slash", "dangerous", () => {
+                if(this.health > 0){
+                    destroyAll("barra")
+                    play("hit", {
+                        volume: 0.2
+                    })
+                    this.health -= 2
+    
+                    add([
+                        sprite("boi-barra", {
+                            anim: this.health + 2
+                        }),
+                        fixed(),
+                        pos(center().x + 120, center().y + 240),
+                        scale(4),
+                    ])
+                    if (this.health == 0) {
+                        this.gameObj.unuse("dangerous");
+                        destroyAll("barra")
+                        if(!this.killed ){
+                            this.killed = true;
+                            this.gameObj.use(sprite(this.gameObj.sprites.death))
+                            this.gameObj.play("death", {
+                                onEnd: () => {
+                                    destroy(this.gameObj);
+                                }
+                            });
+                        }
+                    }
                 }
             })
         }
         
         async walkVertical( moveBy, duration){
-            if (this.gameObj.curAnim() !== "walk") this.gameObj.play("walk");
+            if (this.gameObj.curAnim() !== "run") this.playWalkAnimation();
             await tween(
                 this.gameObj.pos.y,
                 this.gameObj.pos.y + moveBy,
@@ -89,7 +118,7 @@ export class Boss {
         }
 
         async walk( moveBy, duration){
-            if (this.gameObj.curAnim() !== "walk") this.gameObj.play("walk")
+            if (this.gameObj.curAnim() !== "run") this.playWalkAnimation();
             await tween(
                 this.gameObj.pos.x,
                 this.gameObj.pos.x + moveBy,
@@ -118,6 +147,8 @@ export class Boss {
             }
         }
         
+
+
         setMovementBoss(){
             if (this.killed) return
             const idle = this.gameObj.onStateEnter("idle", async (previousState)=>{
@@ -146,6 +177,7 @@ export class Boss {
                 })
                 
                 const walkLeft = this.gameObj.onStateEnter("walk-left",  async ()=>{
+                    if (this.killed) return
                     this.gameObj.flipX = true
                     await this.walk( 
                         -this.rangeX, 
@@ -155,6 +187,7 @@ export class Boss {
                 })
 
                 const walkRight = this.gameObj.onStateEnter("walk-right",  async ()=>{
+                    if (this.killed) return
                     this.gameObj.flipX = false
                     await this.walk( 
                         this.rangeX, 
@@ -164,7 +197,8 @@ export class Boss {
                 })
                 
                 const walkUp = this.gameObj.onStateEnter("walk-up",  async ()=>{
-                    if (this.gameObj.killed) return
+                    
+                    if (this.killed) return
                     await this.walkVertical(
                         -this.rangeY, 
                         this.speeds
@@ -172,7 +206,7 @@ export class Boss {
                
                     const randomDelay = Math.floor(Math.random() * 10 + 1) * 1000;
                     setTimeout(() => {
-                        const sound = play("skeleton-walk", {volume: 0.1})
+                        const sound = play("bull-monster", {volume: 0.1})
                         onSceneLeave(() => {
                             sound.paused = true
                         })
@@ -182,6 +216,7 @@ export class Boss {
                 })
 
                 const walkDown = this.gameObj.onStateEnter("walk-down",  async ()=>{
+                    if (this.killed) return
                     await this.walkVertical(
                         this.rangeY, 
                         this.speeds
@@ -190,9 +225,20 @@ export class Boss {
                 })
 
                 const attack = this.gameObj.onStateEnter("attack",  async ()=>{
+                    if (this.killed) return
 
                     this.gameObj.use(sprite(this.gameObj.sprites.attack));
                     this.gameObj.play("attack")
+                    play("bull-monster", {volume: 0.4})
+
+                    add([
+                        rect(40, 40),
+                        area(),
+                        pos(vec2(this.gameObj.pos.x -50, this.gameObj.pos.y - 50)),
+                        scale(3),
+                        opacity(0),
+                        "dangerous"
+                    ]);
 
                     add([
                         rect(30, 30),
@@ -231,9 +277,14 @@ export class Boss {
                     ]);
 
                     setTimeout(() => {
+                        if (this.killed) return
                         destroyAll("boss-attack");
-                        this.playIdleAnimation()
-                        this.gameObj.enterState("follow-player");
+                        destroyAll("dangerous");
+                        this.gameObj.play("reverse")
+                        setTimeout(() => {
+                            this.playIdleAnimation()
+                            this.gameObj.enterState("follow-player"); 
+                        }, 1000)
                     }, 3000);
                      
                 })
@@ -309,7 +360,6 @@ export class Boss {
         onUpdate(() => {
             this.openBarriers();
             this.followPlayer(this.gameObj);
-                
             
         });
     }

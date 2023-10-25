@@ -17,12 +17,12 @@ export class Cutscene {
         ])
 
         let currentMessageIndex = 0; 
-
+        
         if(textLines[currentMessageIndex].sprite){
             this.spriteEmotions = add([
-                sprite(`idle-${textLines[currentMessageIndex].character}`, {anim: "static"}),
-                pos(center().x -480, center().y - 20),
-                scale(8.5),
+                sprite(`sprite-${textLines[currentMessageIndex].character}`),
+                pos(center().x -280, center().y + 20 ),
+                scale(2.5),
                 fixed()
             ])
         }
@@ -49,13 +49,13 @@ export class Cutscene {
                 this.confirm();
                 if(textLines[currentMessageIndex].sprite){
                         this.spriteEmotions = add([
-                        sprite(`idle-${textLines[currentMessageIndex].character}`, {anim: "static"}),
-                        pos(center().x -480, center().y - 20),
-                        scale(8.5),
+                        sprite(`sprite-${textLines[currentMessageIndex].character}`),
+                        pos(center().x -280, center().y + 20),
+                        scale(2.5),
                         fixed()
                     ])
                 }
-                currentMessage = this.callMessage( textLines[currentMessageIndex].text, textLines[currentMessageIndex].sprite);
+                currentMessage = this.callMessage( textLines[currentMessageIndex].text);
                 MessageAuthor = this.callMessageAuthor(textLines[currentMessageIndex].character)
                 currentMessageIndex++;
                 })
@@ -63,8 +63,7 @@ export class Cutscene {
         }
 
         
-    callMessage(message, sprite=null){
-        if(sprite) this.spriteEmotions.play(sprite)
+    callMessage(message){
         
         return add([
             text(message, {

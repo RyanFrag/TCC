@@ -1,7 +1,6 @@
 let event_listener = new EventTarget();
 
 function post_event(name){
-    console.log("[EMMIT] Event: " + name);
     event_listener.dispatchEvent(new CustomEvent(name));
 }
 function call_event(event, callback){
@@ -11,7 +10,6 @@ function remove_all_events(){
     event_listener = new EventTarget();
 }
 function remove_event(event, callback){
-    console.log("[EVENT] Event removed: " + event);
     event_listener.removeEventListener(event, callback);
 }
 

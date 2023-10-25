@@ -1152,7 +1152,8 @@ export const load = {
             }
         })
         
-        loadSprite("idle-heroi", "static/game/assets/hero-profile-2.png")
+        loadSprite("sprite-hero", "static/game/assets/hero-profile-2.png")
+        loadSprite("sprite-sacerdotisa", "static/game/assets/sacerdotisa-profile.png")
         loadSprite("run-hero", "static/game/assets/player-run.png",{
             sliceX: 8,
             sliceY: 1,
@@ -1177,6 +1178,29 @@ export const load = {
                 
             }
         })
+
+        loadSprite("win-hero", "static/game/assets/hero-win.png", {
+            sliceX: 7,
+            sliceY: 1,
+            anims: {
+                win: {
+                    from: 0,
+                    to: 6,
+                },
+            }
+        })
+
+        loadSprite("win-sacerdotisa", "static/game/assets/sacerdotisa-win.png", {
+            sliceX: 6,
+            sliceY: 1,
+            anims: {
+                win: {
+                    from: 0,
+                    to: 5,
+                },
+            }
+        })
+
         loadSprite("attack-sacerdotisa", "static/game/assets/female-attack.png",{
             sliceX: 7,
             sliceY: 1,
@@ -1195,6 +1219,92 @@ export const load = {
                     from: 0,
                     to: 9,
                 },
+                reverse: {
+                    from: 9,
+                    to: 0,
+                }
+            }
+        })
+
+        loadSprite("boi-death", "static/game/assets/boi-death.png",{
+            sliceX: 16,
+            sliceY: 1,
+            anims: {
+                death: {
+                    from: 0,
+                    to: 15,
+                    speed: 2
+                }
+            }
+        })	
+
+        loadSprite("run-boi", "static/game/assets/boi-run.png",{
+            sliceX: 10,
+            sliceY: 1,
+            anims: {
+                idle: {
+                    from: 0,
+                    to: 0,
+                },
+                run: {
+                    from: 0,
+                    to: 7,
+                    loop: true
+                },
+                
+            }
+        })
+
+
+        loadSprite("boi-barra", "static/game/assets/boi-barra.png", {
+            sliceX: 20,
+            sliceY: 1,
+            anims: {
+                full: {
+                    from: 0,
+                    to: 0,
+                }, 
+                20: {
+                    from: 0,
+                    to: 1
+                },
+                18: {
+                    from: 1,
+                    to: 3
+                },
+                16: {
+                    from: 3,
+                    to: 5
+                },
+                14: {
+                    from: 5,
+                    to: 7
+                },
+                12: {
+                    from: 7,
+                    to: 9
+                },
+                10: {
+                    from: 9,
+                    to: 11
+                },
+                8: {
+                    from: 11,
+                    to: 13
+                },
+                6: {
+                    from: 13,
+                    to: 15
+                },
+                4: {
+                    from: 15,
+                    to: 17
+                },
+                2: {
+                    from: 17,
+                    to: 19,
+                },
+
             }
         })
 
@@ -1267,6 +1377,8 @@ export const load = {
         loadSound("level2", "static/game/sounds/level2.mp3")
         loadSound("ending", "static/game/sounds/ending.wav")
         loadSound("game-over", "static/game/sounds/game-over.wav")
+        loadSound("battle-music", "static/game/sounds/battle-music.mp3")
+        loadSound("bull-monster", "static/game/sounds/bull-monster.wav")
 
         loadSound("start", "static/game/sounds/start.wav")
     }
