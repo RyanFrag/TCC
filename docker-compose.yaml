@@ -1,0 +1,23 @@
+version: "2.1"
+services:
+  nodejs_nginx:
+    container_name: "nginx"
+    image: nodejs_nginx
+    volumes:
+      - "/usr/src/app:/var/www/app/public:ro"
+    expose:
+      - 80
+    ports:
+      - 80:80
+    depends_on:
+      - next
+
+  flask:
+    container_name: flask
+    build: .
+    depends_on:
+      - nodejs_nginx
+    ports:
+      - "5000:5000"
+    expose:
+      - 5000
