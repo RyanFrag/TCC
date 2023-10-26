@@ -12,7 +12,7 @@ export const Bars = (positions, key, boxesRequired, openWithBox, type) => {
                 sprite(`iron-bars-${type}`, { anim: "closed" }),
                 pos(position),
                 area({
-                    shape: new Rect(vec2(1, 3), 32, 32),
+                    shape: new Rect(vec2(1, 3), 16, 16),
                 }),
                 body({ isStatic: true }),
                 anchor("center"),
