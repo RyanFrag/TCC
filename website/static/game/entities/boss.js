@@ -27,7 +27,7 @@ export class Boss {
                 },                
                 pos(position),
                 area({
-                    shape: new Rect(vec2(0,3), 16, 16),
+                    shape: new Rect(vec2(0,0), 32, 64),
                     collisionIgnore: ["dangerous"]
                 }),
                 anchor("center"),
@@ -60,9 +60,9 @@ export class Boss {
         }
 
         killBoss(){
-
+            let bar = null
             if(this.health == 20){
-                add([
+                bar = add([
                     sprite("boi-barra", {
                         anim: "full"
                     }),
@@ -75,13 +75,13 @@ export class Boss {
 
              onCollide("slash", "dangerous", () => {
                 if(this.health > 0){
-                    destroyAll("barra")
                     play("hit", {
                         volume: 0.2
                     })
                     this.health -= 2
-    
-                    add([
+                    destroy(bar)
+
+                    bar = add([
                         sprite("boi-barra", {
                             anim: this.health + 2
                         }),
@@ -89,9 +89,12 @@ export class Boss {
                         pos(center().x + 120, center().y + 240),
                         scale(4),
                     ])
+
                     if (this.health == 0) {
-                        this.gameObj.unuse("dangerous");
-                        destroyAll("barra")
+                        console.log("killed");
+                        this.gameObj.unuse("area");
+                        console.log(this.gameObj)
+                        destroy(bar)
                         if(!this.killed ){
                             this.killed = true;
                             this.gameObj.use(sprite(this.gameObj.sprites.death))
@@ -178,7 +181,6 @@ export class Boss {
                 
                 const walkLeft = this.gameObj.onStateEnter("walk-left",  async ()=>{
                     if (this.killed) return
-                    this.gameObj.flipX = true
                     await this.walk( 
                         -this.rangeX, 
                         this.speeds
@@ -188,7 +190,6 @@ export class Boss {
 
                 const walkRight = this.gameObj.onStateEnter("walk-right",  async ()=>{
                     if (this.killed) return
-                    this.gameObj.flipX = false
                     await this.walk( 
                         this.rangeX, 
                         this.speeds
@@ -226,7 +227,6 @@ export class Boss {
 
                 const attack = this.gameObj.onStateEnter("attack",  async ()=>{
                     if (this.killed) return
-
                     this.gameObj.use(sprite(this.gameObj.sprites.attack));
                     this.gameObj.play("attack")
                     play("bull-monster", {volume: 0.4})
@@ -276,6 +276,7 @@ export class Boss {
                         "boss-attack"
                     ]);
 
+
                     setTimeout(() => {
                         if (this.killed) return
                         destroyAll("boss-attack");
@@ -298,6 +299,7 @@ export class Boss {
                         this.gameObj.enterState("idle", "walk-right")
                     }
                     else if(canAttack && 200 > distance){
+                        const moveByX = playerObj.pos.x > this.gameObj.pos.x ? 1 : -1; 
                         this.gameObj.enterState("attack")
                         canAttack = false; 
                         setTimeout(() => {
@@ -312,10 +314,8 @@ export class Boss {
                         let rangeY = null
                         if (horizontalDistance > 20) {
                             if(moveByX === 1){
-                                this.gameObj.flipX = false
                                 range = this.rangeX
                             }else{
-                                this.gameObj.flipX = true,
                                 range = -this.rangeX
                             }
                             await this.walk(range, this.speeds)

@@ -129,11 +129,11 @@ class UIManager {
             area(),
             anchor("center"),
             pos(center().x, center().y + 100),
-
         ])
+
         if(responseData['response']['level'] > 0){
             this.displayBlinkingUiMessage(
-                "Presssione ENTER para Continuar", 
+                "Clique na Tela e pressione ENTER para Continuar", 
                 vec2(center().x, center().y + 200)
             )
 
@@ -141,7 +141,7 @@ class UIManager {
             
         }else{
             this.displayBlinkingUiMessage(
-                "Presssione ENTER para jogar", 
+                "Clique na Tela e pressione ENTER para jogar", 
                 vec2(center().x, center().y + 200)
             )
             onKeyPress("enter", () => {
@@ -154,7 +154,7 @@ class UIManager {
 
     } 
     
-    displayGameOver(){
+    async displayGameOver(){
         add([rect(1280, 720), color(0,0,0)])
         add([
             sprite("gameOver"),
@@ -186,10 +186,21 @@ class UIManager {
             "Pressione ENTER para jogar novamente", 
              vec2(center().x, center().y + 200)
         )
+
+        var response = await fetch('/get-game-data', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+        
+        const responseData = await response.json();
+        
     
         onKeyPress("enter", () => {
             play("confirm-ui", {speed: 1.5});
-            go("selection");
+            go(responseData['response']['level'], responseData['response']['character'], responseData['response']['startX'], responseData['response']['startY']);
         })
         onSceneLeave(() => {
             music.paused = true
@@ -275,6 +286,10 @@ class UIManager {
             pos(450, 240)
 
         ]) 
+        this.displayBlinkingUiMessage(
+            "Presssione ENTER para Continuar", 
+            vec2(center().x, center().y + 200)
+        )
         add([
             text("Em uma antiga Grécia repleta de lendas e sabedoria,\n a Sacerdotisa descobre que o Cetro da Sabedoria desapareceu!\nCom grande temor de perder  o conhecimento ancestral, \n a Sacerdotisa convoca o Herói, mestre na resolução de enigmas.\n  Juntos, eles embarcam em uma jornada épica ao labirinto do Minotauro,\n para recuperar o Cetro e preservar o conhecimento da civilização.\n O labirinto esconde segredos que irão testar sua determinação,\n começando uma missão para preservar a sabedoria da Grécia Antiga.", {
               size: 28,
@@ -287,10 +302,68 @@ class UIManager {
             pos(30, 300)
         ])
         onKeyPress("enter", () => {
+            go("controls");
+        })
+    }
+    displayControls(){
+        add([
+            sprite("castle-background"),
+            scale(4)
+        ])
+
+        add([
+            sprite("espace"),
+            scale(5),
+            pos(260, 100)
+        ])
+
+        add([
+            text("Para atacar use a\n Tecla Espaco.", {
+                size: 24,
+                align: 'center',
+                font: "Round",
+
+            }),
+            pos(720, 130)
+        ])
+
+        add([
+            sprite("setas"),
+            scale(5),
+            pos(200, 300)
+        ])
+
+        add([
+            text("O Movimento do Personagem e\n controlado pelas setas do teclado.", {
+                size: 24,
+                align: 'center',
+                font: "Round",
+  
+            }),
+            pos(600, 330)
+        ])
+
+        add([
+            sprite("z"),
+            scale(5),
+            pos(300, 500)
+
+        ])
+        
+        add([
+            text("Para interagir com alavancas\n e outros objetos, use a Tecla Z.",{
+                size: 24,
+                align: 'center',
+                font: "Round",
+  
+            }),
+            pos(630, 520)
+        ])
+
+        onKeyPress("enter", () => {
             go("selection");
         })
     }
-    
     displaySelection(){
         const background = add([
             sprite("castle-background"),
@@ -304,7 +377,14 @@ class UIManager {
         }),
           pos(200, 90)
         ])
-
+        add([
+            text("Selecione com o Mouse", {
+              size: 45,
+              align: 'center',
+              font: "Round",  
+          }),
+            pos(400, 600)
+          ])
         add([
             pos(230, 230),
             sprite(`idle-hero`, {anim: "idle"}),
