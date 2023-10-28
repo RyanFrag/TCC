@@ -2,8 +2,8 @@ import { uiManager } from "./UIManager.js";
 
 export class Save {
 
-    async saveGame(level, positionX, positionY){
-        const dataToSend = { level: level, startX: positionX, startY: positionY };
+    async saveGame(level, positionX, positionY, timer){
+        const dataToSend = { level: level, startX: positionX, startY: positionY, timer };
         uiManager.displaySaveUiMessage()
         await fetch('/save-game', {
             method: 'POST',

@@ -34,12 +34,37 @@ def projeto():
     return render_template("projeto.html", user=current_user, full_height_container=True)
 
 
+@views.route('/ranking', methods=['GET'])
+@login_required
+def ranking():
+    if request.method == 'GET': 
+        args = {'method': 'get', 'suffix': 'ranking', 'route': 'ranking/get'}
+        users = User.query.all()
+        list_player = []
+        for user in users:
+            player = User.query.filter_by(id=user.id).first()
+            minutos = player.timer // 60
+            segundos = player.timer % 60
+            list_player.append({
+                    "nome": player.first_name,
+                    "personagem": player.character,
+                    "timer": f'{minutos:02}:{segundos:02}',
+                    "Level": player.level,
+                    "Zerou": player.win,
+                    }) 
+        args['response'] = list_player
+        return render_template("ranking.html", user=current_user, full_height_container=True, args=args)
+
+
 @views.route('/perfil', methods=['GET'])
 @login_required
 def perfil():
         if request.method == 'GET':
             args = {'method': 'get', 'suffix': 'perfil', 'route': 'perfil/get'}
             user = User.query.filter_by(id=current_user.id).first()
+            minutos = user.timer // 60
+            segundos = user.timer % 60
+
             args['response'] = {
                 "id": user.id, 
                 "email": user.email, 
@@ -47,7 +72,8 @@ def perfil():
                 "first_name": user.first_name,
                 "character": user.character,
                 "win": user.win,
-                "level": user.level
+                "level": user.level,
+                "timer": f'{minutos:02}:{segundos:02}'
             }
             return render_template("perfil.html", user=current_user, args=args, full_height_container=True)
 
@@ -79,6 +105,7 @@ def save_game():
         user.startX = data['startX']
         user.startY = data['startY']
         user.level = data['level']
+        user.timer = data['timer'] 
         db.session.commit()
         return args
     
@@ -95,6 +122,7 @@ def get_game_data():
                 "level": user.level,
                 "name": user.first_name,
                 "startX": user.startX,
-                "startY": user.startY
+                "startY": user.startY,
+                "timer": user.timer
             }
         return args

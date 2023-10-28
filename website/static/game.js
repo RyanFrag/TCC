@@ -32,6 +32,7 @@ import { Save } from "./game/utils/Save.js";
 import { Altar } from "./game/entities/altar.js";
 import { Collums } from "./game/entities/collums.js";
 import { Boss } from "./game/entities/boss.js";
+import { Timer } from "./game/utils/Timer.js";
 
 export const k = kaboom({
     width: 1200,
@@ -44,6 +45,8 @@ export let playerObj = null
 load.fonts()
 load.sounds()
 load.assets()
+const timer = new Timer()
+
 
 const scenes = {
     
@@ -53,7 +56,7 @@ const scenes = {
     selection: () => {
         uiManager.displaySelection()
         const save = new Save()
-        save.saveGame(1, 130, 700)
+        save.saveGame(1, 130, 700, 0)
     },
     
     controls: () => {
@@ -72,10 +75,16 @@ const scenes = {
     
     1: async (character, positionX, positionY) => {
         const save = new Save()
-        save.saveGame(1, positionX, positionY)
+        save.saveGame(1, positionX, positionY, 0)
         let onCutscene = true
+
         if(positionX > 600){
             onCutscene = false
+            timer.checkAndStartTimer()
+
+        }else{
+            timer.startTimer();
+
         }
         const music = play("level1", {
             volume: 0.2,
@@ -297,11 +306,12 @@ const scenes = {
         enemys.update()
 
         events.listen("progress_open3", () => {
-            save.saveGame(1,900, 700)
+            save.saveGame(1,900, 700, timer.segundos)
+            
 
         })
         events.listen("progress_open2", () => {
-            save.saveGame(1, 1700, 700)
+            save.saveGame(1, 1700, 700, timer.segundos)
         })
         player.hitByMobs(character)
         if(onCutscene){
@@ -320,13 +330,16 @@ const scenes = {
         player.update()
 
         onSceneLeave(() => {
+            
             music.paused = true
         }); 
     
     },
     2: async (character, positionX, positionY) => {
+        timer.checkAndStartTimer()     
+
         const save = new Save()
-        save.saveGame(2, positionX, positionY)
+        save.saveGame(2, positionX, positionY, timer.segundos)
         
         const music = play("level2", {
             volume: 0.2,
@@ -487,11 +500,11 @@ const scenes = {
         player.updateLives(uiManager.livesCountUi)
         player.update()
         events.listen("progress_blank", () => {
-            save.saveGame(2,1040, 700)
+            save.saveGame(2,1040, 700, timer.segundos)
         })
 
         events.listen("progress_open", () => {
-            save.saveGame(2, 2100, 420)
+            save.saveGame(2, 2100, 420, timer.segundos)
             
         })
         let playingBox = false
@@ -525,12 +538,15 @@ const scenes = {
 
     },
     3: async (character, positionX, positionY) => {
+
         const music = play("level2", {
             volume: 0.1,
             loop: true
         })
         const save = new Save()
-        save.saveGame(3, positionX, positionY)        
+        save.saveGame(3, positionX, positionY, timer.segundos) 
+        timer.checkAndStartTimer()     
+       
         const soundTile = new SoundTile()
 
  
@@ -627,7 +643,7 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, -142, level3Config.cameraLeftBound, level3Config.cameraRightBound, level3Config.cameraTopBound, level3Config.cameraBottomBound)
         events.listen("progress_open$", () => {
-            save.saveGame(3, 3200, 600)
+            save.saveGame(3, 3200, 600, timer.segundos)
         })
 
 
@@ -656,7 +672,12 @@ const scenes = {
     },
     4: async (character, positionX, positionY) => {
         const save = new Save()
-        save.saveGame(4, positionX, positionY)          
+        save.saveGame(4, positionX, positionY, timer.segundos)  
+        timer.checkAndStartTimer()     
+
+    
+
+
         const music = play("level1", {
             volume: 0.1,
             loop: true       
@@ -825,7 +846,7 @@ const scenes = {
         camera.attach(player.gameObj, 0, -142, level4Config.cameraLeftBound, level4Config.cameraRightBound, level4Config.cameraTopBound, level4Config.cameraBottomBound)
         player.goNextLevel(character, 600, 1340)
         events.listen("progress_macqueen", () => {
-            save.saveGame(4, 1100, 690)
+            save.saveGame(4, 1100, 690, timer.segundos)
         })
         onSceneLeave(() => {
             music.paused = true
@@ -855,12 +876,15 @@ const scenes = {
     },
     5: async (character, positionX, positionY) => {
 
+        const save = new Save()
+        save.saveGame(5, positionX, positionY, timer.segundos)  
+        timer.checkAndStartTimer()     
+
         const music = play("battle-music", {
             volume: 0.1,
             loop: true       
         })
-        const save = new Save()
-        save.saveGame(5, positionX, positionY)          
+  
         const level5 = new Level()
         level5.drawMapLayout(level5Layout, "stoneWall")
         const altar = new Altar()
@@ -956,6 +980,10 @@ const scenes = {
         camera.attach(player.gameObj, 0, -142, level5Config.cameraLeftBound, level5Config.cameraRightBound, level5Config.cameraTopBound, level5Config.cameraBottomBound)
         player.goNextLevel(character, 128, 700)
         player.endGame(altarObj)
+
+        events.listen("progress_end", () => {
+            save.saveGame(5, positionX, positionY, timer.segundos)          
+        })
         onUpdate(() => {
             onSceneLeave(() => {
                 music.paused = true
@@ -964,12 +992,14 @@ const scenes = {
     },
     gameOver: () =>{
         uiManager.displayGameOver()
+        timer.stopTimer()
 
     },
     end: () =>{
         uiManager.displayWinScreen()
+        timer.restartTimer()
         const save = new Save()
-        save.saveGame(0, 0, 0)
+        save.saveGame(0, 0, 0, 0)
     }
 }
 

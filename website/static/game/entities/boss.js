@@ -91,9 +91,7 @@ export class Boss {
                     ])
 
                     if (this.health == 0) {
-                        console.log("killed");
                         this.gameObj.unuse("area");
-                        console.log(this.gameObj)
                         destroy(bar)
                         if(!this.killed ){
                             this.killed = true;

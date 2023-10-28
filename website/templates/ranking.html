@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block content
+    %}
+
+    <div class="container-fluid d-flex align-items-center justify-content-center centralize">
+        <div class="info-container rank">
+
+        <h2 style="color: black;">Ranking</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Posição</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Personagem</th>
+                    <th scope="col">Tempo</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for player in args['response'] | sort(attribute='timer') %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ player.nome }}</td>
+                        <td>{{ player.personagem }}</td>
+                        <td>{{ player.timer }}</td>
+                    </tr>
+                    {% endfor %}
+                      
+                </tbody>
+            </table>
+ 
+        </div>
+    </div>
+    </div>
+
+    {% endblock %}

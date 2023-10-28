@@ -1,6 +1,7 @@
 import { Cutscene } from "../content/cutscene.js"
 import { NpcTextLines } from "../content/npcText.js"
 import { QuestionTextLines } from "../content/questionText.js"
+import events from "../controller/events.js";
 let currentFlip = null
 let canAttack = true; 
 
@@ -279,8 +280,9 @@ export class Player {
         
             onUpdate(() => {
                 if (this.gameObj.isColliding(altar) && !isWinAnimationPlaying) {
+                    events.emit("progress_end");
                     isWinAnimationPlaying = true;
-        
+            
                     setTimeout(() => {
                         this.onCutscene = true;
         

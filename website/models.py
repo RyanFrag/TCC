@@ -19,5 +19,6 @@ class User(db.Model, UserMixin):
     level = db.Column(db.Integer, default=0)
     startX = db.Column(db.Integer, default=128)
     startY = db.Column(db.Integer, default=700)
+    timer = db.Column(db.Integer, default=0)
     win = db.Column(db.Boolean, default=False)
 
