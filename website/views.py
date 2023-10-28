@@ -50,7 +50,7 @@ def ranking():
                     "personagem": player.character,
                     "timer": f'{minutos:02}:{segundos:02}',
                     "Level": player.level,
-                    "Zerou": player.win,
+                    "zerou": player.win,
                     }) 
         args['response'] = list_player
         return render_template("ranking.html", user=current_user, full_height_container=True, args=args)

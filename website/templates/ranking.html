@@ -16,12 +16,14 @@
                 </thead>
                 <tbody>
                     {% for player in args['response'] | sort(attribute='timer') %}
+                    {% if player.zerou == 1 %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ player.nome }}</td>
                         <td>{{ player.personagem }}</td>
                         <td>{{ player.timer }}</td>
                     </tr>
+                    {% endif %}
                     {% endfor %}
                       
                 </tbody>
