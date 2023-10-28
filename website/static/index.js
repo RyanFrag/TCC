@@ -12,6 +12,8 @@ $(document).ready(function() {
     $('#gamePage').show();
   }
 
+  
+
   async function progressBar() {
     var response = await fetch('/get-game-data', {
       method: 'GET',

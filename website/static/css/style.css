@@ -435,6 +435,7 @@ button a{
     border-radius: 29px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
     padding: 20px;
+    height: auto;
 
 }
 
@@ -605,4 +606,18 @@ canvas {
 .control-panel{
     margin-left: 20rem;
     margin-bottom: 3rem;
+}
+
+ /*Rank Page  */
+
+
+.rank{
+    width: 100%;
+    min-height: 50%;
+
+}
+
+.rank h2{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

@@ -1,7 +1,7 @@
 
 import events from "../controller/events.js"
 import { playerObj } from "../../game.js"
-const followDistance = 300; 
+const followDistance = 200; 
 let call = false;
 
 export class Enemy {
@@ -19,7 +19,7 @@ export class Enemy {
                         sprite(`enemy-${type}`, {anim: "walk"}),
                         pos(position),
                         area({
-                            shape: new Rect(vec2(0,3), 16, 16),
+                            shape: new Rect(vec2(0,3), 16, 24),
                             collisionIgnore: ["dangerous"]
                         }),
                         anchor("center"),

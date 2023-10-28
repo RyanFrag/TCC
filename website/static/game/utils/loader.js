@@ -1255,7 +1255,6 @@ export const load = {
             }
         })
 
-
         loadSprite("boi-barra", "static/game/assets/boi-barra.png", {
             sliceX: 20,
             sliceY: 1,
@@ -1357,7 +1356,9 @@ export const load = {
                 }
             }
         })
-            
+        loadSprite("espace", "static/game/assets/others/espaço.png")
+        loadSprite("setas", "static/game/assets/others/icon.png")
+        loadSprite("z", "static/game/assets/others/z.png")
     },
     sounds: () => {
         loadSound("confirm-ui", "static/game/sounds/confirm-ui.wav")

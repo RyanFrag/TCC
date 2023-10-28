@@ -1,7 +1,9 @@
 import { Cutscene } from "../content/cutscene.js"
 import { NpcTextLines } from "../content/npcText.js"
 import { QuestionTextLines } from "../content/questionText.js"
+import events from "../controller/events.js";
 let currentFlip = null
+let canAttack = true; 
 
 export class Player {
     constructor(
@@ -48,56 +50,70 @@ export class Player {
         }
 
 
-        setPlayerControls() {
-                if(this.speed == 0) this.gameObj.play("idle")
-                onKeyDown("left", () => {
-                    currentFlip = true
-                    if(this.gameObj.curAnim() !== "run" && this.speed > 0){
-                        this.gameObj.use(sprite(this.gameObj.sprites.run))
-                        this.gameObj.play("run")
+        async setPlayerControls(){ 
+
+                if (this.speed === 0) this.gameObj.play("idle");
+                
+                onKeyDown("left",async () => {
+                    if(!this.onCutscene){
+
+                        currentFlip = true;
+                        if (this.gameObj.curAnim() !== "run" && this.speed > 0) {
+                            this.gameObj.use(sprite(this.gameObj.sprites.run));
+                            this.gameObj.play("run");
+                        }
+                        this.gameObj.flipX = true;
+                        this.gameObj.move(-this.speed, 0);
                     }
-                    this.gameObj.flipX = true
-                    this.gameObj.move(-this.speed, 0)
+                });
+                
+                onKeyDown("right",async () => {
+                    if(!this.onCutscene){
+                        currentFlip = false
+                        if(this.gameObj.curAnim() !== "run" && this.speed > 0){
+                            this.gameObj.use(sprite(this.gameObj.sprites.run))
+                            this.gameObj.play("run")
+                        }                    
+                        this.gameObj.flipX = false
+                        this.gameObj.move(this.speed, 0)
+                    }    
                 })
-                onKeyDown("right", () => {
-                    currentFlip = false
-                    if(this.gameObj.curAnim() !== "run" && this.speed > 0){
-                        this.gameObj.use(sprite(this.gameObj.sprites.run))
-                        this.gameObj.play("run")
-                    }                    
-                    this.gameObj.flipX = false
-                    this.gameObj.move(this.speed, 0)
+                onKeyDown("up",async () => {
+                    if(!this.onCutscene){
+                        if(this.gameObj.curAnim() !== "run" && this.speed > 0){
+                            this.gameObj.use(sprite(this.gameObj.sprites.run))
+                            
+                            this.gameObj.play("run")
+                        }                    
+                        this.gameObj.move(0, -this.speed)
+                    }
                 })
-                onKeyDown("up", () => {
-                    if(this.gameObj.curAnim() !== "run" && this.speed > 0){
-                        this.gameObj.use(sprite(this.gameObj.sprites.run))
-                        
-                        this.gameObj.play("run")
-                    }                    
-                    this.gameObj.move(0, -this.speed)
-                })
-                onKeyDown("down", () => {
-                    if(this.gameObj.curAnim() !== "run" && this.speed > 0){
-                        this.gameObj.use(sprite(this.gameObj.sprites.run))
-                        this.gameObj.play("run")
-                    }                    
-                    this.gameObj.move(0, this.speed)
+                onKeyDown("down", async() => {
+                    if(!this.onCutscene){
+                        if(this.gameObj.curAnim() !== "run" && this.speed > 0 && !this.onCutscene){
+                            this.gameObj.use(sprite(this.gameObj.sprites.run))
+                            this.gameObj.play("run")
+                        }                    
+                        this.gameObj.move(0, this.speed)
+                    
+                    }
                 })
                 
                 onKeyRelease(() => {
-                    if(isKeyReleased("left")){
-                        this.playIdleAnimation()
-                        this.gameObj.flipX = true
-                    }
-                    
-                    if(isKeyReleased("right") || isKeyReleased("up") || isKeyReleased("down")){   
-                        this.playIdleAnimation()
-                        this.gameObj.flipX = false
+                    if(!this.onCutscene){
+                        if(isKeyReleased("left")){
+                            this.playIdleAnimation()
+                            this.gameObj.flipX = true
+                        }
+                        
+                        if(isKeyReleased("right") || isKeyReleased("up") || isKeyReleased("down")){   
+                            this.playIdleAnimation()
+                            this.gameObj.flipX = false
+                        }
                     }
                 })
-            
-      
-        }
+                
+            }        
         respawnPlayer(){
             if(this.lives > 0){
                 play("lost-heart", {
@@ -130,6 +146,18 @@ export class Player {
             this.gameObj.onCollide("boss", () => GoRespawn(this, character))
         }
 
+
+        hitByBossAttack(character){
+            function GoRespawn(context){
+                play(`player-hit-${character}`, {
+                    volume: 0.3
+                })
+                context.respawnPlayer()
+            }
+            this.gameObj.onCollide("boss-attack", () => GoRespawn(this, character))
+        }
+        
+
         hitQuestionTile(numberOfQuestion, level){
             async function  startDialogueQuestion(context){
                 context.onCutscene = true
@@ -157,58 +185,68 @@ export class Player {
                     return
                 }
             }
-            play("attack", {
-                volume: 0.2
-            })
-            let slashX = null
-            let slashXFlipped = null
-            if(character == "hero"){
-                 slashX = this.gameObj.pos.x + 10
-                 slashXFlipped = this.gameObj.pos.x - 90
-            }else{
-                 slashX = this.gameObj.pos.x + 40
-                 slashXFlipped = this.gameObj.pos.x - 130
-            }
-            let x = null
-            x = currentFlip ? slashXFlipped : slashX           
-            this.gameObj.use(sprite(this.gameObj.sprites.attack));
-            if (currentFlip) {
-                this.gameObj.flipX = true;
-                this.gameObj.play("attack", {
-                    onEnd: () => {
-                        this.playIdleAnimation();
-                        this.gameObj.flipX = true
-                    }
-                });
-            } else {
-                this.gameObj.flipX = false;
-                this.gameObj.play("attack", {
-                    onEnd: () => {
-                        this.playIdleAnimation();
-                        this.gameObj.flipX = false
-                    }
-                });
-            }
-            if(character == "hero"){
-                add([
-                    rect(30,30),
-                    area(),
-                    pos(vec2(x, this.gameObj.pos.y -40)),
-                    scale(3),
-                    opacity(0), 
-                    "slash"
-                ])         
-            }else{
-                add([
-                    rect(30,30),
-                    area(),
-                    pos(vec2(x, this.gameObj.pos.y -40)),
-                    scale(3),
-                    opacity(0), 
-                    "slash"
-                ])    
-            }
+            if(canAttack){
+                canAttack = false
+                play("attack", {
+                    volume: 0.2
+                })
+                let slashX = null
+                let slashXFlipped = null
+                if(character == "hero"){
+                    slashX = this.gameObj.pos.x + 10
+                    slashXFlipped = this.gameObj.pos.x - 90
+                }else{
+                    slashX = this.gameObj.pos.x + 40
+                    slashXFlipped = this.gameObj.pos.x - 130
+                }
+                let x = null
+                x = currentFlip ? slashXFlipped : slashX           
+                this.gameObj.use(sprite(this.gameObj.sprites.attack));
+                if (currentFlip) {
+                    this.gameObj.flipX = true;
+                    this.gameObj.play("attack", {
+                        onEnd: () => {
+                            this.playIdleAnimation();
+                            this.gameObj.flipX = true
+                        }
+                    });
+                } else {
+                    this.gameObj.flipX = false;
+                    this.gameObj.play("attack", {
+                        onEnd: () => {
+                            this.playIdleAnimation();
+                            this.gameObj.flipX = false
 
+                        }
+                    });
+                }
+                if(character == "hero"){
+                    add([
+                        rect(30,30),
+                        area(),
+                        pos(vec2(x, this.gameObj.pos.y -40)),
+                        scale(3),
+                        opacity(0), 
+                        "slash"
+                    ])         
+                }else{
+                    add([
+                        rect(30,30),
+                        area(),
+                        pos(vec2(x, this.gameObj.pos.y -40)),
+                        scale(3),
+                        opacity(0), 
+                        "slash"
+                    ])    
+                }
+                this.resetAttack()
+            }
+            
+        }
+        resetAttack(){
+            setTimeout(() => {
+                canAttack = true
+            }, 500)
         }
         goNextLevel(character, positionX, positionY){
             function newLevel(context, character, positionX, positionY){
@@ -236,24 +274,30 @@ export class Player {
                 livesCountUi.text = this.lives
             })
         }
-        endGame(){
-            let hasEnded = false; 
-
-            this.gameObj.onCollide("altar", () => {
-                this.onCutscene = true;
-                if (!hasEnded) { 
-                    hasEnded = true; 
+        endGame(altar) {
+            let hasEnded = false;
+            let isWinAnimationPlaying = false;
+        
+            onUpdate(() => {
+                if (this.gameObj.isColliding(altar) && !isWinAnimationPlaying) {
+                    events.emit("progress_end");
+                    isWinAnimationPlaying = true;
+            
                     setTimeout(() => {
-                        this.gameObj.use(sprite(this.gameObj.sprites.win))
+                        this.onCutscene = true;
+        
+                        this.gameObj.use(sprite(this.gameObj.sprites.win));
                         this.gameObj.play("win", {
                             onEnd: () => {
                                 setTimeout(() => {
-                                    go("end")
-                                }, 500)
+                                    hasEnded = true;
+                                    go("end");
+                                }, 500);
                             }
-                        });    
-                    }, 500)
+                        });
+                    }, 1000);
                 }
             });
-        }    
+        }
+        
 }
