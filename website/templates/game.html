@@ -1,22 +1,32 @@
-{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block content%}
+{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block
+content%}
 <div id="alert">
-<div class="alert alert-danger message" role="alert" style="display: none;">
+  <div class="alert alert-danger message" role="alert" style="display: none">
     <h4 class="alert-heading">Alerta: Dispostivos Móveis</h4>
-    <p>Infelizmente, Greek Quest é um jogo disponível apenas para computadores desktops e notebooks. Hoje, ainda não é possível jogar o Greek Quest em seu dispositivo móvel.</p>
-    <hr>
-    <p class="mb-0"> Pedimos que retorne a página <a href="/" class="alert-link">inicial</a></p>
+    <p>
+      Infelizmente, Greek Quest é um jogo disponível apenas para computadores
+      desktops e notebooks. Hoje, ainda não é possível jogar o Greek Quest em
+      seu dispositivo móvel.
+    </p>
+    <hr />
+    <p class="mb-0">
+      Pedimos que retorne a página <a href="/" class="alert-link">inicial</a>
+    </p>
+  </div>
 </div>
-</div>
-<div id="gamePage" style="display: none;">
-<h1 id="gameTitle" align="center"><strong>Greek Quest:</strong> O labirinto lógico</h1>
-<div class="game-container">
-    <div class="container-fluid d-flex align-items-center justify-content-center">
-        <canvas id="gameCanvas" width="1200" height="700">
-            <script type="module" src="../static/game.js"></script>
-        </canvas>
+<div id="gamePage" style="display: none">
+  <h1 id="gameTitle" align="center">
+    <strong>Greek Quest:</strong> O labirinto lógico
+  </h1>
+  <div class="game-container">
+    <div
+      class="container-fluid d-flex align-items-center justify-content-center"
+    >
+      <canvas id="gameCanvas" width="1200" height="700">
+        <script type="module" src="../static/game.js"></script>
+      </canvas>
     </div>
-
-</div>
+  </div>
 </div>
 
 {% endblock %}

@@ -1,17 +1,22 @@
-{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block content%} <div class="home" align="center">
+{% extends "base.html" %} {% block title %}Greek Quest{% endblock %} {% block content%}
+<div class="home" align="center">
 
   <div class="callToAction">
     <h1>
       <strong>Aprenda programação</strong> e raciocínio Lógico de forma divertida
     </h1>
     <h3>Um jogo feito para aprendizagem de forma simples e divertida, para leigos e conheçedores da área</h3>
-    <div align="center">
-      <button type="submit" class="btn btn-secondary btn-lg button-container first-button">
-        <a href="/play-game">Jogar</a>
-      </button>
-      <button type="submit" class="btn btn-secondary btn-lg button-container second-button">
-        <a href="/sobre-projeto">Sobre o Projeto</a>
-      </button>
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-md-4 col-sm-12">
+        <button type="submit" class="btn btn-secondary btn-lg button-container ">
+          <a href="/play-game">Jogar</a>
+        </button>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <button type="submit" class="btn btn-secondary btn-lg button-container ">
+          <a href="/sobre-projeto">Sobre o Projeto</a>
+        </button>
+      </div>
     </div>
   </div>
   <br>
@@ -23,21 +28,24 @@
       <h3>
         <b>Tomada de Decisões</b>
       </h3>
-      <p> A vida está repleta de decisões, desde escolher uma carreira até tomar decisões cotidianas. O raciocínio lógico nos permite avaliar as opções disponíveis, analisar as consequências e tomar decisões informadas </p>
+      <p> A vida está repleta de decisões, desde escolher uma carreira até tomar decisões cotidianas. O raciocínio
+        lógico nos permite avaliar as opções disponíveis, analisar as consequências e tomar decisões informadas </p>
     </div>
     <div class="col-md-4 texto-bloco">
       <i class="bi bi-lightbulb-fill"></i>
       <h3>
         <b>Desenvolvimento Cognitivo</b>
       </h3>
-      <p> O exercício constante do raciocínio lógico estimula o cérebro e melhora as habilidades cognitivas, como a concentração, a memória e a criatividade. </p>
+      <p> O exercício constante do raciocínio lógico estimula o cérebro e melhora as habilidades cognitivas, como a
+        concentração, a memória e a criatividade. </p>
     </div>
     <div class="col-md-4 texto-bloco">
       <i class="bi bi-book"></i>
       <h3>
         <b>Melhoria no Desempenho Acadêmico e Profissional</b>
       </h3>
-      <p> Ter um raciocínio lógico afiado pode impulsionar o desempenho em disciplinas acadêmicas, bem como na resolução de problemas no ambiente de trabalho. </p>
+      <p> Ter um raciocínio lógico afiado pode impulsionar o desempenho em disciplinas acadêmicas, bem como na resolução
+        de problemas no ambiente de trabalho. </p>
     </div>
   </div>
   <div class="content row">
@@ -46,21 +54,24 @@
       <h3>
         <b>Preparação para Carreiras Técnicas</b>
       </h3>
-      <p> Se você deseja entrar em carreiras relacionadas à tecnologia, ciência da computação, engenharia e áreas afins, a lógica e raciocínio lógico são pré-requisitos fundamentais.</p>
+      <p> Se você deseja entrar em carreiras relacionadas à tecnologia, ciência da computação, engenharia e áreas afins,
+        a lógica e raciocínio lógico são pré-requisitos fundamentais.</p>
     </div>
     <div class="col-md-4 texto-bloco">
       <i class="bi bi-gear-fill"></i>
       <h3>
         <b>Resolução de problemas</b>
       </h3>
-      <p>O raciocínio lógico é fundamental para a resolução de problemas complexos, seja na programação, nas ciências, nas finanças ou na vida cotidiana.</p>
+      <p>O raciocínio lógico é fundamental para a resolução de problemas complexos, seja na programação, nas ciências,
+        nas finanças ou na vida cotidiana.</p>
     </div>
     <div class="col-md-4 texto-bloco">
       <i class="bi bi-body-text"></i>
       <h3>
         <b>Compreensão de Algoritmos:</b>
       </h3>
-      <p> A lógica de programação é fundamental para entender algoritmos e estruturas de dados, que são a base de muitas tecnologias modernas, como inteligência artificial e aprendizado de máquina.</p>
+      <p> A lógica de programação é fundamental para entender algoritmos e estruturas de dados, que são a base de muitas
+        tecnologias modernas, como inteligência artificial e aprendizado de máquina.</p>
     </div>
   </div>
   <br>
@@ -73,15 +84,22 @@
     <div class="media">
       <img src="../static/game/assets/hero-profile.png" class="imagem" id="image1" alt="Generic placeholder image">
       <div class="media-body">
-        <p> Em uma Grécia antiga repleta de lendas e sabedoria, um grande temor se abate sobre a terra: o Cetro da Sabedoria desapareceu! A Sacerdotisa, guardiã do conhecimento ancestral, sente a responsabilidade de recuperá-lo e convoca o Herói, conhecido por sua destreza na resolução de enigmas.</p>
+        <p> Em uma Grécia antiga repleta de lendas e sabedoria, um grande temor se abate sobre a terra: o Cetro da
+          Sabedoria desapareceu! A Sacerdotisa, guardiã do conhecimento ancestral, sente a responsabilidade de
+          recuperá-lo e convoca o Herói, conhecido por sua destreza na resolução de enigmas.</p>
         <br>
         <div class="media mt-3">
           <a class="pr-3" href="#">
-            <img src="../static/game/assets/priestness-profile.png" class="imagem" id="image2" alt="Generic placeholder image">
+            <img src="../static/game/assets/priestness-profile.png" class="imagem" id="image2"
+              alt="Generic placeholder image">
           </a>
           <div class="media-body">
-            <p>Juntos, eles partem em uma jornada épica rumo ao misterioso labirinto do Minotauro, onde acredita-se que o Cetro esteja escondido. Seu objetivo: recuperar o Cetro e preservar o precioso conhecimento da civilização grega.</p>
-            <p>Entretanto, o labirinto é um lugar repleto de segredos, que testarão a determinação da Sacerdotisa e do Herói a cada passo. Nesta missão vital, eles enfrentarão desafios que colocarão à prova não apenas sua inteligência, mas também sua coragem.</p>
+            <p>Juntos, eles partem em uma jornada épica rumo ao misterioso labirinto do Minotauro, onde acredita-se que
+              o Cetro esteja escondido. Seu objetivo: recuperar o Cetro e preservar o precioso conhecimento da
+              civilização grega.</p>
+            <p>Entretanto, o labirinto é um lugar repleto de segredos, que testarão a determinação da Sacerdotisa e do
+              Herói a cada passo. Nesta missão vital, eles enfrentarão desafios que colocarão à prova não apenas sua
+              inteligência, mas também sua coragem.</p>
           </div>
         </div>
       </div>
@@ -93,23 +111,28 @@
       <div class="col-md-4 row-images">
         <img src="../static/game/assets/tigresa-profile.png" class="imagem" id="image3" alt="Generic placeholder image">
         <h3>Inimigos</h3>
-        <p>Prepare-se para enfrentar as hordas de esqueletos, criaturas reanimadas que guardam os segredos do labirinto. Com suas ossudas lâminas e olhos vazios, eles são os guardiões dos mistérios ocultos e estão prontos para defender seu território sombrio.</p>
+        <p>Prepare-se para enfrentar as hordas de esqueletos, criaturas reanimadas que guardam os segredos do labirinto.
+          Com suas ossudas lâminas e olhos vazios, eles são os guardiões dos mistérios ocultos e estão prontos para
+          defender seu território sombrio.</p>
       </div>
       <div class="col-md-4 row-images">
         <img src="../static/game/assets/fire-profile.png" class="imagem" id="image4" alt="Generic placeholder image">
         <h3>Enigmas</h3>
-        <p>À medida que você avança pelo labirinto, encontrará desafios intrigantes e quebra-cabeças enigmáticos. Terá que decifrar runas antigas, encontrar chaves mágicas e superar obstáculos enganosos. Cada passo adiante é um teste de sua inteligência e habilidade.</p>
+        <p>À medida que você avança pelo labirinto, encontrará desafios intrigantes e quebra-cabeças enigmáticos. Terá
+          que decifrar runas antigas, encontrar chaves mágicas e superar obstáculos enganosos. Cada passo adiante é um
+          teste de sua inteligência e habilidade.</p>
       </div>
       <div class="col-md-4 row-images">
         <img src="../static/game/assets/boi-profile.png" class="imagem" id="image5" alt="Generic placeholder image">
         <h3>O Guardião</h3>
-        <p>A batalha final está chegando. Nos confins mais sombrios do labirinto, aguarda o temível "Guardião do Abismo", um monstro colossal de sombras e ossos. Se você conseguir reunir o conhecimento e a coragem necessários, poderá desafiar este ser maligno e selar o destino do labirinto. O destino da Grécia Antiga repousa em suas mãos!</p>
+        <p>A batalha final está chegando. Nos confins mais sombrios do labirinto, aguarda o temível "Guardião do
+          Abismo", um monstro colossal de sombras e ossos. Se você conseguir reunir o conhecimento e a coragem
+          necessários, poderá desafiar este ser maligno e selar o destino do labirinto. O destino da Grécia Antiga
+          repousa em suas mãos!</p>
       </div>
-    </div>  
+    </div>
   </div>
 </div>
-</div>
 
-</div>
 
 {% endblock %}
