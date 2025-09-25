@@ -12,13 +12,12 @@ class Note(db.Model):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), unique=True)
-    password = db.Column(db.String(150))
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
     first_name = db.Column(db.String(150))
-    character = db.Column(db.String(150), nullable=True)
-    level = db.Column(db.Integer, default=0)
-    startX = db.Column(db.Integer, default=128)
-    startY = db.Column(db.Integer, default=700)
-    timer = db.Column(db.Integer, default=0)
-    win = db.Column(db.Boolean, default=False)
-
+    character = db.Column(db.String(150))
+    level = db.Column(db.Integer)
+    startX = db.Column(db.Integer)
+    startY = db.Column(db.Integer)
+    timer = db.Column(db.Integer, default=0)  # <-- novo
+    win = db.Column(db.Integer, default=0)    # <-- novo

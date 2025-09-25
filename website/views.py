@@ -43,18 +43,21 @@ def ranking():
         list_player = []
         for user in users:
             player = User.query.filter_by(id=user.id).first()
-            minutos = player.timer // 60
-            segundos = player.timer % 60
+
+            tempo = player.timer or 0
+            minutos = tempo // 60
+            segundos = tempo % 60
+
             list_player.append({
-                    "nome": player.first_name,
-                    "personagem": player.character,
-                    "timer": f'{minutos:02}:{segundos:02}',
-                    "Level": player.level,
-                    "zerou": player.win,
-                    }) 
+                "nome": player.first_name,
+                "personagem": player.character,
+                "timer": f'{minutos:02}:{segundos:02}',
+                "Level": player.level,
+                "zerou": player.win,
+            }) 
+
         args['response'] = list_player
         return render_template("ranking.html", user=current_user, full_height_container=True, args=args)
-
 
 @views.route('/perfil', methods=['GET'])
 @login_required
